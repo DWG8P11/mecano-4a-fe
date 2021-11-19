@@ -3,7 +3,6 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> | 
     <router-link to="/prueba-leccion">Leccion de Prueba </router-link>
-    <CompLeccion texto="Componente de Leccion dentro de App.vue"/>
   </div>
 
   <router-view/>
