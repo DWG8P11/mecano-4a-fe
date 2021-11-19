@@ -17,7 +17,7 @@ export default {
 
     data: function() {
         return {
-            textoDePrueba: "Texto de prueba para una leccion de La Nebulosa de Qwerty.\n\n Nueva linea.\
+            textoDePrueba: "Texto de prueba para una leccion de La Nebulosa de Qwerty.\n\n\n\n Nueva linea.\
             ASI SE VE UN TEXTO QUE QUEDE EN MAYÚSCULA. \
             Ásí sé vén lás tíldés\
             ÑñÑñÑñÑñ"

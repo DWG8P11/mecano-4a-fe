@@ -76,11 +76,11 @@ export default {
                }
            }
             // La `span` tag hace que el resultado sea un elemento inline.
-            textoConHtml = textoConHtml.replace(new RegExp(`${codigoInicioLetra}`, 'g'), '<span class="letra-leccion">')
-            textoConHtml = textoConHtml.replace(new RegExp(`${codigoFinLetra}`, 'g'), '</span>')
+            textoConHtml = textoConHtml.replace(new RegExp(`${codigoInicioLetra}`, 'g'), '<span class="letra-leccion">');
+            textoConHtml = textoConHtml.replace(new RegExp(`${codigoFinLetra}`, 'g'), '</span>');
             
             // TODO: Lidiar con cambios de linea
-            
+            textoConHtml = textoConHtml.replace(new RegExp("\n", 'g'), '<br/>');
 
             return textoConHtml;
         },
