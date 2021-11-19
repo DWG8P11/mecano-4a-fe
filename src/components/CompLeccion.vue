@@ -1,5 +1,9 @@
 <template>
-    <h1> Componente de leccion </h1>
+    <h1> Componente de Leccion </h1>
+
+    {{ texto }}
+
+
 </template>
 
 <script>
@@ -8,7 +12,8 @@ export default {
 
     props: {
         texto: {
-            type: String
+            type: String,
+            default: "No se cargo un texto para esta leccion",
         }
     }
 }
