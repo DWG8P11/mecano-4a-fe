@@ -57,18 +57,31 @@ export default {
 
     methods: {
         procesarTextoAHtml: function (){
-            var textoConHtml = this.texto;
+            var textoConHtml = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
             var codigoInicioLetra = "2346025796834";
             var codigoFinLetra    = "2983465908237";
+            var letrasConTilde = {'a': ['á', 'Á'], 'e': ['é', 'É'], 'i': ['í', 'Í'], 'o': ['ó', 'Ó'], 'u': ['ú', 'Ú']};
 
+            // Para reemplazar cada una de las letras de la leccion en el texto
             this.letras.forEach(letra => {
                 textoConHtml = textoConHtml.replace(new RegExp(`${letra.toLowerCase()}`, 'g'), `${codigoInicioLetra}${letra.toLowerCase()}${codigoFinLetra}`);
                 textoConHtml = textoConHtml.replace(new RegExp(`${letra.toUpperCase()}`, 'g'), `${codigoInicioLetra}${letra.toUpperCase()}${codigoFinLetra}`);
             });
+
+           // Para reemplazar letras con tilde
+           for (var letraTilde in letrasConTilde) {
+               if (this.letras.includes(letraTilde)) {
+                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConTilde[letraTilde][0]}`, 'g'), `${codigoInicioLetra}${letrasConTilde[letraTilde][0]}${codigoFinLetra}`);
+                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConTilde[letraTilde][1]}`, 'g'), `${codigoInicioLetra}${letrasConTilde[letraTilde][1]}${codigoFinLetra}`);
+               }
+           }
             // La `span` tag hace que el resultado sea un elemento inline.
             textoConHtml = textoConHtml.replace(new RegExp(`${codigoInicioLetra}`, 'g'), '<span class="letra-leccion">')
             textoConHtml = textoConHtml.replace(new RegExp(`${codigoFinLetra}`, 'g'), '</span>')
-            //textoConHTML = textoConHTML.replace(/\n/g, "<br/>");
+            
+            // TODO: Lidiar con cambios de linea
+            
+
             return textoConHtml;
         },
     }
@@ -76,23 +89,31 @@ export default {
 </script>
 
 <style>
+:root {
+    --tamano-fuente: 16pt;
+}
+
 .componente-leccion {
-    background: black;
+    background:rgb(25, 8, 63);
 }
 
 #texto-leccion {
     position: relative;
     font-size: 14pt;
-    background:darkblue;
     color: whitesmoke;
 }
 
 .letra-leccion{
+    display: inline-block;
+    width: calc(var(--tamano-fuente)*1.1);
+    height: calc(var(--tamano-fuente)*1.1);
     color: white;
     font-weight: 600;
     background: black;
-    border-radius: 10%;
     font-family: 'Courier New', Courier, monospace;
+    border-radius: 20%;
+    border-style: solid;
+    border-width: 1px;
 }
 
 </style>
