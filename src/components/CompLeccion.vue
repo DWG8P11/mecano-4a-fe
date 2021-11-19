@@ -43,7 +43,7 @@ export default {
         //     return letra.toLowerCase();
         // })
 
-        console.log("En mounted", this.letras);
+        console.log("En mounted", this.letras, typeof(this.letras));
         this.texto_procesado = this.procesarTextoAHtml();
     },
 
@@ -52,11 +52,15 @@ export default {
             var textoConHtml = this.texto;
 
             this.letras.forEach(letra => {
-                textoConHtml = textoConHtml.replace(letra.toLowerCase(), `93jf29834${letra}98qf3498b`)
-                textoConHtml = textoConHtml.replace(letra.toUpperCase(), `93jf29834${letra}98qf3498b`)
+                console.log(`PROCESANDO LA LETRA ${letra}`)
+                textoConHtml = textoConHtml.replace(letra.toLowerCase(), `93jf29834${letra.toLowerCase()}98qf3498b`);
+                console.log(textoConHtml)
+                textoConHtml = textoConHtml.replace(letra.toUpperCase(), `93jf29834${letra.toUpperCase()}98qf3498b`);
+                console.log(textoConHtml)
             });
-
+            console.log(textoConHtml)
             textoConHtml = textoConHtml.replace("93jf29834", '<div class="letra-leccion">')
+            console.log(textoConHtml)
             textoConHtml = textoConHtml.replace("98qf3498b", '</div>')
             console.log(textoConHtml)
             return textoConHtml;
