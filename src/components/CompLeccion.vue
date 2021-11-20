@@ -98,37 +98,49 @@ export default {
         // Actualizar texto estilizado
         this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
         //this.texto_html = this.hacerTextoHtmlActual();
-        
-
-        //this.texto_html = this.procesarTextoAHtml();
     },
 
     methods: {
         hacerTextoHtmlActual: function() {
-            var textoConHtml = ""; // Tener un formato unico para las tildes... hay varias formas de escribir á
+            var textoConHtml = ""; // Tener un formato unico para las tildes... por ejemplo, hay varias formas de escribir á
             
-            
+            this.aTexto.forEach((letra, i) => {
+                textoConHtml += this.htmlLetra(letra, htmlLetra(letra, aTextoEstilo[i]));
+            });
 
             return textoConHtml;
         },
 
         htmlLetra: function(letra, atributos) {
-            if (atributos == undefined || atributos["clases"] == undefined) {
+            // Si es caracter de cambio de linea
+            if (letra == "\n") {
+                return "<br/>"
+            }
+
+            // Si no tiene estilo definido
+            if ( atributos == undefined || (atributos["clases"] == undefined && atributos["id"] == undefined) ) {
                 return letra;
             }
 
-            var resultado = '<span class="';
+            // Iniciar contender en linea para la letra: etiqueta span
+            var resultado = '<span';
 
-            atributos["clases"].forEach(clase => {
-                resultado += clase + " ";
-            });
-
-            resultado = resultado.substring(0, resultado.length - 1) + '"';
-
-            if (atributos["id"] != undefined) {
-                resultado += ` id="${atributos["id"]}"`;
+            // Si tiene clases, agregarlas a la etiqueta
+            if (atributos["clases"] != undefined) {
+                resultado += ' class="';
+                
+                atributos["clases"].forEach(clase => {
+                    resultado += clase + " ";
+                });
+                resultado = resultado.substring(0, resultado.length - 1) + '"';
             }
 
+            // Si tiene id definido
+            if (atributos["id"] != undefined) {
+                resultado += ` id="${atributos["id"]}"`
+            }
+
+            // Cerrar etiqueta span
             resultado += `>${letra}</span>`;
 
             return resultado;
