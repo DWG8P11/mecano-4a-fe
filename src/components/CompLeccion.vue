@@ -46,12 +46,39 @@ export default {
     },
 
     created: function() {
-        // Pasar letras a minusculas
-        // this.letrasMin = this.letras.forEach((letra, i) => {
-        //     return letra.toLowerCase();
-        // })
+        var letrasConTilde = {'á': 'a', 'Á': 'A', 
+                              'é': 'e', 'É': 'E', 
+                              'í': 'i', 'Í': 'I', 
+                              'ó': 'o', 'Ó': 'O', 
+                              'ú': 'u', 'Ú': 'U'
+                             };
+        // Normalizar letras? Pasar a minusculas
+        this.aTexto = this.texto.split("");
+        this.aPosicionesDeLeccion = [];
 
-        console.log("En created", this.letras, typeof(this.letras));
+        this.oTextoEstilo = {};
+        this.aTexto.forEach((caracter, i) => {
+            if (this.letras.includes(caracter.toLowerCase())) {
+                this.aPosicionesDeLeccion.push(i);
+                this.oTextoEstilo[i] = {clases: "letra-leccion", id: undefined};
+            }
+            
+            // Contabilizar letras con tilde como la letra sin tilde... no hacer? Booleano?
+            else if (caracter in letrasConTilde && this.letras.includes(letrasConTilde[caracter])) {
+                this.aPosicionesDeLeccion.push(i);
+                this.oTextoEstilo[i] = {clases: "letra-leccion", id: undefined};
+            }
+
+            else {
+                this.oTextoEstilo[i] = {};
+            }
+            
+        })
+        console.log(this.oTextoEstilo);
+
+        
+        this.i_posActual = 0; // Poner id
+
         this.texto_procesado = this.procesarTextoAHtml();
     },
 
@@ -103,7 +130,7 @@ export default {
     color: whitesmoke;
 }
 
-.letra-leccion{
+.letra-leccion {
     display: inline-block;
     width: calc(var(--tamano-fuente)*1.1);
     height: calc(var(--tamano-fuente)*1.1);
@@ -114,6 +141,19 @@ export default {
     border-radius: 20%;
     border-style: solid;
     border-width: 1px;
+}
+
+.letra-actual {
+    color: yellow;
+    border-color: yellow;
+}
+
+.letra-aprobada {
+    color: green;
+}
+
+.letra-desaprobada {
+    color: red;
 }
 
 </style>
