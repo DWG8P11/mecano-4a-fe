@@ -52,14 +52,13 @@ export default {
             return letra.normalize().toLowerCase();
         })
         
-
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
                                   'í': 'i', 'Í': 'I', 
                                   'ó': 'o', 'Ó': 'O', 
                                   'ú': 'u', 'Ú': 'U',
-                                  'ü': 'u', 'Ü': 'U'
-                             }; //TODO Necesario normalizar?
+                                  'ü': 'u', 'Ü': 'U',
+                             }; // Ya están normalizadas
         // Normalizar letras (para tildes y diéresis)? Pasar a minusculas, al menos
 
         /* 
@@ -82,8 +81,8 @@ export default {
                 this.aTextoEstilo[i] = {clases: ["letra-leccion"], id: undefined};
             }
             
-            // Estilizar letras con tilde... TODO no hacer? Booleano en DB?
-            else if (caracter in letrasConAdiciones && this.letras.includes(letrasConAdiciones[caracter])) {
+            // Estilizar letras con tilde y diéresis... TODO no hacer? Booleano en DB?
+            else if (caracter in letrasConAdiciones && this.letras.includes(letrasConAdiciones[caracter].toLowerCase())) {
                 this.aPosicionesDeLeccion.push(i);
                 this.aTextoEstilo[i] = {clases: ["letra-leccion"], id: undefined};
             }
