@@ -21,9 +21,9 @@
         </li>
     </ul>
 
-    <button v-on:click="avanzarUno(true)">Avanzar Acierto</button>
-    <button v-on:click="avanzarUno(false)">Avanzar Fallo</button>
-    <input v-on:keydown="presionarTecla($event)">
+    <button v-on:click="avanzarAnimacionTextoUno(true)">Avanzar Acierto</button>
+    <button v-on:click="avanzarAnimacionTextoUno(false)">Avanzar Fallo</button>
+    <input v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
@@ -154,7 +154,7 @@ export default {
             return resultado;
         },
 
-        avanzarUno: function(fueAcierto) {
+        avanzarAnimacionTextoUno: function(fueAcierto) {
             if (!this.leccionEnCurso) {
                 this.acabarLeccion();
                 return;
@@ -205,14 +205,21 @@ export default {
             
         },
 
-        presionarTecla: function(evento) {
+        teclaPresionada: function(evento) {
+            console.log(evento);
             var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             if (evento.key == this.aTexto[i_posGlobActual]) {
-                this.avanzarUno(true);
+                this.avanzarAnimacionTextoUno(true);
             } else {
-                this.avanzarUno(false);
+                this.avanzarAnimacionTextoUno(false);
             }
+        },
+
+        borrarPresionada: function(evento) {
+            
         }
+
+        
     }
 }
 </script>
