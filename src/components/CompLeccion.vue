@@ -96,8 +96,8 @@ export default {
         this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual";
 
         // Actualizar texto estilizado
-        this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
-        //this.texto_html = this.hacerTextoHtmlActual();
+        //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
+        this.texto_html = this.hacerTextoHtmlActual();
     },
 
     methods: {
@@ -105,7 +105,7 @@ export default {
             var textoConHtml = ""; // Tener un formato unico para las tildes... por ejemplo, hay varias formas de escribir á
             
             this.aTexto.forEach((letra, i) => {
-                textoConHtml += this.htmlLetra(letra, htmlLetra(letra, aTextoEstilo[i]));
+                textoConHtml += this.htmlLetra(letra, this.aTextoEstilo[i]);
             });
 
             return textoConHtml;
