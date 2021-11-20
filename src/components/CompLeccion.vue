@@ -23,6 +23,7 @@
 
     <button v-on:click="avanzarUno(true)">Avanzar Acierto</button>
     <button v-on:click="avanzarUno(false)">Avanzar Fallo</button>
+    <input v-on:keydown="presionarTecla($event)">
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
@@ -202,6 +203,15 @@ export default {
                 alert(error);
             }
             
+        },
+
+        presionarTecla: function(evento) {
+            var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            if (evento.key == this.aTexto[i_posGlobActual]) {
+                this.avanzarUno(true);
+            } else {
+                this.avanzarUno(false);
+            }
         }
     }
 }
