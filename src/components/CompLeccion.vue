@@ -23,7 +23,7 @@
 
 
     <div id="texto-leccion">
-        <span v-html="texto_procesado" :key="texto_procesado" />
+        <span v-html="texto_html" :key="texto_html" />
     </div>
 
 </div>
@@ -46,12 +46,20 @@ export default {
     },
 
     created: function() {
-        var letrasConTilde = {'á': 'a', 'Á': 'A', 
-                              'é': 'e', 'É': 'E', 
-                              'í': 'i', 'Í': 'I', 
-                              'ó': 'o', 'Ó': 'O', 
-                              'ú': 'u', 'Ú': 'U'
-                             };
+        // Estandarizar el texto y las letras
+        this.textoN = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
+        this.letrasN = this.letras.map(letra => { // Normalizar y pasar a minúsculas las letras
+            return letra.normalize().toLowerCase();
+        })
+        
+
+        var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
+                                  'é': 'e', 'É': 'E', 
+                                  'í': 'i', 'Í': 'I', 
+                                  'ó': 'o', 'Ó': 'O', 
+                                  'ú': 'u', 'Ú': 'U',
+                                  'ü': 'u', 'Ü': 'U'
+                             }; //TODO Necesario normalizar?
         // Normalizar letras (para tildes y diéresis)? Pasar a minusculas, al menos
 
         /* 
@@ -63,7 +71,7 @@ export default {
 
         // Inicialización de variables globales mencionadas
         this.i_posRelActual = 0; // Posicion global del caracter actual. Poner id
-        this.aTexto = this.texto.split(""); // Texto completo, como array
+        this.aTexto = this.textoN.split(""); // Texto completo, como array
         this.aPosicionesDeLeccion = []; // Posiciones globales de letras que pertenecen a la lección
         this.aTextoEstilo = []; // Array donde el índice indica la posición relativa de cada letra de la lección con su estilo
 
@@ -75,7 +83,7 @@ export default {
             }
             
             // Estilizar letras con tilde... TODO no hacer? Booleano en DB?
-            else if (caracter in letrasConTilde && this.letras.includes(letrasConTilde[caracter])) {
+            else if (caracter in letrasConAdiciones && this.letras.includes(letrasConAdiciones[caracter])) {
                 this.aPosicionesDeLeccion.push(i);
                 this.aTextoEstilo[i] = {clases: ["letra-leccion"], id: undefined};
             }
@@ -88,18 +96,18 @@ export default {
         this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual";
 
         // Actualizar texto estilizado
-        this.texto_procesado = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
-        //this.texto_procesado = this.hacerTextoHtmlActual();
+        this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
+        //this.texto_html = this.hacerTextoHtmlActual();
         
 
-        //this.texto_procesado = this.procesarTextoAHtml();
+        //this.texto_html = this.procesarTextoAHtml();
     },
 
     methods: {
         hacerTextoHtmlActual: function() {
-            var textoConHtml = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
-            var codigoInicioLetra = "2346025796834";
-            var codigoFinLetra    = "2983465908237";
+            var textoConHtml = ""; // Tener un formato unico para las tildes... hay varias formas de escribir á
+            
+            
 
             return textoConHtml;
         },
@@ -130,7 +138,7 @@ export default {
             var textoConHtml = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
             var codigoInicioLetra = "2346025796834";
             var codigoFinLetra    = "2983465908237";
-            var letrasConTilde = {'a': ['á', 'Á'], 'e': ['é', 'É'], 'i': ['í', 'Í'], 'o': ['ó', 'Ó'], 'u': ['ú', 'Ú']};
+            var letrasConAdiciones = {'a': ['á', 'Á'], 'e': ['é', 'É'], 'i': ['í', 'Í'], 'o': ['ó', 'Ó'], 'u': ['ú', 'Ú']};
 
             // Para reemplazar cada una de las letras de la leccion en el texto
             this.letras.forEach(letra => {
@@ -139,10 +147,10 @@ export default {
             });
 
            // Para reemplazar letras con tilde
-           for (var letraTilde in letrasConTilde) {
+           for (var letraTilde in letrasConAdiciones) {
                if (this.letras.includes(letraTilde)) {
-                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConTilde[letraTilde][0]}`, 'g'), `${codigoInicioLetra}${letrasConTilde[letraTilde][0]}${codigoFinLetra}`);
-                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConTilde[letraTilde][1]}`, 'g'), `${codigoInicioLetra}${letrasConTilde[letraTilde][1]}${codigoFinLetra}`);
+                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConAdiciones[letraTilde][0]}`, 'g'), `${codigoInicioLetra}${letrasConAdiciones[letraTilde][0]}${codigoFinLetra}`);
+                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConAdiciones[letraTilde][1]}`, 'g'), `${codigoInicioLetra}${letrasConAdiciones[letraTilde][1]}${codigoFinLetra}`);
                }
            }
             // La `span` tag hace que el resultado sea un elemento inline.
