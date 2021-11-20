@@ -49,7 +49,7 @@ export default {
 
     data: function() {
         return {
-            i_posRelActual: 0,
+            i_posRelActual: 0, // Necesario ponerla acá para que sirva como key de renderización del texto
         }
     },
 
@@ -59,6 +59,7 @@ export default {
         this.letrasN = this.letras.map(letra => { // Normalizar y pasar a minúsculas las letras
             return letra.normalize().toLowerCase();
         })
+        this.leccionEnCurso = true;
         
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
@@ -96,7 +97,6 @@ export default {
             }
             
         })
-        //console.log(this.aPosicionesDeLeccion, this.aTextoEstilo);
 
         // Actualizar estilo, basado en primera posición de letra de lección
         var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
@@ -154,15 +154,11 @@ export default {
         },
 
         avanzarUno: function(fueAcierto) {
-            // TODO En proceso
-
-            // Si ya se llegó al final, acabar el juego
-            if (this.i_posRelActual == this.aPosicionesDeLeccion.length) {
+            if (!this.leccionEnCurso) {
                 this.acabarLeccion();
                 return;
             }
 
-            // De lo contrario
             // Cambiar el estilo de la tecla actual, dependiendo de si fue acierto o no
             var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             
@@ -178,13 +174,22 @@ export default {
             }
             
 
-            // Actualizar la posicion actual y su estilo
+            // Actualizar la posicion actual
             this.i_posRelActual  += 1;
+
+            // Si ya se llegó al final, acabar el juego
+            if (this.i_posRelActual >= this.aPosicionesDeLeccion.length) {
+                this.texto_html = this.hacerTextoHtmlActual();
+                this.leccionEnCurso = false;
+                this.acabarLeccion();
+                return;
+            }
+            // De lo contrario, actualizar el estilo de la nueva posicion
             i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual"
+
             // Actualizar el html del texto basado en los nuevos estilos
             this.texto_html = this.hacerTextoHtmlActual();
-            console.log(this.texto_html);
         },
 
         actualizarPuntaje: function(fueAcierto) {
@@ -193,6 +198,10 @@ export default {
 
         acabarLeccion: function(error) {
             //TODO
+            if (error != undefined){
+                alert(error);
+            }
+            
         }
     }
 }
