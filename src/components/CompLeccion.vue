@@ -144,35 +144,6 @@ export default {
 
             return resultado;
         },
-
-        procesarTextoAHtml: function (){
-            var textoConHtml = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
-            var codigoInicioLetra = "2346025796834";
-            var codigoFinLetra    = "2983465908237";
-            var letrasConAdiciones = {'a': ['á', 'Á'], 'e': ['é', 'É'], 'i': ['í', 'Í'], 'o': ['ó', 'Ó'], 'u': ['ú', 'Ú']};
-
-            // Para reemplazar cada una de las letras de la leccion en el texto
-            this.letras.forEach(letra => {
-                textoConHtml = textoConHtml.replace(new RegExp(`${letra.toLowerCase()}`, 'g'), `${codigoInicioLetra}${letra.toLowerCase()}${codigoFinLetra}`);
-                textoConHtml = textoConHtml.replace(new RegExp(`${letra.toUpperCase()}`, 'g'), `${codigoInicioLetra}${letra.toUpperCase()}${codigoFinLetra}`);
-            });
-
-           // Para reemplazar letras con tilde
-           for (var letraTilde in letrasConAdiciones) {
-               if (this.letras.includes(letraTilde)) {
-                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConAdiciones[letraTilde][0]}`, 'g'), `${codigoInicioLetra}${letrasConAdiciones[letraTilde][0]}${codigoFinLetra}`);
-                   textoConHtml = textoConHtml.replace(new RegExp(`${letrasConAdiciones[letraTilde][1]}`, 'g'), `${codigoInicioLetra}${letrasConAdiciones[letraTilde][1]}${codigoFinLetra}`);
-               }
-           }
-            // La `span` tag hace que el resultado sea un elemento inline.
-            textoConHtml = textoConHtml.replace(new RegExp(`${codigoInicioLetra}`, 'g'), '<span class="letra-leccion">');
-            textoConHtml = textoConHtml.replace(new RegExp(`${codigoFinLetra}`, 'g'), '</span>');
-            
-            // TODO: Lidiar con cambios de linea
-            textoConHtml = textoConHtml.replace(new RegExp("\n", 'g'), '<br/>');
-
-            return textoConHtml;
-        },
     }
 }
 </script>
