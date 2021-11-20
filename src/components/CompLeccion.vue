@@ -21,9 +21,11 @@
         </li>
     </ul>
 
+    <button v-on:click="avanzarUno(true)">Avanzar Acierto</button>
+    <button v-on:click="avanzarUno(false)">Avanzar Fallo</button>
 
     <div id="texto-leccion">
-        <span v-html="texto_html" :key="texto_html" />
+        <span v-html="texto_html" :key="i_posRelActual"/>
     </div>
 
 </div>
@@ -42,6 +44,12 @@ export default {
         letras: {
             type: Array,
             default: ['a', 's', 'D', 'f', 'g', 'ñ', 'l', 'k', 'j', 'h']
+        }
+    },
+
+    data: function() {
+        return {
+            i_posRelActual: 0,
         }
     },
 
@@ -144,6 +152,48 @@ export default {
 
             return resultado;
         },
+
+        avanzarUno: function(fueAcierto) {
+            // TODO En proceso
+
+            // Si ya se llegó al final, acabar el juego
+            if (this.i_posRelActual == this.aPosicionesDeLeccion.length) {
+                this.acabarLeccion();
+                return;
+            }
+
+            // De lo contrario
+            // Cambiar el estilo de la tecla actual, dependiendo de si fue acierto o no
+            var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            
+            if (this.aTextoEstilo[i_posGlobActual]["id"] == undefined) {
+                acabarLeccion(Error('Hubo un problema con la lógica de la lección!'));
+            }
+            delete this.aTextoEstilo[i_posGlobActual]["id"];
+
+            if (fueAcierto) {
+                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-aprobada');
+            } else {
+                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-reprobada');
+            }
+            
+
+            // Actualizar la posicion actual y su estilo
+            this.i_posRelActual  += 1;
+            i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual"
+            // Actualizar el html del texto basado en los nuevos estilos
+            this.texto_html = this.hacerTextoHtmlActual();
+            console.log(this.texto_html);
+        },
+
+        actualizarPuntaje: function(fueAcierto) {
+
+        },
+
+        acabarLeccion: function(error) {
+            //TODO
+        }
     }
 }
 </script>
