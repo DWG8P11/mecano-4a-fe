@@ -275,7 +275,7 @@ export default {
             
             // Actualizar puntaje
             let i_posGlobAnterior = this.aPosicionesDeLeccion[this.i_posRelActual - 1];
-            if (this.aTextoEstilo[i_posGlobAnterior]["clases"].includes("letra-acierto")) {
+            if (this.aTextoEstilo[i_posGlobAnterior]["clases"].includes("letra-aprobada")) {
                 this.n_car_ok -= 1;
             }
 
