@@ -155,6 +155,7 @@ export default {
         },
 
         avanzarAnimacionTextoUno: function(fueAcierto) {
+            // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
             if (!this.leccionEnCurso) {
                 this.acabarLeccion();
                 return;
@@ -198,11 +199,14 @@ export default {
         },
 
         acabarLeccion: function(error) {
-            //TODO
+            // TODO
+            this.leccionEnCurso = false;
+
             if (error != undefined){
                 alert(error);
             }
             
+            alert("Acabaste la leccion!");
         },
 
         teclaPresionada: function(evento) {
@@ -215,6 +219,11 @@ export default {
         },
 
         borrarPresionada: function(evento) {
+            // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
+            if (!this.leccionEnCurso) {
+                this.acabarLeccion();
+                return;
+            }
             if (this.i_posRelActual <= 0) {
                 this.i_posRelActual = 0;
                 return;
