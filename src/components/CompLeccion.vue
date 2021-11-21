@@ -206,7 +206,6 @@ export default {
         },
 
         teclaPresionada: function(evento) {
-            console.log(evento);
             var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             if (evento.key == this.aTexto[i_posGlobActual]) {
                 this.avanzarAnimacionTextoUno(true);
@@ -216,7 +215,21 @@ export default {
         },
 
         borrarPresionada: function(evento) {
-            
+            if (this.i_posRelActual <= 0) {
+                this.i_posRelActual = 0;
+                return;
+            }
+            // Restaurar estilo tecla actual
+            let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            this.aTextoEstilo[i_posGlobActual] = {"clases": ["letra-leccion"]};
+
+            // Asignar estilo correspondiente a la tecla anterior
+            this.i_posRelActual -= 1;
+            i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            this.aTextoEstilo[i_posGlobActual] = {"clases": ["letra-leccion"], "id": "letra-actual"}
+
+            // Actualizar el html del texto basado en los nuevos estilos
+            this.texto_html = this.hacerTextoHtmlActual();
         }
 
         
