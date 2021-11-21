@@ -60,7 +60,6 @@ export default {
         this.letrasN = this.letras.map(letra => { // Normalizar y pasar a minúsculas las letras
             return letra.normalize().toLowerCase();
         })
-        this.leccionEnCurso = true;
         
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
@@ -106,6 +105,9 @@ export default {
         // Actualizar texto estilizado
         //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
         this.texto_html = this.hacerTextoHtmlActual();
+
+        // Empezar leccion
+        this.empezarLeccion();
     },
 
     methods: {
@@ -154,15 +156,94 @@ export default {
             return resultado;
         },
 
-        avanzarAnimacionTextoUno: function(fueAcierto) {
-            // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
+        actualizarPuntaje: function(fueAcierto) {
+
+        },
+
+        empezarLeccion: function() {
+            this.leccionEnCurso = true;
+        },
+
+        acabarLeccion: function(error) {
+            // TODO
+
+            // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
-                this.acabarLeccion();
+                console.log("En acabarLeccion: La leccion ya habia terminado");
                 return;
             }
 
-            // Cambiar el estilo de la tecla actual, dependiendo de si fue acierto o no
+            console.log("En acabarLeccion: la leccion no habia terminado");
+
+            this.leccionEnCurso = false;
+
+            if (error != undefined){
+                alert(error);
+            }
+            
+            alert("Acabaste la leccion!");
+            console.log("Acabaste la leccion");
+        },
+
+        teclaPresionada: function(evento) {
+            // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
+            if (!this.leccionEnCurso) {
+                return;
+            }
+
+            // Seguro para evitar que la animacion pueda cambiar si ya no hay más texto
             var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+
+            if (this.i_posRelActual >= this.aPosicionesDeLeccion.length) {
+                this.acabarLeccion(Error("No puedes seguir avanzando!"));
+                return   
+            }
+            
+            // Ignorar teclas que no producen output: hecho por defecto por keypress
+
+            // Avanzar la animación: de acuerdo a si fuer acierto o no
+            this.avanzarAnimacionTextoUno(evento.key == this.aTexto[i_posGlobActual]);
+            
+            // Si se llega al final del texto...
+            if (this.i_posRelActual > this.aPosicionesDeLeccion.length) {
+                this.acabarLeccion("Hubo un error en el programa, se avanzó de más en la lección.");
+                return
+            }
+
+            // Si se acaba de pasar la ultima letra...
+            if (this.i_posRelActual == this.aPosicionesDeLeccion.length) {
+                // Si fue correcta
+                if (this.aTextoEstilo[i_posGlobActual]["clases"].includes("letra-aprobada")) {
+                    this.acabarLeccion();
+                    return
+                }
+
+                // Si fue incorrecta: dar un último chance para corregir
+                this.ultimoChance = true;
+
+            }
+        },
+
+        borrarPresionada: function(evento) {
+            // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
+            if (!this.leccionEnCurso) {
+                return;
+            }
+
+            // No hacer nada si nos encontramos al inicio
+            if (this.i_posRelActual <= 0) {
+                this.i_posRelActual = 0;
+                return;
+            }
+
+            this.retrocederAnimacionTextoUno();
+        },
+
+        avanzarAnimacionTextoUno: function(fueAcierto) {
+            /* Asume que se puede avanzar */
+
+            // Cambiar el estilo de la tecla actual, dependiendo de si fue acierto o no
+            let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             
             if (this.aTextoEstilo[i_posGlobActual]["id"] == undefined) {
                 acabarLeccion(Error('Hubo un problema con la lógica de la lección!'));
@@ -182,11 +263,10 @@ export default {
             // Si ya se llegó al final, acabar el juego
             if (this.i_posRelActual >= this.aPosicionesDeLeccion.length) {
                 this.texto_html = this.hacerTextoHtmlActual();
-                this.leccionEnCurso = false;
-                this.acabarLeccion();
                 return;
             }
-            // De lo contrario, actualizar el estilo de la nueva posicion
+            // De lo contrario
+            // Actualizar el estilo de la nueva posicion
             i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual"
 
@@ -194,40 +274,9 @@ export default {
             this.texto_html = this.hacerTextoHtmlActual();
         },
 
-        actualizarPuntaje: function(fueAcierto) {
+        retrocederAnimacionTextoUno: function() {
+            /* Asume que se puede retroceder */
 
-        },
-
-        acabarLeccion: function(error) {
-            // TODO
-            this.leccionEnCurso = false;
-
-            if (error != undefined){
-                alert(error);
-            }
-            
-            alert("Acabaste la leccion!");
-        },
-
-        teclaPresionada: function(evento) {
-            var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            if (evento.key == this.aTexto[i_posGlobActual]) {
-                this.avanzarAnimacionTextoUno(true);
-            } else {
-                this.avanzarAnimacionTextoUno(false);
-            }
-        },
-
-        borrarPresionada: function(evento) {
-            // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
-            if (!this.leccionEnCurso) {
-                this.acabarLeccion();
-                return;
-            }
-            if (this.i_posRelActual <= 0) {
-                this.i_posRelActual = 0;
-                return;
-            }
             // Restaurar estilo tecla actual
             let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             this.aTextoEstilo[i_posGlobActual] = {"clases": ["letra-leccion"]};
