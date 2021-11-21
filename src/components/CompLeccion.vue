@@ -67,7 +67,11 @@ export default {
         this.milisegundos_tot; // Milisegundos de duración de la lección
         this.n_car_ok = 0; // Número de caracteres correctos
         this.porc_acierto; // Porcentaje efectivo de aciertos
-        this.wpm;
+        this.cpm_bruta;
+        this.wpm_bruta;
+        this.cpm_efectiva;
+        this.wpm_efectiva;
+        this.puntaje_final;
         
         //this.n_car_prom_palabra = 4.938; // https://www.slideshare.net/quesadagranja/distribucin-por-longitud-de-las-palabras-de-diferentes-idiomas-presentation
         this.n_car_prom_palabra = 4.5;// https://www.um.es/lacell/aelinco/contenido/pdf/51.pdf
@@ -185,14 +189,29 @@ export default {
                 return;
             }
 
-            this.milisegundos_tot = (new Date() - this.tiempo_i);
-            this.leccionEnCurso = false;
-
             if (error != undefined){
                 alert(error);
             }
+
+            // Calcular puntajes finales
+            this.milisegundos_tot = (new Date() - this.tiempo_i);
+            this.leccionEnCurso = false;
             
-            alert("Acabaste la leccion!");
+            this.cpm_bruta = 60000 * this.aPosicionesDeLeccion.length / this.milisegundos_tot;
+            this.cpm_efectiva = 60000 * this.n_car_ok / this.milisegundos_tot;
+            this.wpm_bruta = this.cpm_bruta / this.n_car_prom_palabra;
+            this.wpm_efectiva = this.cpm_efectiva / this.n_car_prom_palabra;
+
+            if (this.aPosicionesDeLeccion.length == 0) {
+                this.porc_acierto = 1;
+            } else {
+                this.porc_acierto = this.n_car_ok / this.aPosicionesDeLeccion.length;
+            }
+
+            this.puntaje_final = this.porc_acierto * this.cpm_efectiva;
+            
+            
+            alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres por minuto (brutos): ${this.cpm_bruta}\nCaracteres por minuto (efectivos): ${this.cpm_efectiva}\nPalabras por minuto (brutas): ${this.wpm_bruta}\nPalabras por minuto (efectivas): ${this.wpm_efectiva}\nPUNTAJE FINAL: ${this.puntaje_final}`);
             console.log("Acabaste la leccion");
         },
 
@@ -212,8 +231,15 @@ export default {
             
             // Ignorar teclas que no producen output: hecho por defecto por keypress
 
-            // Avanzar la animación: de acuerdo a si fuer acierto o no
-            this.avanzarAnimacionTextoUno(evento.key == this.aTexto[i_posGlobActual]);
+            // Actualizar Puntaje y 
+            // Avanzar la animación: de acuerdo a si fue acierto o no
+            if (evento.key == this.aTexto[i_posGlobActual]) {
+                this.avanzarAnimacionTextoUno(true);
+                this.n_car_ok += 1;
+            } else {
+                this.avanzarAnimacionTextoUno(false);
+            }
+            
             
             // Si se llega al final del texto...
             if (this.i_posRelActual > this.aPosicionesDeLeccion.length) {
@@ -245,6 +271,12 @@ export default {
             if (this.i_posRelActual <= 0) {
                 this.i_posRelActual = 0;
                 return;
+            }
+            
+            // Actualizar puntaje
+            let i_posGlobAnterior = this.aPosicionesDeLeccion[this.i_posRelActual - 1];
+            if (this.aTextoEstilo[i_posGlobAnterior]["clases"].includes("letra-acierto")) {
+                this.n_car_ok -= 1;
             }
 
             this.retrocederAnimacionTextoUno();
