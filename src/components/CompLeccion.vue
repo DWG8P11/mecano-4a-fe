@@ -21,8 +21,6 @@
         </li>
     </ul>
 
-    <button v-on:click="avanzarAnimacionTextoUno(true)">Avanzar Acierto</button>
-    <button v-on:click="avanzarAnimacionTextoUno(false)">Avanzar Fallo</button>
     <input v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
 
     <div id="texto-leccion">
@@ -44,7 +42,7 @@ export default {
 
         letras: {
             type: Array,
-            default: ['a', 's', 'D', 'f', 'g', 'ñ', 'l', 'k', 'j', 'h']
+            default: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', ';', ':', ,'¿', '?', '¡', '!', '"', "'", '\n', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '#', '$', '%', '&', '/', '(', ')', '=', '+', '*', '[', ']', '{', '}', '-', '_', '°', '|', '¬', '\\', '`', '~', '^', '@'],
         }
     },
 
@@ -163,10 +161,6 @@ export default {
             resultado += `>${letra}</span>`;
 
             return resultado;
-        },
-
-        actualizarPuntaje: function(fueAcierto) {
-
         },
 
         empezarLeccion: function() {
