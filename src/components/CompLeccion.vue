@@ -60,7 +60,17 @@ export default {
         this.letrasN = this.letras.map(letra => { // Normalizar y pasar a minúsculas las letras
             return letra.normalize().toLowerCase();
         })
+
+        this.tiempo_i; // Tiempo de inicio de la leccion
+
+        // Variables de puntaje
+        this.milisegundos_tot; // Milisegundos de duración de la lección
+        this.n_car_ok = 0; // Número de caracteres correctos
+        this.porc_acierto; // Porcentaje efectivo de aciertos
+        this.wpm;
         
+        //this.n_car_prom_palabra = 4.938; // https://www.slideshare.net/quesadagranja/distribucin-por-longitud-de-las-palabras-de-diferentes-idiomas-presentation
+        this.n_car_prom_palabra = 4.5;// https://www.um.es/lacell/aelinco/contenido/pdf/51.pdf
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
                                   'í': 'i', 'Í': 'I', 
@@ -97,14 +107,6 @@ export default {
             }
             
         })
-
-        // Actualizar estilo, basado en primera posición de letra de lección
-        var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-        this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual";
-
-        // Actualizar texto estilizado
-        //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
-        this.texto_html = this.hacerTextoHtmlActual();
 
         // Empezar leccion
         this.empezarLeccion();
@@ -162,6 +164,17 @@ export default {
 
         empezarLeccion: function() {
             this.leccionEnCurso = true;
+
+            this.tiempo_i = new Date();
+            this.n_car_ok = 0;
+
+            // Actualizar estilo, basado en primera posición de letra de lección
+            var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual";
+
+            // Actualizar texto estilizado
+            //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
+            this.texto_html = this.hacerTextoHtmlActual();
         },
 
         acabarLeccion: function(error) {
@@ -169,12 +182,10 @@ export default {
 
             // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
-                console.log("En acabarLeccion: La leccion ya habia terminado");
                 return;
             }
 
-            console.log("En acabarLeccion: la leccion no habia terminado");
-
+            this.milisegundos_tot = (new Date() - this.tiempo_i);
             this.leccionEnCurso = false;
 
             if (error != undefined){
