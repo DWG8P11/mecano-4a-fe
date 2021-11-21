@@ -75,6 +75,9 @@ export default {
         
         //this.n_car_prom_palabra = 4.938; // https://www.slideshare.net/quesadagranja/distribucin-por-longitud-de-las-palabras-de-diferentes-idiomas-presentation
         this.n_car_prom_palabra = 4.5;// https://www.um.es/lacell/aelinco/contenido/pdf/51.pdf
+        this.letra_aprobada = "letra-aprobada";
+        this.letra_leccion = "letra-leccion";
+        this.letra_reprobada = "letra-reprobada";
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
                                   'í': 'i', 'Í': 'I', 
@@ -101,13 +104,13 @@ export default {
         this.aTexto.forEach((caracter, i) => {
             if (this.letras.includes(caracter.toLowerCase())) {
                 this.aPosicionesDeLeccion.push(i);
-                this.aTextoEstilo[i] = {clases: ["letra-leccion"], id: undefined};
+                this.aTextoEstilo[i] = {clases: [this.letra_leccion], id: undefined};
             }
             
             // Estilizar letras con tilde y diéresis... TODO no hacer? Booleano en DB?
             else if (caracter in letrasConAdiciones && this.letras.includes(letrasConAdiciones[caracter].toLowerCase())) {
                 this.aPosicionesDeLeccion.push(i);
-                this.aTextoEstilo[i] = {clases: ["letra-leccion"], id: undefined};
+                this.aTextoEstilo[i] = {clases: [this.letra_leccion], id: undefined};
             }
             
         })
@@ -177,7 +180,7 @@ export default {
             this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual";
 
             // Actualizar texto estilizado
-            //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: ["letra-leccion"]}) + this.htmlLetra('u', {clases: ["letra-leccion", "letra-reprobada"]}) + this.htmlLetra('e', {clases: ["letra-leccion", "letra-aprobada"]}) + this.htmlLetra('b', {clases: ["letra-leccion", "letra-reprobada"], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
+            //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
             this.texto_html = this.hacerTextoHtmlActual();
         },
 
@@ -250,7 +253,7 @@ export default {
             // Si se acaba de pasar la ultima letra...
             if (this.i_posRelActual == this.aPosicionesDeLeccion.length) {
                 // Si fue correcta
-                if (this.aTextoEstilo[i_posGlobActual]["clases"].includes("letra-aprobada")) {
+                if (this.aTextoEstilo[i_posGlobActual]["clases"].includes(this.letra_aprobada)) {
                     this.acabarLeccion();
                     return
                 }
@@ -275,7 +278,7 @@ export default {
             
             // Actualizar puntaje
             let i_posGlobAnterior = this.aPosicionesDeLeccion[this.i_posRelActual - 1];
-            if (this.aTextoEstilo[i_posGlobAnterior]["clases"].includes("letra-aprobada")) {
+            if (this.aTextoEstilo[i_posGlobAnterior]["clases"].includes(this.letra_aprobada)) {
                 this.n_car_ok -= 1;
             }
 
@@ -322,12 +325,12 @@ export default {
 
             // Restaurar estilo tecla actual
             let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual] = {"clases": ["letra-leccion"]};
+            this.aTextoEstilo[i_posGlobActual] = {"clases": [this.letra_leccion]};
 
             // Asignar estilo correspondiente a la tecla anterior
             this.i_posRelActual -= 1;
             i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual] = {"clases": ["letra-leccion"], "id": "letra-actual"}
+            this.aTextoEstilo[i_posGlobActual] = {"clases": [this.letra_leccion], "id": "letra-actual"}
 
             // Actualizar el html del texto basado en los nuevos estilos
             this.texto_html = this.hacerTextoHtmlActual();
