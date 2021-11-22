@@ -242,7 +242,7 @@ export default {
 
             // Actualizar Puntaje y 
             // Avanzar la animación: de acuerdo a si fue acierto o no
-            if (evento.key == this.aTexto[i_posGlobActual]) {
+            if ( evento.key == this.aTexto[i_posGlobActual] || (evento.key == "Enter" && this.aTexto[i_posGlobActual] == "\n") ) {
                 this.avanzarAnimacionTextoUno(true);
                 this.n_car_ok += 1;
 

@@ -35,6 +35,10 @@ ASÍ SE VE UN TEXTO CON MAYÚSCULAS. \
 </script>
 
 <style scoped>
+h1 {
+    text-align: center;
+}
+
 .view-leccion-prueba{
     background: crimson;;
     color: white;
