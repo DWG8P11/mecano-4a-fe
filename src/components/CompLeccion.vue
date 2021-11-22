@@ -121,7 +121,6 @@ export default {
                 this.aPosicionesDeLeccion.push(i);
                 this.aTextoEstilo[i] = {clases: [this.letra_leccion], id: undefined};
             }
-            
         })
 
         // Empezar leccion
@@ -171,7 +170,7 @@ export default {
             resultado += `>${letra}</span>`;
 
             if (letra == "\n") {
-                resultado += "<br/>"
+                resultado += "<br/><br/>"
             }
 
             return resultado;
@@ -219,10 +218,10 @@ export default {
                 this.porc_acierto = this.n_car_ok / this.aPosicionesDeLeccion.length;
             }
 
-            this.puntaje_final = this.porc_acierto * this.cpm_efectiva;
+            this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
             
             
-            alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres por minuto (brutos): ${this.cpm_bruta}\nCaracteres por minuto (efectivos): ${this.cpm_efectiva}\nPalabras por minuto (brutas): ${this.wpm_bruta}\nPalabras por minuto (efectivas): ${this.wpm_efectiva}\nPUNTAJE FINAL: ${this.puntaje_final}`);
+            alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
             console.log("Acabaste la leccion");
         },
 
@@ -349,8 +348,6 @@ export default {
             // Actualizar el html del texto basado en los nuevos estilos
             this.texto_html = this.hacerTextoHtmlActual();
         }
-
-        
     }
 }
 </script>
@@ -380,44 +377,49 @@ export default {
     background: black;
 
     font-weight: 600;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace; /* Mejorar */
 
     border-radius: 20%;
     border-style: solid;
     border-width: 1px;
 
-    position: relative; /* Lo que permite que top, bottom, ... funcionen */
+    position: relative; /* Lo que permite que top, bottom, etc. funcionen */
     bottom: 0pt;
 }
 
 #letra-actual {
+    /* Mejorar */
     color: yellow;
     border-color: yellow;
     border-width: 2px;
 }
 
 .letra-aprobada {
+    /* Mejorar */
     color: green;
 }
 
 .letra-reprobada {
+    /* Mejorar */
     color: red;
 }
 
 .tecla-enter {
-    bottom: -5pt; /* Funciona gracias al positio-relative en letra-leccion */
+    bottom: -5pt; /* Funciona gracias al position-relative en letra-leccion */
 
-    -webkit-clip-path: polygon(100% 0, 50% 0, 50% 50%, 0 50%, 0 100%, 100% 100%);
-    clip-path: polygon(100% 0, 50% 0, 50% 50%, 0 50%, 0 100%, 100% 100%);
+    -webkit-clip-path: polygon(100% 0, 50% 0, 50% 50%, 0 50%, 0 100%, 100% 100%); /* Un polígono (pentágono) */
+    clip-path: polygon(100% 0, 50% 0, 50% 50%, 0 50%, 0 100%, 100% 100%); /* En caso de que el primero falle */
 }
 
 .tecla-espacio {
-    bottom: -5pt; /* Funciona gracias al positio-relative en letra-leccion */
+    bottom: -5pt; /* Funciona gracias al position-relative en letra-leccion */
 
     margin-left: 1pt;
-    margin-right: 1pt;    
+    margin-right: 1pt;  
+
     width: calc(1rem * 2);
     height: calc(1rem * 0.5);
+    
     border-radius: 15%;
 }
 
