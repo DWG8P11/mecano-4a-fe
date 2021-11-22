@@ -76,6 +76,8 @@ export default {
         this.letra_aprobada = "letra-aprobada";
         this.letra_leccion = "letra-leccion";
         this.letra_reprobada = "letra-reprobada";
+        this.letra_actual = "letra-actual";
+        
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
                                   'í': 'i', 'Í': 'I', 
@@ -98,11 +100,20 @@ export default {
         this.aPosicionesDeLeccion = []; // Posiciones globales de letras que pertenecen a la lección
         this.aTextoEstilo = []; // Array donde el índice indica la posición relativa de cada letra de la lección con su estilo
 
+        /*
+         * Dar clases e ids HTML a cada tecla
+         */
         // Llenar aPosicionesDeLeccion y aTextoEstilo
         this.aTexto.forEach((caracter, i) => {
             if (this.letras.includes(caracter.toLowerCase())) {
                 this.aPosicionesDeLeccion.push(i);
                 this.aTextoEstilo[i] = {clases: [this.letra_leccion], id: undefined};
+
+                if (caracter == "\n") {
+                    this.aTextoEstilo[i]["clases"].push("tecla-enter");
+                } else if (caracter == " ") {
+                    this.aTextoEstilo[i]["clases"].push("tecla-espacio")
+                }
             }
             
             // Estilizar letras con tilde y diéresis... TODO no hacer? Booleano en DB?
@@ -129,10 +140,9 @@ export default {
         },
 
         htmlLetra: function(letra, atributos) {
-            // Si es caracter de cambio de linea
-            if (letra == "\n") {
-                return "<br/>"
-            }
+            /*
+             * Asignar HTML a cada letra segun los atributos dados
+             */
 
             // Si no tiene estilo definido
             if ( atributos == undefined || (atributos["clases"] == undefined && atributos["id"] == undefined) ) {
@@ -160,6 +170,10 @@ export default {
             // Cerrar etiqueta span
             resultado += `>${letra}</span>`;
 
+            if (letra == "\n") {
+                resultado += "<br/>"
+            }
+
             return resultado;
         },
 
@@ -171,10 +185,10 @@ export default {
 
             // Actualizar estilo, basado en primera posición de letra de lección
             var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual";
+            this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
 
             // Actualizar texto estilizado
-            //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: "letra-actual"}) + this.htmlLetra('a', {clases: [], id: "letra-actual"});
+            //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
             this.texto_html = this.hacerTextoHtmlActual();
         },
 
@@ -308,7 +322,7 @@ export default {
             // De lo contrario
             // Actualizar el estilo de la nueva posicion
             i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual]["id"] = "letra-actual"
+            this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual
 
             // Actualizar el html del texto basado en los nuevos estilos
             this.texto_html = this.hacerTextoHtmlActual();
@@ -319,12 +333,18 @@ export default {
 
             // Restaurar estilo tecla actual
             let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual] = {"clases": [this.letra_leccion]};
+            this.aTextoEstilo[i_posGlobActual]["clases"] = this.aTextoEstilo[i_posGlobActual]["clases"].map(clase => {
+                if (clase != this.letra_aprobada && clase != this.letra_reprobada) return clase;
+            });
+            delete this.aTextoEstilo[i_posGlobActual]["id"];
 
             // Asignar estilo correspondiente a la tecla anterior
             this.i_posRelActual -= 1;
             i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual] = {"clases": [this.letra_leccion], "id": "letra-actual"}
+            this.aTextoEstilo[i_posGlobActual]["clases"] = this.aTextoEstilo[i_posGlobActual]["clases"].map(clase => {
+                if (clase != this.letra_aprobada && clase != this.letra_reprobada) return clase;
+            });
+            this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
 
             // Actualizar el html del texto basado en los nuevos estilos
             this.texto_html = this.hacerTextoHtmlActual();
@@ -337,7 +357,7 @@ export default {
 
 <style>
 :root {
-    --tamano-fuente: 16pt;
+    --tamano-fuente: 14pt; /* Variable que determina el tamaño de las cosas */
 }
 
 .componente-leccion {
@@ -346,21 +366,28 @@ export default {
 
 #texto-leccion {
     position: relative;
-    font-size: 14pt;
+    font-size: var(--tamano-fuente);
     color: whitesmoke;
 }
 
 .letra-leccion {
     display: inline-block;
-    width: calc(var(--tamano-fuente)*1.1);
-    height: calc(var(--tamano-fuente)*1.1);
+
+    width: calc(1rem*1.3);
+    height: calc(1rem*1.3);
+
     color: white;
-    font-weight: 600;
     background: black;
+
+    font-weight: 600;
     font-family: 'Courier New', Courier, monospace;
+
     border-radius: 20%;
     border-style: solid;
     border-width: 1px;
+
+    position: relative; /* Lo que permite que top, bottom, ... funcionen */
+    bottom: 0pt;
 }
 
 #letra-actual {
@@ -375,6 +402,23 @@ export default {
 
 .letra-reprobada {
     color: red;
+}
+
+.tecla-enter {
+    bottom: -5pt; /* Funciona gracias al positio-relative en letra-leccion */
+
+    -webkit-clip-path: polygon(100% 0, 50% 0, 50% 50%, 0 50%, 0 100%, 100% 100%);
+    clip-path: polygon(100% 0, 50% 0, 50% 50%, 0 50%, 0 100%, 100% 100%);
+}
+
+.tecla-espacio {
+    bottom: -5pt; /* Funciona gracias al positio-relative en letra-leccion */
+
+    margin-left: 1pt;
+    margin-right: 1pt;    
+    width: calc(1rem * 2);
+    height: calc(1rem * 0.5);
+    border-radius: 15%;
 }
 
 </style>
