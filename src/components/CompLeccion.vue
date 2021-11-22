@@ -21,11 +21,11 @@
         </li>
     </ul>
     Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):
-    <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior}} </div>
+    <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div>
 
     Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):
     <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
-    <input placeholder="Empezar Lección" id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
+    <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'" id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)" readonly>
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
@@ -200,7 +200,7 @@ export default {
             this.n_car_ok = 0;
 
             // Actualizar retroalimentacion sobre tecla siguiente
-            this.actRetroalSiguiente(`Oprime ${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}`);
+            this.actRetroalSiguiente(`Oprime '${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}'`);
         },
 
         acabarLeccion: function(error) {
@@ -514,6 +514,7 @@ export default {
 }
 
 #inputTexto {
+
     border-radius: 20%;
     text-align: center;
 }
