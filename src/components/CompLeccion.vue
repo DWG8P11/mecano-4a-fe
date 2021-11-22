@@ -21,6 +21,8 @@
         </li>
     </ul>
 
+    <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior}} </div>
+    <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
     <input v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
 
     <div id="texto-leccion">
@@ -49,6 +51,8 @@ export default {
     data: function() {
         return {
             i_posRelActual: 0, // Necesario ponerla acá para que sirva como key de renderización del texto
+            retroAnterior: "", // Mensaje de retroalimentación tecla oprimida
+            retroSiguiente: "" // Mensaje de retroalimentación sobre tecla a oprimir
         }
     },
 
@@ -94,7 +98,7 @@ export default {
             de las del texto de las letras que hacen parte de la lección.
         */
 
-        // Inicialización de variables globales mencionadas
+        // Inicialización de las variables mencionadas que determinan el estado de la leccion.
         this.i_posRelActual = 0; // Posicion global del caracter actual. Poner id
         this.aTexto = this.textoN.split(""); // Texto completo, como array
         this.aPosicionesDeLeccion = []; // Posiciones globales de letras que pertenecen a la lección
@@ -189,6 +193,9 @@ export default {
             // Actualizar texto estilizado
             //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
             this.texto_html = this.hacerTextoHtmlActual();
+
+            // Actualizar retroalimentacion sobre tecla siguiente
+            this.actRetroalSiguiente(`Oprime ${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}`);
         },
 
         acabarLeccion: function(error) {
@@ -246,8 +253,23 @@ export default {
             if (evento.key == this.aTexto[i_posGlobActual]) {
                 this.avanzarAnimacionTextoUno(true);
                 this.n_car_ok += 1;
+
+                // Actualizar Retroalimentación
+                this.actRetroalAnterior("Bien!");
             } else {
+                console.log(evento)
                 this.avanzarAnimacionTextoUno(false);
+
+                // Actualizar retroalimentación
+                let debiste;
+                if (![' ', '\n'].includes(this.aTexto[i_posGlobActual])) {
+                    debiste = this.aTexto[i_posGlobActual];
+                } else if (this.aTexto[i_posGlobActual] == "\n") {
+                    debiste = "<Enter>";
+                } else {
+                    debiste = "<Espacio>";
+                }
+                this.actRetroalAnterior(`¡Uy! Presionaste '${evento.key}', pero debiste oprimir '${debiste}'`);
             }
             
             
@@ -258,17 +280,22 @@ export default {
             }
 
             // Si se acaba de pasar la ultima letra...
+            let i_posGlobAnterior = i_posGlobActual;
             if (this.i_posRelActual == this.aPosicionesDeLeccion.length) {
                 // Si fue correcta
-                if (this.aTextoEstilo[i_posGlobActual]["clases"].includes(this.letra_aprobada)) {
+                if (this.aTextoEstilo[i_posGlobAnterior]["clases"].includes(this.letra_aprobada)) {
                     this.acabarLeccion();
                     return
                 }
 
                 // Si fue incorrecta: dar un último chance para corregir
                 this.ultimoChance = true;
-
+                this.actRetroalSiguiente("¡Borra!, si quieres continuar.");
+            } else { // Es decir, si se sigue en medio de la lección
+                // Actualizar retroalimentacion sobre tecla siguiente
+                this.actRetroalSiguiente();
             }
+
         },
 
         borrarPresionada: function(evento) {
@@ -289,7 +316,14 @@ export default {
                 this.n_car_ok -= 1;
             }
 
+            // Retroceder animacion del texto
             this.retrocederAnimacionTextoUno();
+            
+            // Actualizar retroalimentacion sobre tecla anterior
+            this.actRetroalAnterior('Borraste');
+
+            // Actualizar retroalimentacion sobre tecla siguiente
+            this.actRetroalSiguiente();
         },
 
         avanzarAnimacionTextoUno: function(fueAcierto) {
@@ -347,6 +381,33 @@ export default {
 
             // Actualizar el html del texto basado en los nuevos estilos
             this.texto_html = this.hacerTextoHtmlActual();
+        },
+
+        actRetroalAnterior: function(mensaje) {
+            this.retroAnterior= mensaje;
+            setTimeout(() => this.retroAnterior = "", 1000);
+        },
+
+        actRetroalSiguiente: function(mensaje) {
+            let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            // Determinar mensaje para tecla a oprimir
+            let oprimir = "";
+            if (![' ', '\n'].includes(this.aTexto[i_posGlobActual])) {
+                oprimir = this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]];
+            } else if (this.aTexto[i_posGlobActual] == "\n") {
+                oprimir = "<Enter>";
+            } else {
+                oprimir = "<Espacio>";
+            }
+
+            // Determinar si mostrar una adicion al mensaje de tecla a oprimir
+            let adicion = "";
+            if ( this.i_posRelActual > 0 && this.aTextoEstilo[ this.aPosicionesDeLeccion[this.i_posRelActual - 1] ]["clases"].includes(this.letra_reprobada) ){
+                adicion = " o Borra"
+            }
+
+            // Actualizar mensaje
+            this.retroSiguiente = `Oprime '${oprimir}'${adicion}`;
         }
     }
 }
@@ -421,6 +482,20 @@ export default {
     height: calc(1rem * 0.5);
     
     border-radius: 15%;
+}
+
+#retroAnterior{
+    color: white;
+    font-size: calc(2 * var(--tamano-fuente));
+    border: yellow solid;
+    min-height: calc(3 * var(--tamano-fuente));
+}
+
+#retroSiguiente{
+    color: white;
+    font-size: calc(2 * var(--tamano-fuente));
+    border: yellow solid;
+    min-height: calc(3 * var(--tamano-fuente));
 }
 
 </style>
