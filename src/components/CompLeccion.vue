@@ -20,10 +20,12 @@
             {{ letra }}
         </li>
     </ul>
-
+    Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):
     <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior}} </div>
+
+    Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):
     <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
-    <input v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
+    <input placeholder="Empezar Lección" id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
@@ -187,6 +189,11 @@ export default {
         },
 
         empezarLeccion: function() {
+            // En caso de que ya haya una lección en curso, no hacer nada
+            if (this.leccionEnCurso) {
+                return;
+            }
+
             this.leccionEnCurso = true;
 
             this.tiempo_i = new Date();
@@ -494,16 +501,20 @@ export default {
 
 #retroAnterior{
     color: white;
-    font-size: calc(2 * var(--tamano-fuente));
+    font-size: calc(1.5 * var(--tamano-fuente));
     border: yellow solid;
-    min-height: calc(3 * var(--tamano-fuente));
+    min-height: calc(2 * var(--tamano-fuente));
 }
 
 #retroSiguiente{
     color: white;
-    font-size: calc(2 * var(--tamano-fuente));
+    font-size: calc(1.5 * var(--tamano-fuente));
     border: yellow solid;
-    min-height: calc(3 * var(--tamano-fuente));
+    min-height: calc(2 * var(--tamano-fuente));
 }
 
+#inputTexto {
+    border-radius: 20%;
+    text-align: center;
+}
 </style>
