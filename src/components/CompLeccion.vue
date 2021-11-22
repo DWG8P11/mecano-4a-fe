@@ -23,7 +23,7 @@
 
     <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior}} </div>
     <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
-    <input v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
+    <input v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)">
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
@@ -107,6 +107,7 @@ export default {
         /*
          * Dar clases e ids HTML a cada tecla
          */
+
         // Llenar aPosicionesDeLeccion y aTextoEstilo
         this.aTexto.forEach((caracter, i) => {
             if (this.letras.includes(caracter.toLowerCase())) {
@@ -127,8 +128,13 @@ export default {
             }
         })
 
-        // Empezar leccion
-        this.empezarLeccion();
+        // Actualizar estilo, basado en primera posición de letra de lección
+        var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+        this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
+
+        // Crear HTML estilizado
+        //Ejemplo: this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
+        this.texto_html = this.hacerTextoHtmlActual();
     },
 
     methods: {
@@ -185,14 +191,6 @@ export default {
 
             this.tiempo_i = new Date();
             this.n_car_ok = 0;
-
-            // Actualizar estilo, basado en primera posición de letra de lección
-            var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
-
-            // Actualizar texto estilizado
-            //this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
-            this.texto_html = this.hacerTextoHtmlActual();
 
             // Actualizar retroalimentacion sobre tecla siguiente
             this.actRetroalSiguiente(`Oprime ${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}`);
