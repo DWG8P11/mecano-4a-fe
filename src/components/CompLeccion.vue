@@ -420,8 +420,13 @@ export default {
 
 /*@font-face {
   font-family:Questa Grande;
-  src: url(../../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
+  src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
 }*/
+
+@font-face {
+  font-family:Cinzel;
+  src: url(../../fuentes/cinzel/Cinzel-Black.otf) format("OpenType");
+}
 
 :root {
     --tamano-fuente: 14pt; /* Variable que determina el tamaño de las cosas */
@@ -449,7 +454,7 @@ export default {
     background: black;
 
     font-weight: 600;
-    font-family: 'Courier New', Courier, monospace; /* Mejorar */
+    font-family: Cinzel; /* Mejorar */
 
     border-radius: 20%;
     border-style: solid;
