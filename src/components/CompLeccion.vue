@@ -1,18 +1,6 @@
 <template>
 <div class="componente-leccion">
-    <h1> Componente de Leccion </h1>
-
-    <!-- Des-Comentar las siguientes lineas para ver 
-    que las propiedades se cargan correctamente -->
-
-    <!--p> El texto de la leccion es: <i>{{ texto }}</i></p>
-
-    <p> Las letras que se practicaran en esta leccion es: </p>
-    <ul>
-        <li v-for="letra in letras" :key="letra">
-            {{ letra }}
-        </li>
-    </ul-->
+    <h1> Componente de Lección </h1>
 
     <p> Las letras que se practicaran en esta leccion son: </p>
     <ul>
@@ -446,6 +434,8 @@ export default {
 .letra-leccion {
     display: inline-block;
 
+    text-align: center;
+
     width: calc(1rem*1.3);
     height: calc(1rem*1.3);
 
@@ -504,6 +494,7 @@ export default {
     font-size: calc(1.5 * var(--tamano-fuente));
     border: yellow solid;
     min-height: calc(2 * var(--tamano-fuente));
+    text-align: center;
 }
 
 #retroSiguiente{
@@ -511,11 +502,18 @@ export default {
     font-size: calc(1.5 * var(--tamano-fuente));
     border: yellow solid;
     min-height: calc(2 * var(--tamano-fuente));
+    text-align: center;
 }
 
 #inputTexto {
+    /* TODO hacer que se pueda escribir sin necesidad de estar ubicado sobre esta cajita */
 
-    border-radius: 20%;
+    /* Para centrar el bloque */
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
+
     text-align: center;
+    border-radius: 20%;
 }
 </style>
