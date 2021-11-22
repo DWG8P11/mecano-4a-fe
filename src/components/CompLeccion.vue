@@ -227,7 +227,6 @@ export default {
             
             
             alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
-            console.log("Acabaste la leccion");
         },
 
         teclaPresionada: function(evento) {
@@ -255,7 +254,6 @@ export default {
                 // Actualizar Retroalimentación
                 this.actRetroalAnterior("Bien!");
             } else {
-                console.log(evento)
                 this.avanzarAnimacionTextoUno(false);
 
                 // Actualizar retroalimentación
@@ -300,6 +298,12 @@ export default {
             // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
             if (!this.leccionEnCurso) {
                 return;
+            }
+
+            // Seguro en caso de que hayamos avanzado mucho en el texto
+            if (this.i_posRelActual > this.aPosicionesDeLeccion.length) {
+                this.acabarLeccion(Error("No puedes seguir avanzando!"));
+                return   
             }
 
             // No hacer nada si nos encontramos al inicio
@@ -362,12 +366,14 @@ export default {
         retrocederAnimacionTextoUno: function() {
             /* Asume que se puede retroceder */
 
-            // Restaurar estilo tecla actual
+            // Restaurar estilo tecla actual, a menos que estemos en el ultimo chance
             let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-            this.aTextoEstilo[i_posGlobActual]["clases"] = this.aTextoEstilo[i_posGlobActual]["clases"].map(clase => {
-                if (clase != this.letra_aprobada && clase != this.letra_reprobada) return clase;
-            });
-            delete this.aTextoEstilo[i_posGlobActual]["id"];
+            if (this.i_posRelActual != this.aPosicionesDeLeccion.length) {
+                this.aTextoEstilo[i_posGlobActual]["clases"] = this.aTextoEstilo[i_posGlobActual]["clases"].map(clase => {
+                    if (clase != this.letra_aprobada && clase != this.letra_reprobada) return clase;
+                });
+                delete this.aTextoEstilo[i_posGlobActual]["id"];
+            }
 
             // Asignar estilo correspondiente a la tecla anterior
             this.i_posRelActual -= 1;
@@ -387,6 +393,10 @@ export default {
         },
 
         actRetroalSiguiente: function(mensaje) {
+            if (mensaje != undefined) {
+                this.retroSiguiente = mensaje;
+                return;
+            }
             let i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
             // Determinar mensaje para tecla a oprimir
             let oprimir = "";
