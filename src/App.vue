@@ -4,7 +4,7 @@
     <h1> La nebulosa de Qwerty</h1>
     <router-link to = "/">Home</router-link> |
     <router-link to = "/about">About</router-link> | 
-    <router-link to = "/prueba-leccion">Leccion de Prueba </router-link>
+    <router-link to = "/prueba-leccion">Lección de Prueba </router-link>
   </div>
 
   <router-view/>
@@ -20,14 +20,14 @@ export default {
 </script>
 
 <style>
-/*@font-face {
+@font-face {
   font-family: Autery;
-  src: url(../../../fuentes/Autery.ttf) format("truetype");
+  src: url(../fuentes/Autery.ttf) format("truetype");
 }
 @font-face {
   font-family: Questa Grande;
-  src: url(../../fuentes/Questa_Grande_Regular.otf) format("Opentype");
-}*/
+  src: url(../fuentes/Questa_Grande_Regular.otf) format("Opentype");
+}
 
 #app {
   font-family             : Avenir, Helvetica, Arial, sans-serif;
@@ -42,7 +42,7 @@ export default {
 }
 
 #nav a {
-  /*font-family:Questa Grande;*/
+  font-family:Questa Grande;
   font-weight: bold;
   color: #2c3e50;
 
@@ -55,6 +55,7 @@ export default {
 h1 {
   text-align: left;
   align-items: justify;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family:Autery;
+  font-size: 60pt;
 }
 </style>

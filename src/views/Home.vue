@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="css-typing">
-      <p>A una tecla más cerca de las estrellas</p>
+      <p>A una tecla más cerca de las estrellas...</p>
 </div>
     
   </div>
@@ -31,7 +31,7 @@ export default {
 
 .css-typing p:nth-child(1) {
     width: 37em;
-    -webkit-animation: type 15s steps(40, end), blink .10s step-end infinite alternate;
+    -webkit-animation: type 15s steps(40, end), blink .15s step-end infinite alternate;
     animation: type 5s steps(40, end), blink .5s step-end infinite alternate;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
@@ -74,8 +74,8 @@ export default {
 }
 
 p {
-  font-family:Autery;
-  font-size: 30pt;
+  font-family:Questa Grande;
+  font-size: 20pt;
   color: white;
 
 
