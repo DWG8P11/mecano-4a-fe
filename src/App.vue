@@ -2,9 +2,10 @@
   
   <div id="nav">
     <h1> La nebulosa de Qwerty</h1>
-    <router-link to = "/">Home</router-link> |
-    <router-link to = "/about">About</router-link> | 
-    <router-link to = "/prueba-leccion">Lección de Prueba </router-link>
+    <router-link to = "/">Inicio</router-link> |
+    <router-link to = "/prueba-leccion">Empezar</router-link> |
+    <router-link to = "/login">Únete</router-link> | 
+  
   </div>
 
   <router-view/>
@@ -52,10 +53,15 @@ export default {
   color: #42b983;
 }
 
+</style>
+
+<style scoped>
 h1 {
   text-align: left;
   align-items: justify;
   font-family:Autery;
   font-size: 60pt;
 }
+
 </style>
+

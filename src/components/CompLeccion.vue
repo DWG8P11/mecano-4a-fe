@@ -418,14 +418,10 @@ export default {
 
 <style>
 
-/*@font-face {
-  font-family:Questa Grande;
-  src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
-}*/
 
 @font-face {
-  font-family:Cinzel;
-  src: url(../../fuentes/cinzel/Cinzel-Black.otf) format("OpenType");
+  font-family:Questa Grande;
+  src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
 }
 
 :root {
@@ -433,7 +429,15 @@ export default {
 }
 
 .componente-leccion {
-    background:rgb(25, 8, 63);
+  background-image: url(../../Imagenes/sky.png);
+  background-size: cover;
+  background-position: absolute;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+ 
 }
 
 #texto-leccion {
@@ -454,7 +458,8 @@ export default {
     background: black;
 
     font-weight: 600;
-    font-family: Cinzel; /* Mejorar */
+    font-family: Questa Grande; /* Mejorar */
+    
 
     border-radius: 20%;
     border-style: solid;
