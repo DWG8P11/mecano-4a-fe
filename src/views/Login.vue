@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h1>This is an about page</h1>
+    <h1>Regístrate</h1>
     <p1> Es la segunda estrella más brillante de la constelación Canis Major.
       Su principal significado es «flor de azahar». 
       Es una estrella binaria, su estrella principal es una supergigante azul o gigante luminosa. 
@@ -26,12 +26,22 @@
 }
 
 p1{
+  position:relative;
+  top:200pt;
   text-align: justify;
   transition: all;
   transition-duration: 5s;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 20pt;
   color: black;
+}
+p2{
+  position: relative;
+  top: 300pt;
+  font-family: Questa Grande;
+  font-size: 20pt;
+  color:black;
+
 }
 
 

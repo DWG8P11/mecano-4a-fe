@@ -424,21 +424,15 @@ export default {
   src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
 }
 
+.componente-leccion{
+    position:relative;
+    top:100pt;
+
+}
 :root {
     --tamano-fuente: 14pt; /* Variable que determina el tamaño de las cosas */
 }
 
-.componente-leccion {
-  background-image: url(../../Imagenes/sky.png);
-  background-size: cover;
-  background-position: absolute;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
- 
-}
 
 #texto-leccion {
     position: relative;

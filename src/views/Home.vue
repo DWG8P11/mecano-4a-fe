@@ -20,10 +20,23 @@ export default {
   font-family: Autery;
   src: url(../../fuentes/Autery.ttf) format("truetype");
 }
+
 .home {
-  background-color:darkblue;
+    margin: -8px;
+    padding: 0;
+    background-image: url(../../Imagenes/pexels.jpg);
+    background-size: cover;
+    background-position: absolute;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
+
 .css-typing p {
+    
     border-right: .15em solid white;
     white-space: nowrap;
     overflow: hidden;
@@ -77,10 +90,11 @@ p {
   font-family:Questa Grande;
   font-size: 20pt;
   color: white;
+  position: relative;
+  top:30pt;
+  left:200pt;
 
 
 }
-
-
 
 </style>
