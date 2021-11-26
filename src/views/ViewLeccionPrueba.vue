@@ -36,7 +36,7 @@ h1 {
     text-align: left;
     background-image: url(../../Imagenes/sky.png);
     background-size: cover;
-    background-position: absolute;
+    background-attachment: fixed;
    
     display: flex;
     justify-content: space-between;

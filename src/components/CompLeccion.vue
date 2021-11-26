@@ -575,9 +575,8 @@ export default {
 }
 
 #inputTexto:focus{
-  border-color:rgb(115,239,249);
   outline:none;
- 
+  border:none;
 
 }
 
