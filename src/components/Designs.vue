@@ -99,6 +99,12 @@
 
 </template>
 
+<script>
+export default {
+	name: "Designs"
+}
+</script>
+
 <style>
 
 
