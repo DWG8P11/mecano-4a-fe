@@ -1,19 +1,19 @@
 <template>
 <div class="componente-leccion">
-    <h1> Componente de Lección </h1>
+    <h1> Adhara </h1>
+    
+    <div class= letrasNucleo> 
+        <span v-for="letra in letras" :key="letra"> {{letra}}-&nbsp;</span><br/>
+    </div>
 
-    <p> Las letras que se practicaran en esta leccion son: </p>
-    <ul>
-        <li v-for="letra in letras" :key="letra">
-            {{ letra }}
-        </li>
-    </ul>
-    Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):
+    <!--Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):-->
     <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div>
 
-    Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):
+    <!--Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):-->
     <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
-    <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'" id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)" readonly>
+
+    <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'"
+            id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)" readonly>
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
@@ -426,9 +426,25 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:100pt;
+    top:50pt;
 
 }
+.componente-leccion h1{
+    text-align: center;
+   
+}
+.componente-leccion p{
+    position:absolute;
+    top: 50pt;
+    text-align: center;
+
+}
+
+.letrasNucleo{
+    text-align: center;
+
+}
+
 :root {
     --tamano-fuente: 14pt; /* Variable que determina el tamaño de las cosas */
 }
@@ -437,7 +453,8 @@ export default {
 #texto-leccion {
     position: relative;
     font-size: var(--tamano-fuente);
-    color: whitesmoke;
+    color: white;
+    background: rgb(0,0,0,0.15);
 }
 
 .letra-leccion {
@@ -448,12 +465,10 @@ export default {
     width: calc(1rem*1.3);
     height: calc(1rem*1.3);
 
-    color: white;
-    background: black;
-
-    font-weight: 600;
-    font-family: Questa Grande; /* Mejorar */
+    color:rgb(243, 239, 201);
     
+    font-family: Questa Grande; /* Mejorar */
+    font-size: 15pt;
 
     border-radius: 20%;
     border-style: solid;
@@ -465,19 +480,19 @@ export default {
 
 #letra-actual {
     /* Mejorar */
-    color: yellow;
-    border-color: yellow;
+    color: rgb(241, 150, 117);
+    border-color:orangered;
     border-width: 2px;
 }
 
 .letra-aprobada {
     /* Mejorar */
-    color: green;
+    color:rgb(30, 174, 152);
 }
 
 .letra-reprobada {
     /* Mejorar */
-    color: red;
+    color:crimson;
 }
 
 .tecla-enter {
@@ -500,9 +515,10 @@ export default {
 }
 
 #retroAnterior{
+   
     color: white;
     font-size: calc(1.5 * var(--tamano-fuente));
-    border: yellow solid;
+    border: transparent;
     min-height: calc(2 * var(--tamano-fuente));
     text-align: center;
 }
@@ -510,7 +526,7 @@ export default {
 #retroSiguiente{
     color: white;
     font-size: calc(1.5 * var(--tamano-fuente));
-    border: yellow solid;
+    border:transparent;
     min-height: calc(2 * var(--tamano-fuente));
     text-align: center;
 }
@@ -519,11 +535,50 @@ export default {
     /* TODO hacer que se pueda escribir sin necesidad de estar ubicado sobre esta cajita */
 
     /* Para centrar el bloque */
-    display:block;
+    /*display:block;
     margin-right: auto;
     margin-left: auto;
 
     text-align: center;
-    border-radius: 20%;
+    border-radius: 30%;*/
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    font-family: Questa Grande;
+    font-size: 15;
+   
+    right: 50pt;
+    width: 15vw;
+    height: 1vh;
+
+    background: rgb(30, 174, 152);
+    border: 1px solid #e5e7e9;
+    
+
+    border-radius: 15px;
+    padding: 9px 15px;
+
+    color: #e5e7e9;
+    background:transparent;
+    border: 1px solid rgb(30, 174, 152);
 }
+
+#inputTexto::-webkit-input-placeholder{
+    color:white;
+    font-style: bold;
+}
+
+#inputTexto:focus::-webkit-input-placeholder{
+    color:transparent;
+   
+}
+
+#inputTexto:focus{
+  border-color:rgb(115,239,249);
+  outline:none;
+ 
+
+}
+
 </style>

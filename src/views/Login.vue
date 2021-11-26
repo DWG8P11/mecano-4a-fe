@@ -40,6 +40,7 @@ p2{
   top: 300pt;
   font-family: Questa Grande;
   font-size: 20pt;
+  font-weight: 600;
   color:black;
 
 }

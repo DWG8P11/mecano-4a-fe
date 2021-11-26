@@ -9,7 +9,7 @@
 
           <div class= "nav">
             <router-link to = "/">Inicio</router-link> |
-            <router-link to = "/prueba-leccion">Empezar</router-link> |
+            <router-link to = "/prueba-leccion">Aprende</router-link> |
             <router-link to = "/login">Únete</router-link> | 
           </div>
 
@@ -93,8 +93,8 @@ export default {
   background: transparent;
   height: 10pt;
   position:absolute;
-  right: 130pt;
-  top:20pt;
+  right: 80pt;
+  top:30pt;
   
 }
 
@@ -130,7 +130,7 @@ h1 {
 .navLog{
   position: absolute;
   top:20pt;
-  right:5pt;
+  right:-35pt;
 }
 
 .buttonlogout{
@@ -142,19 +142,22 @@ h1 {
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
+
 }
 
 .navLog a {
+  margin-top: 40pt;
+  margin-right: 55pt;
   text-align: center;
   display: block;
-  margin: 5pt 0 0 0pt;
   color: white;
   text-decoration: none;
   font-family: Questa Grande;
   font-size: 9pt;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  line-height: 130%;
   transition: all 300ms;
+  padding: 0;
 }
 
 #toggleLog{
