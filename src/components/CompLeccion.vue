@@ -13,16 +13,21 @@
     <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
 
     <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'"
-            id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)" readonly>
+            id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
+            v-on:keydown="teclaAbajo($event.code, $event)" v-on:keyup="teclaArriba($event.code, $event)" 
+            v-on:blur="salidoDeInput" readonly>
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
     </div>
 
+    <Designs/>
+
 </div>
 </template>
 
 <script>
+import Designs from '@/components/Designs.vue'
 export default {
     name: 'CompLeccion',
 
@@ -36,6 +41,10 @@ export default {
             type: Array,
             default: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', ';', ':', ,'¿', '?', '¡', '!', '"', "'", '\n', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '#', '$', '%', '&', '/', '(', ')', '=', '+', '*', '[', ']', '{', '}', '-', '_', '°', '|', '¬', '\\', '`', '~', '^', '@'],
         }
+    },
+
+    components: {
+        Designs,
     },
 
     data: function() {
@@ -411,6 +420,28 @@ export default {
 
             // Actualizar mensaje
             this.retroSiguiente = `Oprime '${oprimir}'${adicion}`;
+        },
+
+        teclaAbajo: function(code, evento) {
+            console.log(evento);
+            let htmlLetra = document.querySelector(`.${code}`);
+            if (htmlLetra != undefined) {
+                htmlLetra.classList.add("keydown");
+            }
+        },
+
+        teclaArriba: function(code, evento) {
+            let htmlLetra = document.querySelector(`.${code}`);
+            if (htmlLetra != undefined) {
+                htmlLetra.classList.remove("keydown");
+            }
+        },
+
+        salidoDeInput: function () {
+            // Resetear teclado si me salgo de la lección
+            document.querySelectorAll(".key").forEach(htmlLetraTeclado => {
+                htmlLetraTeclado.classList.remove("keydown");
+            });
         }
     }
 }
