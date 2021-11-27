@@ -640,22 +640,20 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:50pt;
+    top:30pt;
 
 }
 .componente-leccion h1{
     text-align: center;
-   
+    line-height: 4pt;
+    
 }
-.componente-leccion p{
-    position:absolute;
-    top: 50pt;
-    text-align: center;
 
-}
 
 .letrasNucleo{
     text-align: center;
+    line-height: 10pt;
+    
 
 }
 
@@ -665,10 +663,14 @@ export default {
 
 
 #texto-leccion {
-    position: relative;
-    font-size: var(--tamano-fuente);
+   
+    margin-left:20pt;
+    margin-right: 20pt;
+    font-size: 10pt;
     color: white;
     background: rgb(0,0,0,0.15);
+    text-align: justify;
+
 }
 
 .letra-leccion {
@@ -731,18 +733,18 @@ export default {
 #retroAnterior{
    
     color: white;
-    font-size: calc(1.5 * var(--tamano-fuente));
+    font-size: 15pt;
     border: transparent;
-    min-height: calc(2 * var(--tamano-fuente));
     text-align: center;
+    line-height: 20pt;
 }
 
 #retroSiguiente{
     color: white;
-    font-size: calc(1.5 * var(--tamano-fuente));
+    font-size:15pt;
     border:transparent;
-    min-height: calc(2 * var(--tamano-fuente));
     text-align: center;
+    line-height: 30pt;
 }
 
 #inputTexto {

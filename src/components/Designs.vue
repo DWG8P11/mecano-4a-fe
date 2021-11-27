@@ -17,7 +17,7 @@
 	    	<li><div class="key Backspace" id="delete"><span>Delete</span></div></li>
         </ul>
     	<ul class="cf" id="qwerty">
-	    	<li><div class="key Tab" id="tab"><span>tab</span></div></li>
+	    	<li><div class="key Tab" id="tab"><span>Tab</span></div></li>
 	    	<li><div class="key KeyQ"><span>q</span></div></li>
 	    	<li><div class="key KeyW"><span>w</span></div></li>
 	    	<li><div class="key KeyE"><span>e</span></div></li>
@@ -33,7 +33,7 @@
 	    	<li><div class="key Backslash alt"><b>|</b><span>\</span></div></li>
         </ul>
         <ul class="cf" id="asdfg">
-	    	<li><div class="key CapsLock alt" id="caps"><b></b><span>caps lock</span></div></li>
+	    	<li><div class="key CapsLock alt" id="caps"><b></b><span>Caps Lock</span></div></li>
 	    	<li><div class="key KeyA"><span>a</span></div></li>
 	    	<li><div class="key KeyS"><span>s</span></div></li>
 	    	<li><div class="key KeyD"><span>d</span></div></li>
@@ -45,7 +45,7 @@
 	    	<li><div class="key KeyL"><span>l</span></div></li>
 	    	<li><div class="key Semicolon alt"><b>:</b><span>;</span></div></li>
 	    	<li><div class="key Quote alt"><b>"</b><span>'</span></div></li>
-	    	<li><div class="key Enter alt" id="enter"><span>return</span></div></li>
+	    	<li><div class="key Enter alt" id="enter"><span>Return</span></div></li>
         </ul>
         <ul class="cf" id="zxcvb">
 	    	<li><div class="key ShiftLeft shiftleft"><span>Shift</span></div></li>
@@ -82,8 +82,9 @@ export default {
 
 #keyboard {
 	position: relative;
+	left:55pt;
 	/* margin: 50px ; */
-	width: 794px;
+	width: 745px;
 	/* height: 315px; */
 	background:	rgba(170, 170, 170, 0.2);
 	border-top-left-radius: 7px 21px;
@@ -96,17 +97,22 @@ export default {
 ul {list-style-type: none; width: 784px; margin: 0 auto;}
 li {float: left;}
 
+@font-face {
+  font-family:Questa Grande;
+  src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
+}
 
 .key{
 	display: block;
-	color: rgba(170, 170, 170, 0.74);
-	font: bold 9pt arial;
+	color:white;
+	font-family: Questa Grande;
+	font-size:9pt;
 	text-decoration: none;
 	text-align: center;
-	width: 44px;
-	height: 41px;
+	width: 40px;
+	height: 30px;
 	margin: 5px;
-	background: #fff;
+	background: rgba(0, 0, 0,0.5); 
 	border-radius: 4px;
 	border-top: 1px solid #222;
 	text-shadow: 0px -1px 0px #000;}
@@ -133,11 +139,11 @@ li {float: left;}
 	margin: 14px 5px 0 0;
 	text-align: right;
 	font: bold 6pt arial;
-	text-transform: uppercase;}
+	}
 #esc {
 	margin: 6px 15px 0 0;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+	}
 
 
 #numbers li div span {
@@ -153,18 +159,19 @@ li {float: left;}
 	text-align: right;
 	margin: 23px 10px 0 0;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+}
 	
 #qwerty li div span {
 	display: block;
 	margin: 13px 0 0;
-	text-transform: uppercase;}
+	text-transform: capitalize;
+	}
 	
 #qwerty li #tab span {
 	text-align: left;
 	margin: 23px 0 0 10px;
 	font-size: 7.5pt;
-	text-transform: lowercase;}	
+	}	
 
 #qwerty li .alt b {display: block; margin: 3px 0 0;}
 #qwerty li .alt span {margin: 2px 0 0;}
@@ -173,9 +180,10 @@ li {float: left;}
 #asdfg li div span {
 	display: block;
 	margin: 13px 0 0;
-	text-transform: uppercase;}
+	text-transform: capitalize;
+	}
 
-#asdfg li .alt span {margin: 0; text-transform: lowercase;}
+#asdfg li .alt span {margin: 0}
 #asdfg li .alt b {display: block; margin: 3px 0 0;}
 #asdfg li #caps b {
 	display: block;
@@ -200,17 +208,18 @@ li {float: left;}
 #zxcvb li div span {
 	display: block;
 	margin: 13px 0 0;
-	text-transform: uppercase;}
+	text-transform: capitalize;
+	}
 #zxcvb li .shiftleft span {
 	text-align: left;
 	margin: 23px 0 0 10px;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+	}
 #zxcvb li .shiftright span {
 	text-align: right;
 	margin: 23px 10px 0 0;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+	}
 #zxcvb li .alt b {display: block;margin: 4px 0 0;}
 #zxcvb li .alt span {margin: 0;}
 
@@ -220,14 +229,14 @@ li {float: left;}
 	text-align: left;
 	margin: 31px 0 0 8px;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+}
 
 #bottomrow li #optionright span, #bottomrow li #commandright span {
 	display: block;
 	text-align: right;
 	margin: 31px 8px 0 0;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+}
 
 #bottomrow ol li #left span, #bottomrow ol li #right span, #bottomrow ol li #up span, #bottomrow ol li #down span {
 	display: block;
