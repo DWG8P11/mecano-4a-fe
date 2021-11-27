@@ -123,6 +123,10 @@ li {float: left;}
 .reprobada {
 	background: crimson;
 }
+
+.actual {
+	background: rgb(241, 150, 117);
+}
 	
 .fn span {
 	display: block;
