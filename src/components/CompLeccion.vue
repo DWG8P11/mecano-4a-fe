@@ -344,9 +344,9 @@ export default {
             delete this.aTextoEstilo[i_posGlobActual]["id"];
 
             if (fueAcierto) {
-                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-aprobada');
+                this.aTextoEstilo[i_posGlobActual]["clases"].push(this.letra_aprobada);
             } else {
-                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-reprobada');
+                this.aTextoEstilo[i_posGlobActual]["clases"].push(this.letra_reprobada);
             }
             
 

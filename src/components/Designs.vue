@@ -115,6 +115,14 @@ li {float: left;}
 	background: rgba(59, 171, 236, 0.795);
 	margin: 7px 5px 3px;
 	border-top: 1px solid rgb(19, 135, 245);}
+
+.aprobada {
+	background: rgb(30, 174, 152);
+}
+
+.reprobada {
+	background: crimson;
+}
 	
 .fn span {
 	display: block;
