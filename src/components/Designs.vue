@@ -7,63 +7,63 @@
 	    	<li><div class="key Digit3"><b>#</b><span>3</span></div></li>
 	    	<li><div class="key Digit4"><b>$</b><span>4</span></div></li>
 	    	<li><div class="key Digit5"><b>%</b><span>5</span></div></li>
-	    	<li><div class="key c54"><b>^</b><span>6</span></div></li>
-	    	<li><div class="key c55"><b>&amp;</b><span>7</span></div></li>
-	    	<li><div class="key c56"><b>*</b><span>8</span></div></li>
-	    	<li><div class="key c57"><b>(</b><span>9</span></div></li>
-	    	<li><div class="key c48"><b>)</b><span>0</span></div></li>
-	    	<li><div class="key c189 alt"><b>_</b><span>-</span></div></li>
-	    	<li><div class="key c187"><b>+</b><span>=</span></div></li>
-	    	<li><div class="key c46" id="delete"><span>Delete</span></div></li>
+	    	<li><div class="key Digit6"><b>^</b><span>6</span></div></li>
+	    	<li><div class="key Digit7"><b>&amp;</b><span>7</span></div></li>
+	    	<li><div class="key Digit8"><b>*</b><span>8</span></div></li>
+	    	<li><div class="key Digit9"><b>(</b><span>9</span></div></li>
+	    	<li><div class="key Digit0"><b>)</b><span>0</span></div></li>
+	    	<li><div class="key Minus alt"><b>_</b><span>-</span></div></li>
+	    	<li><div class="key Equal"><b>+</b><span>=</span></div></li>
+	    	<li><div class="key Backspace" id="delete"><span>Delete</span></div></li>
         </ul>
     	<ul class="cf" id="qwerty">
-	    	<li><div class="key c9" id="tab"><span>tab</span></div></li>
+	    	<li><div class="key Tab" id="tab"><span>tab</span></div></li>
 	    	<li><div class="key KeyQ"><span>q</span></div></li>
 	    	<li><div class="key KeyW"><span>w</span></div></li>
-	    	<li><div class="key c69"><span>e</span></div></li>
-	    	<li><div class="key c82"><span>r</span></div></li>
-	    	<li><div class="key c84"><span>t</span></div></li>
-	    	<li><div class="key c89"><span>y</span></div></li>
-	    	<li><div class="key c85"><span>u</span></div></li>
-	    	<li><div class="key c73"><span>i</span></div></li>
-	    	<li><div class="key c79"><span>o</span></div></li>
-	    	<li><div class="key c80"><span>p</span></div></li>
-	    	<li><div class="key c219 alt"><b>{</b><span>[</span></div></li>
-	    	<li><div class="key c221 alt"><b>}</b><span>]</span></div></li>
-	    	<li><div class="key c220 alt"><b>|</b><span>\</span></div></li>
+	    	<li><div class="key KeyE"><span>e</span></div></li>
+	    	<li><div class="key KeyR"><span>r</span></div></li>
+	    	<li><div class="key KeyT"><span>t</span></div></li>
+	    	<li><div class="key KeyY"><span>y</span></div></li>
+	    	<li><div class="key KeyU"><span>u</span></div></li>
+	    	<li><div class="key KeyI"><span>i</span></div></li>
+	    	<li><div class="key KeyO"><span>o</span></div></li>
+	    	<li><div class="key KeyP"><span>p</span></div></li>
+	    	<li><div class="key BracketLeft alt"><b>{</b><span>[</span></div></li>
+	    	<li><div class="key BracketRight alt"><b>}</b><span>]</span></div></li>
+	    	<li><div class="key Backslash alt"><b>|</b><span>\</span></div></li>
         </ul>
         <ul class="cf" id="asdfg">
 	    	<li><div class="key CapsLock alt" id="caps"><b></b><span>caps lock</span></div></li>
 	    	<li><div class="key KeyA"><span>a</span></div></li>
 	    	<li><div class="key KeyS"><span>s</span></div></li>
-	    	<li><div class="key c68"><span>d</span></div></li>
-	    	<li><div class="key c70"><span>f</span></div></li>
-	    	<li><div class="key c71"><span>g</span></div></li>
-	    	<li><div class="key c72"><span>h</span></div></li>
-	    	<li><div class="key c74"><span>j</span></div></li>
-	    	<li><div class="key c75"><span>k</span></div></li>
-	    	<li><div class="key c76"><span>l</span></div></li>
-	    	<li><div class="key c186 alt"><b>:</b><span>;</span></div></li>
-	    	<li><div class="key c222 alt"><b>"</b><span>'</span></div></li>
-	    	<li><div class="key c13 alt" id="enter"><span>return</span></div></li>
+	    	<li><div class="key KeyD"><span>d</span></div></li>
+	    	<li><div class="key KeyF"><span>f</span></div></li>
+	    	<li><div class="key KeyG"><span>g</span></div></li>
+	    	<li><div class="key KeyH"><span>h</span></div></li>
+	    	<li><div class="key KeyJ"><span>j</span></div></li>
+	    	<li><div class="key KeyK"><span>k</span></div></li>
+	    	<li><div class="key KeyL"><span>l</span></div></li>
+	    	<li><div class="key Semicolon alt"><b>:</b><span>;</span></div></li>
+	    	<li><div class="key Quote alt"><b>"</b><span>'</span></div></li>
+	    	<li><div class="key Enter alt" id="enter"><span>return</span></div></li>
         </ul>
         <ul class="cf" id="zxcvb">
 	    	<li><div class="key ShiftLeft shiftleft"><span>Shift</span></div></li>
-	    	<li><div class="key c90"><span>z</span></div></li>
-	    	<li><div class="key c88"><span>x</span></div></li>
-	    	<li><div class="key c67"><span>c</span></div></li>
-	    	<li><div class="key c86"><span>v</span></div></li>
-	    	<li><div class="key c66"><span>b</span></div></li>
-	    	<li><div class="key c78"><span>n</span></div></li>
-	    	<li><div class="key c77"><span>m</span></div></li>
-	    	<li><div class="key c188 alt"><b>&lt;</b><span>,</span></div></li>
-	    	<li><div class="key c190 alt"><b>&gt;</b><span>.</span></div></li>
-	    	<li><div class="key c191 alt"><b>?</b><span>/</span></div></li>
+	    	<li><div class="key KeyZ"><span>z</span></div></li>
+	    	<li><div class="key KeyX"><span>x</span></div></li>
+	    	<li><div class="key KeyC"><span>c</span></div></li>
+	    	<li><div class="key KeyV"><span>v</span></div></li>
+	    	<li><div class="key KeyB"><span>b</span></div></li>
+	    	<li><div class="key KeyN"><span>n</span></div></li>
+	    	<li><div class="key KeyM"><span>m</span></div></li>
+	    	<li><div class="key Comma alt"><b>&lt;</b><span>,</span></div></li>
+	    	<li><div class="key Period alt"><b>&gt;</b><span>.</span></div></li>
+	    	<li><div class="key Slash alt"><b>?</b><span>/</span></div></li>
 	    	<li><div class="key ShiftRight shiftright"><span>Shift</span></div></li>
         </ul>
 		<ul class="cf" id="bottomrow">
 	    	<li><div class="key Space" id="spacebar"></div></li>
-	    	<li><div class="key command" id="commandright"><span>Alt Gr</span></div></li>
+	    	<li><div class="key AltRight" id="commandright"><span>Alt Gr</span></div></li>
 	    	
         </ul>
     </div>
