@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import ViewLeccionPrueba from '@/views/ViewLeccionPrueba.vue'
+import Designs from           '@/components/Designs.vue'
+
 
 const routes = [
   {
@@ -20,7 +22,12 @@ const routes = [
     path: '/prueba-leccion',
     name: 'Leccion de Prueba',
     component: ViewLeccionPrueba
-  }
+  },
+  {
+    path: '/designs',
+    name: 'designs',
+    component: Designs
+  },
 ]
 
 const router = createRouter({

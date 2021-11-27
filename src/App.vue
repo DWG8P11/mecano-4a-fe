@@ -11,6 +11,7 @@
             <router-link to = "/">Inicio</router-link> |
             <router-link to = "/prueba-leccion">Aprende</router-link> |
             <router-link to = "/login">Únete</router-link> | 
+            <!-- <router-link to="/designs"> diseño teclado </router-link> -->
           </div>
 
           <div class="contenedorBoton">
@@ -38,16 +39,19 @@
     <footer>
       <h3>La nebulosa de Qwerty</h3>
     </footer>
-  </div>
+
 
   <router-view/>
+  </div>
 </template>
 
 <script>
 import CompLeccion from '@/components/CompLeccion.vue';
+import Designs from '@/components/Designs.vue';
 export default {
   components: {
     CompLeccion,
+    Designs,
   }
 }
 </script>
@@ -80,6 +84,7 @@ export default {
   top: 0;
   right: 0;
   height: 0pt;
+  z-index: 100;
 }
 
 .titulo-nav-contenedorBoton{

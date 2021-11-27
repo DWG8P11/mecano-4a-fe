@@ -13,16 +13,21 @@
     <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
 
     <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'"
-            id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)" readonly>
+            id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
+            v-on:keydown="teclaAbajo($event.code, $event)" v-on:keyup="teclaArriba($event.code, $event)" 
+            v-on:blur="salidoDeInput" readonly>
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
     </div>
 
+    <Designs/>
+
 </div>
 </template>
 
 <script>
+import Designs from '@/components/Designs.vue'
 export default {
     name: 'CompLeccion',
 
@@ -38,6 +43,10 @@ export default {
         }
     },
 
+    components: {
+        Designs,
+    },
+
     data: function() {
         return {
             i_posRelActual: 0, // Necesario ponerla acá para que sirva como key de renderización del texto
@@ -47,6 +56,8 @@ export default {
     },
 
     created: function() {
+        this.borrarKeyACode = {}
+        this.borrarCodeAKeys = {}
         // Estandarizar el texto y las letras
         this.textoN = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
         this.letrasN = this.letras.map(letra => { // Normalizar y pasar a minúsculas las letras
@@ -72,6 +83,110 @@ export default {
         this.letra_reprobada = "letra-reprobada";
         this.letra_actual = "letra-actual";
         
+        this.keysACodes = {
+                "0": "Digit0",
+                "1": "Digit1",
+                "2": "Digit2",
+                "3": "Digit3",
+                "4": "Digit4",
+                "5": "Digit5",
+                "6": "Digit6",
+                "7": "Digit7",
+                "8": "Digit8",
+                "9": "Digit9",
+                "°": "Backquote",
+                "|": "Backquote",
+                "¬": "Backquote",
+                "!": "Digit1",
+                "\"": "Digit2",
+                "#": "Digit3",
+                "$": "Digit4",
+                "%": "Digit5",
+                "&": "Digit6",
+                "/": "Digit7",
+                "(": "Digit8",
+                ")": "Digit9",
+                "=": "Digit0",
+                "?": "Minus",
+                "'": "Minus",
+                "¡": "Equal",
+                "¿": "Equal",
+                "\\": "Minus",
+                "Q": "KeyQ",
+                "q": "KeyQ",
+                "@": "KeyQ",
+                "W": "KeyW",
+                "w": "KeyW",
+                "E": "KeyE",
+                "e": "KeyE",
+                "R": "KeyR",
+                "r": "KeyR",
+                "T": "KeyT",
+                "t": "KeyT",
+                "Y": "KeyY",
+                "y": "KeyY",
+                "U": "KeyU",
+                "u": "KeyU",
+                "I": "KeyI",
+                "i": "KeyI",
+                "O": "KeyO",
+                "o": "KeyO",
+                "P": "KeyP",
+                "p": "KeyP",
+                "¨": "BracketLeft",
+                "´": "BracketLeft",
+                "*": "BracketRight",
+                "+": "BracketRight",
+                "~": "BracketRight",
+                "]": "Backslash",
+                "}": "Backslash",
+                "À": "KeyA",
+                "a": "KeyA",
+                "S": "KeyS",
+                "s": "KeyS",
+                "D": "KeyD",
+                "d": "KeyD",
+                "F": "KeyF",
+                "f": "KeyF",
+                "G": "KeyG",
+                "g": "KeyG",
+                "H": "KeyH",
+                "h": "KeyH",
+                "J": "KeyJ",
+                "j": "KeyJ",
+                "K": "KeyK",
+                "k": "KeyK",
+                "L": "KeyL",
+                "l": "KeyL",
+                "Ñ": "Semicolon",
+                "ñ": "Semicolon",
+                "[": "Quote",
+                "{": "Quote",
+                "^": "IntlBackslash",
+                ">": "IntlBackslash",
+                "<": "IntlBackslash",
+                "Z": "KeyZ",
+                "z": "KeyZ",
+                "X": "KeyX",
+                "x": "KeyX",
+                "C": "KeyC",
+                "c": "KeyC",
+                "V": "KeyV",
+                "v": "KeyV",
+                "B": "KeyB",
+                "b": "KeyB",
+                "N": "KeyN",
+                "n": "KeyN",
+                "M": "KeyM",
+                "m": "KeyM",
+                ";": "Comma",
+                ",": "Comma",
+                ":": "Period",
+                ".": "Period",
+                "_": "Slash",
+                "-": "Slash"
+            }
+
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
                                   'í': 'i', 'Í': 'I', 
@@ -189,6 +304,9 @@ export default {
 
             // Actualizar retroalimentacion sobre tecla siguiente
             this.actRetroalSiguiente(`Oprime '${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}'`);
+
+            // Actualizar animacion teclado
+            this.actualizarAnimacionTeclado();
         },
 
         acabarLeccion: function(error) {
@@ -225,6 +343,23 @@ export default {
         },
 
         teclaPresionada: function(evento) {
+            
+            // Borrar: solo escrito para generar los diccionarios deseados
+            if (evento.key in this.borrarKeyACode) {
+                this.borrarKeyACode[evento.key].push(evento.code)
+            } else {
+                this.borrarKeyACode[evento.key] = [evento.code]
+            }
+
+            if (evento.code in this.borrarCodeAKeys) {
+                this.borrarCodeAKeys[evento.code].push(evento.key)
+            } else {
+                this.borrarCodeAKeys[evento.code] = [evento.key]
+            }
+
+            console.log(this.borrarKeyACode);
+            console.log(this.borrarCodeAKeys);
+
             // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
             if (!this.leccionEnCurso) {
                 return;
@@ -244,12 +379,16 @@ export default {
             // Avanzar la animación: de acuerdo a si fue acierto o no
             if ( evento.key == this.aTexto[i_posGlobActual] || (evento.key == "Enter" && this.aTexto[i_posGlobActual] == "\n") ) {
                 this.avanzarAnimacionTextoUno(true);
+                this.animarTecladoPresion(evento.code, true);
+                this.actualizarAnimacionTeclado();
                 this.n_car_ok += 1;
 
                 // Actualizar Retroalimentación
                 this.actRetroalAnterior("Bien!");
             } else {
                 this.avanzarAnimacionTextoUno(false);
+                this.animarTecladoPresion(evento.code, false);
+                this.actualizarAnimacionTeclado();
 
                 // Actualizar retroalimentación
                 let debiste;
@@ -315,6 +454,9 @@ export default {
 
             // Retroceder animacion del texto
             this.retrocederAnimacionTextoUno();
+
+            // Retroceder animacion del teclado
+            this.actualizarAnimacionTeclado();
             
             // Actualizar retroalimentacion sobre tecla anterior
             this.actRetroalAnterior('Borraste');
@@ -335,9 +477,9 @@ export default {
             delete this.aTextoEstilo[i_posGlobActual]["id"];
 
             if (fueAcierto) {
-                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-aprobada');
+                this.aTextoEstilo[i_posGlobActual]["clases"].push(this.letra_aprobada);
             } else {
-                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-reprobada');
+                this.aTextoEstilo[i_posGlobActual]["clases"].push(this.letra_reprobada);
             }
             
 
@@ -411,6 +553,78 @@ export default {
 
             // Actualizar mensaje
             this.retroSiguiente = `Oprime '${oprimir}'${adicion}`;
+        },
+
+        teclaAbajo: function(code, evento) {
+            console.log(evento);
+            let htmlLetra = document.querySelector(`.${code}`);
+            if (htmlLetra != undefined) {
+                htmlLetra.classList.add("keydown");
+            }
+        },
+
+        teclaArriba: function(code, evento) {
+            let htmlLetra = document.querySelector(`.${code}`);
+            if (htmlLetra != undefined) {
+                htmlLetra.classList.remove("keydown");
+            }
+        },
+
+        salidoDeInput: function () {
+            // Resetear teclado si me salgo de la lección
+            document.querySelectorAll(".key").forEach(htmlTecla => {
+                htmlTecla.classList.remove("keydown");
+            });
+        },
+
+        animarTecladoPresion(code, fueAcierto) {
+            let htmlTecla = document.querySelector(`.${code}`)
+
+            if (htmlTecla == undefined){
+                return;
+            }
+
+            if (fueAcierto) {
+                htmlTecla.classList.add("aprobada");
+            } else {
+                htmlTecla.classList.add("reprobada");
+            }
+
+            setTimeout(() =>{
+                htmlTecla.classList.remove("reprobada");
+                htmlTecla.classList.remove("aprobada");
+            }, 1000)
+        },
+
+        actualizarAnimacionTeclado: function () {
+            // Seguro de que hay tecla siguiente por oprimir
+            if (this.i_posRelActual < 0 || this.i_posRelActual >= this.aPosicionesDeLeccion.length - 1) {
+                return;
+            }
+
+            let key;
+            let code;
+
+            // Remover color de actual de la tecla anterior
+            if (this.i_posRelActual > 0) {
+                key = this.aTexto[ this.aPosicionesDeLeccion[this.i_posRelActual - 1] ];
+                code = this.keysACodes[  key  ];
+                document.querySelector(`.${code}`).classList.remove("actual");
+            }
+
+            if (this.i_posRelActual < this.aPosicionesDeLeccion.length - 1) {
+                key = this.aTexto[ this.aPosicionesDeLeccion[this.i_posRelActual + 1] ];
+                code = this.keysACodes[  key  ];
+                document.querySelector(`.${code}`).classList.remove("actual");
+            }
+
+            // Dar estilo a la tecla actual
+            key = this.aTexto[ this.aPosicionesDeLeccion[this.i_posRelActual] ];
+            code = this.keysACodes[  key  ];
+            let htmlTecla = document.querySelector(`.${code}`);
+
+            htmlTecla.classList.add("actual");
+
         }
     }
 }
