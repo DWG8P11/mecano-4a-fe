@@ -253,12 +253,14 @@ export default {
             // Avanzar la animación: de acuerdo a si fue acierto o no
             if ( evento.key == this.aTexto[i_posGlobActual] || (evento.key == "Enter" && this.aTexto[i_posGlobActual] == "\n") ) {
                 this.avanzarAnimacionTextoUno(true);
+                this.animarTeclado(evento.code, true);
                 this.n_car_ok += 1;
 
                 // Actualizar Retroalimentación
                 this.actRetroalAnterior("Bien!");
             } else {
                 this.avanzarAnimacionTextoUno(false);
+                this.animarTeclado(evento.code, false);
 
                 // Actualizar retroalimentación
                 let debiste;
@@ -442,6 +444,25 @@ export default {
             document.querySelectorAll(".key").forEach(htmlLetraTeclado => {
                 htmlLetraTeclado.classList.remove("keydown");
             });
+        },
+
+        animarTeclado(code, fueAcierto) {
+            let htmlLetraTeclado = document.querySelector(`.${code}`)
+
+            if (htmlLetraTeclado == undefined){
+                return;
+            }
+
+            if (fueAcierto) {
+                htmlLetraTeclado.classList.add("aprobada");
+            } else {
+                htmlLetraTeclado.classList.add("reprobada");
+            }
+
+            setTimeout(() =>{
+                htmlLetraTeclado.classList.remove("reprobada");
+                htmlLetraTeclado.classList.remove("aprobada");
+            }, 1000)
         }
     }
 }
