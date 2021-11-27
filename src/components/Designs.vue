@@ -111,7 +111,7 @@ li {float: left;}
 	border-top: 1px solid #222;
 	text-shadow: 0px -1px 0px #000;}
 
-.key:active, .keydown {
+.keydown {
 	background: rgba(59, 171, 236, 0.795);
 	margin: 7px 5px 3px;
 	border-top: 1px solid rgb(19, 135, 245);}
