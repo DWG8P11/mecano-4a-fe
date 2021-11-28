@@ -85,7 +85,7 @@ export default {
 	left:95pt;
 	top:10pt;
 	/* margin: 50px ; */
-	width: 650px;
+	width: 640px;
 	height: 155px;
 	background:	rgba(170, 170, 170, 0.2);
 	border-top-left-radius: 7px 21px;
@@ -107,16 +107,22 @@ li {float: left;}
 	display: block;
 	color:white;
 	font-family: Questa Grande;
-    font-size:6pt;
+    font-size:8pt;
 	text-decoration: none;
 	text-align: center;
 	width: 30px;
 	height: 20px;
 	margin: 5px;
-	background: rgba(0, 0, 0,0.5); 
+	background:transparent; 
 	border-radius: 4px;
 	border-top: 1px solid #222;
-	text-shadow: 0px -1px 0px #000;}
+	border-bottom:1px solid #222;
+	border-right:1px solid #222;
+	border-left: 1px solid #222;
+	border-color:rgb(115,239,249); 
+	box-shadow: 1px 1px 1px 1px rgb(61, 230, 230);
+	text-shadow: 0px -1px 0px #000;
+	}
 
 .keydown {
 	background: rgba(59, 171, 236, 0.795);
@@ -139,11 +145,12 @@ li {float: left;}
 	display: block;
 	margin: 14px 5px 0 0;
 	text-align: right;
-	font: bold 6pt arial;
+	
 	}
 #esc {
 	margin: 6px 15px 0 0;
 	font-size: 7.5pt;
+	line-height: 0pt;
 	}
 
 
@@ -152,36 +159,43 @@ li {float: left;}
 	
 #numbers li div b {
 	margin: 3px 0 3px;
-	display: block;}
+	display: block;
+	line-height: 2.1pt;
+	
+	}
 
 #numbers li .alt b {display: block;margin: 0 0 3px;}
 
 #numbers li #delete span {
 	text-align: right;
 	margin: 23px 10px 0 0;
-	font-size: 7.5pt;
+	
 }
 	
 #qwerty li div span {
 	display: block;
 	margin: 13px 0 0;
 	text-transform: capitalize;
+	text-align: center;
+	line-height: 0pt;
 	}
 	
 #qwerty li #tab span {
 	text-align: left;
 	margin: 23px 0 0 10px;
 	font-size: 7.5pt;
+	
 	}	
 
-#qwerty li .alt b {display: block; margin: 3px 0 0;}
-#qwerty li .alt span {margin: 2px 0 0;}
+#qwerty li .alt b {display: block; margin: 0px 0 0;}
+#qwerty li .alt span {margin: 0px 0 0;}
 
 
 #asdfg li div span {
 	display: block;
 	margin: 13px 0 0;
 	text-transform: capitalize;
+	line-height: 0pt;
 	}
 
 #asdfg li .alt span {margin: 0}
@@ -210,11 +224,13 @@ li {float: left;}
 	display: block;
 	margin: 13px 0 0;
 	text-transform: capitalize;
+	line-height: 2pt;
 	}
 #zxcvb li .shiftleft span {
 	text-align: left;
 	margin: 23px 0 0 10px;
 	font-size: 7.5pt;
+	line-height: 0pt;
 	}
 #zxcvb li .shiftright span {
 	text-align: right;
@@ -241,26 +257,30 @@ li {float: left;}
 
 #bottomrow ol li #left span, #bottomrow ol li #right span, #bottomrow ol li #up span, #bottomrow ol li #down span {
 	display: block;
-	margin: 9px 0 0;}
+	margin: 9px 0 0;
+	}
 
 .fn {height: 26px; width: 46px;}
 #delete {
 	width: 77px;
 	position:absolute;
-	right: 33pt;	
+	right:7pt;
+	
 }
 #tab {width: 72px;}
-#caps {width: 85px;}
+#caps {
+	width: 85px;
+}
 #enter {
 	width: 65px;
 	position:absolute;
-	right: 30pt;
+	right: 7pt;
 	}
 .shiftleft {width: 112px;}
 .shiftright {
 	width: 80px;
 	position:absolute;
-	right: 30pt;
+	right: 7pt;
 	}
 #fn, #control, .option, .command, #spacebar {height: 49px;}
 
