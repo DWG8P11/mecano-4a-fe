@@ -7,12 +7,12 @@
     </div>
 
     <!--Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):-->
-    <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div>
+    <!--div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div-->
 
     <!--Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):-->
-    <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
+    <!--div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div-->
 
-    <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'"
+    <input :placeholder="!leccionEnCurso ? 'Empezar' : 'Continuar'"
             id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
             v-on:keydown="teclaAbajo($event.code, $event)" v-on:keyup="teclaArriba($event.code, $event)" 
             v-on:blur="salidoDeInput" readonly>
@@ -649,7 +649,6 @@ export default {
     
 }
 
-
 .letrasNucleo{
     text-align: center;
     line-height: 10pt;
@@ -664,8 +663,9 @@ export default {
 
 #texto-leccion {
    
-    margin-left:20pt;
-    margin-right: 20pt;
+    margin-left:60pt;
+    margin-right: 60pt;
+    margin-top: 10pt;
     font-size: 10pt;
     color: white;
     background: rgb(0,0,0,0.15);
@@ -757,16 +757,19 @@ export default {
 
     text-align: center;
     border-radius: 30%;*/
+    z-index: 999;
     display:block;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 5pt;
     text-align: center;
     font-family: Questa Grande;
     font-size: 15;
    
     right: 50pt;
-    width: 15vw;
-    height: 1vh;
+    width: 6vw;
+    height: 0.1vh;
+    line-height: 30pt;
 
     background: rgb(30, 174, 152);
     border: 1px solid #e5e7e9;

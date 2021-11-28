@@ -98,15 +98,15 @@ export default {
   background: transparent;
   height: 10pt;
   position:absolute;
-  right: 80pt;
-  top:30pt;
+  right: 60pt;
+  top:20pt;
   
 }
 
 .nav a {
   font-family:Questa Grande;
   font-weight: bold;
-  font-size:15pt;
+  font-size:10pt;
   color:white;
 
 }
@@ -135,7 +135,7 @@ h1 {
 .navLog{
   position: absolute;
   top:20pt;
-  right:-35pt;
+  right:-25pt;
 }
 
 .buttonlogout{
@@ -152,13 +152,13 @@ h1 {
 
 .navLog a {
   margin-top: 40pt;
-  margin-right: 55pt;
+  margin-right: 30pt;
   text-align: center;
   display: block;
   color: white;
   text-decoration: none;
   font-family: Questa Grande;
-  font-size: 9pt;
+  font-size: 8pt;
   text-transform: uppercase;
   line-height: 130%;
   transition: all 300ms;
@@ -180,8 +180,8 @@ h1 {
 
 .buttonLoginOut{
   z-index: 999;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   background: turquoise;
   background-image: url(../Imagenes/cohete.gif);
   background-repeat: no-repeat;
@@ -190,7 +190,7 @@ h1 {
   border-radius: 100%;
   cursor: pointer;
   margin-top: 5pt;
-  margin-right: 70pt;
+  margin-right: 50pt;
   transition: all 1s ease-in-out;
 }
 

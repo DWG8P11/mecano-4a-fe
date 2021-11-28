@@ -82,10 +82,11 @@ export default {
 
 #keyboard {
 	position: relative;
-	left:55pt;
+	left:95pt;
+	top:10pt;
 	/* margin: 50px ; */
-	width: 745px;
-	/* height: 315px; */
+	width: 650px;
+	height: 155px;
 	background:	rgba(170, 170, 170, 0.2);
 	border-top-left-radius: 7px 21px;
 	border-top-right-radius: 7px 21px;
@@ -106,11 +107,11 @@ li {float: left;}
 	display: block;
 	color:white;
 	font-family: Questa Grande;
-	font-size:9pt;
+    font-size:6pt;
 	text-decoration: none;
 	text-align: center;
-	width: 40px;
-	height: 30px;
+	width: 30px;
+	height: 20px;
 	margin: 5px;
 	background: rgba(0, 0, 0,0.5); 
 	border-radius: 4px;
@@ -243,17 +244,40 @@ li {float: left;}
 	margin: 9px 0 0;}
 
 .fn {height: 26px; width: 46px;}
-#delete {width: 72px;}
+#delete {
+	width: 77px;
+	position:absolute;
+	right: 33pt;	
+}
 #tab {width: 72px;}
 #caps {width: 85px;}
-#enter {width: 85px;}
-.shiftleft, .shiftright {width: 112px;}
+#enter {
+	width: 65px;
+	position:absolute;
+	right: 30pt;
+	}
+.shiftleft {width: 112px;}
+.shiftright {
+	width: 80px;
+	position:absolute;
+	right: 30pt;
+	}
 #fn, #control, .option, .command, #spacebar {height: 49px;}
 
 #control {width: 56px;}
 .option {width: 46px;}
 .command {width: 67px;}
-#spacebar {width: 226px;}
+#spacebar {
+	width: 226px;
+	height: 14.6pt;
+	position: absolute;
+	left:150pt ;
+}
+#commandright{
+	position: absolute;
+	right: 130pt;
+
+}
 
 #left img, #up img, #down img, #right img {border: none;}
 ul ol {list-style-type: none;}
