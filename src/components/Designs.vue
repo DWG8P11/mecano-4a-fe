@@ -86,7 +86,7 @@ export default {
 	top:10pt;
 	/* margin: 50px ; */
 	width: 640px;
-	height: 155px;
+	height: 157px;
 	background:	rgba(170, 170, 170, 0.2);
 	border-top-left-radius: 7px 21px;
 	border-top-right-radius: 7px 21px;
@@ -295,7 +295,7 @@ li {float: left;}
 }
 #commandright{
 	position: absolute;
-	right: 130pt;
+	right: 120pt;
 
 }
 

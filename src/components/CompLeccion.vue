@@ -23,6 +23,10 @@
 
     <Designs/>
 
+    <div class="cuerpo-celeste-contenedor">
+
+    </div>
+
 </div>
 </template>
 

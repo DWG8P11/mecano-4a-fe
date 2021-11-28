@@ -154,13 +154,13 @@ h1 {
   margin-top: 40pt;
   margin-right: 30pt;
   text-align: center;
+  line-height: 0;
   display: block;
   color: white;
   text-decoration: none;
   font-family: Questa Grande;
   font-size: 8pt;
   text-transform: uppercase;
-  line-height: 130%;
   transition: all 300ms;
   padding: 0;
 }
@@ -192,6 +192,7 @@ h1 {
   margin-top: 5pt;
   margin-right: 50pt;
   transition: all 1s ease-in-out;
+ 
 }
 
 /*Estilo footer*/
