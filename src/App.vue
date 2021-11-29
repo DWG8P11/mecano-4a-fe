@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="app">
     <title>La nebulosa de Qwerty</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    
 
     <div class = header>
        <div class="headcontainer titulo-nav-contenedorBoton">

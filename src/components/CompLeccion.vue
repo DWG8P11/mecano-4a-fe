@@ -1,6 +1,10 @@
 <template>
 <div class="componente-leccion">
     <h1> Adhara </h1>
+  
+    <img class = "planetas"   src = "../../Imagenes/planetas.png">
+    <img class = "telescopio" src = "../../Imagenes/telescopio.png">
+    
     
     <div class= letrasNucleo> 
         <span v-for="letra in letras" :key="letra"> {{letra}}-&nbsp;</span><br/>
@@ -23,9 +27,8 @@
 
     <Designs/>
 
-    <div class="cuerpo-celeste-contenedor">
+    <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
 
-    </div>
 
 </div>
 </template>
@@ -644,13 +647,28 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:30pt;
+    top:10pt;
 
 }
 .componente-leccion h1{
     text-align: center;
     line-height: 4pt;
     
+}
+
+.planetas{
+    position:absolute;
+    top:5pt;
+    width: 70pt;
+    height:50pt ;
+    left:260pt;
+}
+.telescopio{
+    position:absolute;
+    top:20pt;
+    width: 70pt;
+    height:40pt ;
+    left:380pt;
 }
 
 .letrasNucleo{
@@ -765,7 +783,7 @@ export default {
     display:block;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 5pt;
+    margin-top: 2pt;
     text-align: center;
     font-family: Questa Grande;
     font-size: 15;
@@ -773,7 +791,7 @@ export default {
     right: 50pt;
     width: 6vw;
     height: 0.1vh;
-    line-height: 30pt;
+    line-height: 10pt;
 
     background: rgb(30, 174, 152);
     border: 1px solid #e5e7e9;
@@ -801,6 +819,14 @@ export default {
   outline:none;
   border:none;
 
+}
+
+.cuerpo_celeste{
+    position:absolute;
+    width: 100pt ;
+    height: 120pt ;
+    right:60pt;
+    bottom: 50pt;
 }
 
 </style>

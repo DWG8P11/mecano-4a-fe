@@ -82,11 +82,11 @@ export default {
 
 #keyboard {
 	position: relative;
-	left:95pt;
+	left:55pt;
 	top:10pt;
 	/* margin: 50px ; */
 	width: 640px;
-	height: 157px;
+	height: 15px;
 	background:	rgba(170, 170, 170, 0.2);
 	border-top-left-radius: 7px 21px;
 	border-top-right-radius: 7px 21px;
