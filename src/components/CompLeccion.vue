@@ -56,9 +56,9 @@ export default {
             return letra.normalize().toLowerCase();
         })
 
+        // Variables para puntaje
         this.tiempo_i; // Tiempo de inicio de la leccion
 
-        // Variables de puntaje
         this.milisegundos_tot; // Milisegundos de duración de la lección
         this.n_car_ok; // Número de caracteres correctos
         this.porc_acierto; // Porcentaje efectivo de aciertos
@@ -68,6 +68,7 @@ export default {
         this.wpm_efectiva;
         this.puntaje_final;
         
+        // Constantes
         //this.n_car_prom_palabra = 4.938; // https://www.slideshare.net/quesadagranja/distribucin-por-longitud-de-las-palabras-de-diferentes-idiomas-presentation
         this.n_car_prom_palabra = 4.5;// https://www.um.es/lacell/aelinco/contenido/pdf/51.pdf
         this.letra_aprobada = "letra-aprobada";
@@ -189,7 +190,11 @@ export default {
                 delete this.aTextoEstilo[i]["id"];
             })
 
-            // Actualizar estilo, basado en primera posición de letra de lección
+            /*
+             * Inicializar variables de estado de la lección
+             * y Actualizar estilo, basado en primera posición de letra de lección
+             */
+
             // Inicialización de las variables que determinan el estado de la lección
             this.i_posRelActual = 0;
             var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
