@@ -8,6 +8,7 @@
             {{ letra }}
         </li>
     </ul>
+
     Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):
     <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div>
 
@@ -19,6 +20,8 @@
         <span v-html="texto_html" :key="i_posRelActual"/>
     </div>
 
+
+    <button v-on:click="empezarLeccion(true)"> Reiniciar Sesión </button>
 </div>
 </template>
 
@@ -57,7 +60,7 @@ export default {
 
         // Variables de puntaje
         this.milisegundos_tot; // Milisegundos de duración de la lección
-        this.n_car_ok = 0; // Número de caracteres correctos
+        this.n_car_ok; // Número de caracteres correctos
         this.porc_acierto; // Porcentaje efectivo de aciertos
         this.cpm_bruta;
         this.wpm_bruta;
@@ -88,19 +91,18 @@ export default {
             de las del texto de las letras que hacen parte de la lección.
         */
 
-        // Inicialización de las variables mencionadas que determinan el estado de la leccion.
-        this.i_posRelActual = 0; // Posicion global del caracter actual. Poner id
+        // Inicialización de las variables que determinan el contexto de la leccion.
         this.aTexto = this.textoN.split(""); // Texto completo, como array
         this.aPosicionesDeLeccion = []; // Posiciones globales de letras que pertenecen a la lección
         this.aTextoEstilo = []; // Array donde el índice indica la posición relativa de cada letra de la lección con su estilo
 
         /*
-         * Dar clases e ids HTML a cada tecla
+         * Dar clases e ids HTML iniciales a cada tecla
          */
 
         // Llenar aPosicionesDeLeccion y aTextoEstilo
         this.aTexto.forEach((caracter, i) => {
-            if (this.letras.includes(caracter.toLowerCase())) {
+            if (this.letrasN.includes(caracter.toLowerCase())) {
                 this.aPosicionesDeLeccion.push(i);
                 this.aTextoEstilo[i] = {clases: [this.letra_leccion], id: undefined};
 
@@ -112,15 +114,11 @@ export default {
             }
             
             // Estilizar letras con tilde y diéresis... TODO no hacer? Booleano en DB?
-            else if (caracter in letrasConAdiciones && this.letras.includes(letrasConAdiciones[caracter].toLowerCase())) {
+            else if (caracter in letrasConAdiciones && this.letrasN.includes(letrasConAdiciones[caracter].toLowerCase())) {
                 this.aPosicionesDeLeccion.push(i);
                 this.aTextoEstilo[i] = {clases: [this.letra_leccion], id: undefined};
             }
         })
-
-        // Actualizar estilo, basado en primera posición de letra de lección
-        var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
-        this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
 
         // Crear HTML estilizado
         //Ejemplo: this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
@@ -176,16 +174,34 @@ export default {
             return resultado;
         },
 
-        empezarLeccion: function() {
+        empezarLeccion: function(forzar = false) {
             // En caso de que ya haya una lección en curso, no hacer nada
-            if (this.leccionEnCurso) {
+            if (this.leccionEnCurso && !forzar) {
                 return;
             }
 
+            // Borrar estilos adicionales a los iniciales
+            this.aPosicionesDeLeccion.forEach(i => {
+                this.aTextoEstilo[i]["clases"] = this.aTextoEstilo[i]["clases"].filter(clase => {
+                    return clase != this.letra_aprobada && clase != this.letra_reprobada
+                })
+
+                delete this.aTextoEstilo[i]["id"];
+            })
+
+            // Actualizar estilo, basado en primera posición de letra de lección
+            // Inicialización de las variables que determinan el estado de la lección
+            this.i_posRelActual = 0;
+            var i_posGlobActual = this.aPosicionesDeLeccion[this.i_posRelActual];
+            this.n_car_ok = 0;
+            this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
             this.leccionEnCurso = true;
 
+            this.texto_html = this.hacerTextoHtmlActual();
+            let inputTexto = document.getElementById("inputTexto");
+            if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
+            inputTexto.focus();
             this.tiempo_i = new Date();
-            this.n_car_ok = 0;
 
             // Actualizar retroalimentacion sobre tecla siguiente
             this.actRetroalSiguiente(`Oprime '${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}'`);
