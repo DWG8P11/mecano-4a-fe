@@ -23,12 +23,14 @@
 
       <section class="modal-body">
         
-        <span> Tiempo de lección: {{ segundos.toFixed(2) }} </span> <br/>
-        <span> Velocidad: {{ cpme.toFixed(0) }} Caracteres por minuto</span> <br/>
+        <span> Tiempo de lección: {{ segundos.toFixed(2) }} segundos </span> <br/>
+        <span> Velocidad: {{ (cpme/5).toFixed(0) }} palabras por minuto </span> <br/>
         <span> Precisión: {{ (100*precision).toFixed(0) }}% </span> <br/>
-        <span> PUNTAJE: {{ 3*cpme }} </span> <br/>
+        <span> PUNTAJE: {{ (3*cpme).toFixed(0) }} </span> <br/><br/>
         <span> Resumen: {{ darFase() }} </span> <br/>
         <span> {{ darTextoResumen() }}  </span> <br/>
+
+        <!-- <button > -->
 
       </section>
 
