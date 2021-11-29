@@ -679,7 +679,7 @@ export default {
 }
 
 :root {
-    --tamano-fuente: 14pt; /* Variable que determina el tamaño de las cosas */
+    --tamano-fuente: 10pt; /* Variable que determina el tamaño de las cosas */
 }
 
 
@@ -700,13 +700,13 @@ export default {
 
     text-align: center;
 
-    width: calc(1rem*1.3);
-    height: calc(1rem*1.3);
+    width: calc(var(--tamano-fuente)*1.2);
+    height: calc(var(--tamano-fuente)*1.2);
 
     color:rgb(243, 239, 201);
     
     font-family: Questa Grande; /* Mejorar */
-    font-size: 15pt;
+    font-size: var(--tamano-fuente);
 
     border-radius: 20%;
     border-style: solid;
