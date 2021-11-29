@@ -23,7 +23,12 @@
 
       <section class="modal-body">
         
-          
+        <span> Tiempo de lección: {{ segundos.toFixed(2) }} </span> <br/>
+        <span> Velocidad: {{ cpme.toFixed(0) }} Caracteres por minuto</span> <br/>
+        <span> Precisión: {{ (100*precision).toFixed(0) }}% </span> <br/>
+        <span> PUNTAJE: {{ 3*cpme }} </span> <br/>
+        <span> Resumen: {{ darFase() }} </span> <br/>
+        <span> {{ darTextoResumen() }}  </span> <br/>
 
       </section>
 
@@ -44,19 +49,89 @@
 
 export default {
   name: "CompModalFinLeccion",
+
+  props: {
+    segundos: Number,
+    cpme: Number,
+    precision: Number,
+    cpm_min1: Number,
+    cpm_min2: Number,
+    cpm_min3: Number,
+    cpm_min4: Number
+  },
+
+  created: function() {
+    this.calcularResumen();
+  },
   
   methods: {
-    cerrarModal() {
+    cerrarModal: function() {
         console.log("En modal: se dio la orden de cerrar.");
       this.$emit("msjCerrarModal");
     },
-  },
 
-  components: {
-  },
+    calcularResumen: function() {
+      if (this.cpme < this.cpm_min1){
+        this.resumen = 0;
+      } else if (this.cpme < this.cpm_min2){
+        this.resumen = 1;
+      } else if (this.cpme < this.cpm_min3){
+        this.resumen = 2;
+      } else if (this.cpme < this.cpm_min4){
+        this.resumen = 3;
+      } else {
+        this.resumen = 4;
+      }
+    },
 
-  props: [],
-};
+    darFase: function() {
+      switch(this.resumen) {
+        case 0:
+          return ""
+          break;
+        case 1:
+          return "Luna nueva visible"
+          break;
+        case 2:
+          return "Cuarto creciente"
+          break;
+        case 3:
+          return "Luna gibosa creciente"
+          break;
+        case 4:
+          return "Luna llena"
+          break;
+        default:  // TODO Si error
+          return "Hubo un error calculando tu puntaje."
+          break;
+      }
+    },
+
+    darTextoResumen: function() {
+      switch(this.resumen) {
+        case 0:
+          return "¡Uy! Te falto poco para pasar la lección. Intenta de nuevo."
+          break;
+        case 1:
+          return "¡Bien! Lograste sobrepasar este asteroide que se interponía en tu camino."
+          break;
+        case 2:
+          return "¡Muy bien! ¡Estás por fuera del Sistema Solar!"
+          break;
+        case 3:
+          return "¡Excelente! ¡Estás muy cerca de llegar al infinito y más allá!"
+          break;
+        case 4:
+          return "¡Increíble! ¡Sobrepasaste los límites de nuestro Espacio-Tiempo!"
+          break;
+        default:  // TODO Si error
+          return "Hubo un error calculando tu puntaje."
+          break;
+      }
+    },
+  }
+}
+
 </script>
 
 
@@ -77,7 +152,7 @@ export default {
 }
 
 .ModalCuadro {
-  background: #ffffff;
+  background: rgb(8, 8, 71); /* Perdona, estaba trabajando en dev y no tengo acceso ni a las imagenes, ni a los colores */
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
   display: flex;

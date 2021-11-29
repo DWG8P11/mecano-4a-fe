@@ -23,7 +23,8 @@
 
     <button v-on:click="empezarLeccion(true)"> Reiniciar Sesión </button>
 
-    <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"/>
+    <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
+                      :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
 </div>
 </template>
 
@@ -221,7 +222,6 @@ export default {
 
         acabarLeccion: function(error) {
             // TODO
-            this.modalAbierto = true;
 
             // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
@@ -249,9 +249,11 @@ export default {
             }
 
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
+
+            this.modalAbierto = true;
             
             
-            alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
+            //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
         },
 
         teclaPresionada: function(evento) {
