@@ -22,10 +22,14 @@
 
 
     <button v-on:click="empezarLeccion(true)"> Reiniciar Sesión </button>
+
+    <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"/>
 </div>
 </template>
 
 <script>
+import CompModalLeccion from "./CompModalFinLeccion.vue"
+
 export default {
     name: 'CompLeccion',
 
@@ -41,11 +45,14 @@ export default {
         }
     },
 
+    components: {CompModalLeccion},
+
     data: function() {
         return {
             i_posRelActual: 0, // Necesario ponerla acá para que sirva como key de renderización del texto
             retroAnterior: "", // Mensaje de retroalimentación tecla oprimida
-            retroSiguiente: "" // Mensaje de retroalimentación sobre tecla a oprimir
+            retroSiguiente: "", // Mensaje de retroalimentación sobre tecla a oprimir
+            modalAbierto: false // Indica si el componente modal (ventana emergente) está abierto
         }
     },
 
@@ -214,9 +221,11 @@ export default {
 
         acabarLeccion: function(error) {
             // TODO
+            this.modalAbierto = true;
 
             // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
+                // TODO mejorar
                 return;
             }
 
@@ -432,6 +441,11 @@ export default {
 
             // Actualizar mensaje
             this.retroSiguiente = `Oprime '${oprimir}'${adicion}`;
+        },
+
+        cerrarModal: function() {
+            console.log("En CompLeccion: orden de cerrar modal recibida.");
+            this.modalAbierto = false;
         }
     }
 }
