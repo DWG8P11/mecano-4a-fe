@@ -823,7 +823,7 @@ export default {
     width: 100pt ;
     height: 120pt ;
     right:60pt;
-    bottom: 60pt;
+    bottom: 100pt;
 }
 
 </style>
