@@ -647,12 +647,13 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:8pt;
+    top:-1pt;
 
 }
 .componente-leccion h1{
     text-align: center;
-    line-height: 4pt;
+    line-height: 0pt;
+    font-size:16pt;
     
 }
 
@@ -668,14 +669,15 @@ export default {
 
     position:absolute;
     top:25pt;
-    width: 70pt;
+    width: 55pt;
     height:30pt ;
-    left:380pt;
+    left:390pt;
 }
 
 .letrasNucleo{
     text-align: center;
-    line-height: 8pt;
+    line-height: 6pt;
+    font-size: 11pt;
     
 
 }
@@ -821,9 +823,9 @@ export default {
 .cuerpo_celeste{
     position:absolute;
     width: 100pt ;
-    height: 120pt ;
+    height: 110pt ;
     right:60pt;
-    bottom: 100pt;
+    bottom: 60pt;
 }
 
 </style>
