@@ -86,8 +86,8 @@ export default {
 	top:10pt;
 	/* margin: 50px ; */
 	width: 640px;
-	height: 15px;
-	background:	rgba(170, 170, 170, 0.2);
+	height: 159px;
+	background:	rgba(170, 170, 170, 0.1);
 	border-top-left-radius: 7px 21px;
 	border-top-right-radius: 7px 21px;
 	border-bottom-right-radius: 10px;

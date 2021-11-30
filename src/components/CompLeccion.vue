@@ -647,7 +647,7 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:10pt;
+    top:8pt;
 
 }
 .componente-leccion h1{
@@ -657,15 +657,17 @@ export default {
 }
 
 .planetas{
+   
     position:absolute;
-    top:5pt;
+    top:1pt;
     width: 70pt;
     height:50pt ;
     left:260pt;
 }
 .telescopio{
+
     position:absolute;
-    top:20pt;
+    top:15pt;
     width: 70pt;
     height:40pt ;
     left:380pt;
@@ -673,7 +675,7 @@ export default {
 
 .letrasNucleo{
     text-align: center;
-    line-height: 10pt;
+    line-height: 15pt;
     
 
 }
@@ -700,7 +702,7 @@ export default {
 
     text-align: center;
 
-    width: calc(var(--tamano-fuente)*1.2);
+    width: calc(var(--tamano-fuente)*1.1);
     height: calc(var(--tamano-fuente)*1.2);
 
     color:rgb(243, 239, 201);
@@ -773,16 +775,11 @@ export default {
     /* TODO hacer que se pueda escribir sin necesidad de estar ubicado sobre esta cajita */
 
     /* Para centrar el bloque */
-    /*display:block;
-    margin-right: auto;
-    margin-left: auto;
-
-    text-align: center;
-    border-radius: 30%;*/
-    z-index: 999;
     display:block;
-    margin-right: auto;
-    margin-left: auto;
+    position: relative;
+    z-index: 999;
+    transform-origin: 50% 50%;
+    margin-left: 52% ;
     margin-top: 2pt;
     text-align: center;
     font-family: Questa Grande;

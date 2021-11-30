@@ -90,6 +90,7 @@ export default {
 }
 
 .titulo-nav-contenedorBoton{
+ 
   display: flex;
   justify-content: space-between;
   justify-items: auto;
