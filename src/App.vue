@@ -125,9 +125,9 @@ h1 {
   text-align: left;
   align-items: justify;
   font-family:Autery;
-  font-size: 22pt;
+  font-size: 30pt;
   color:white;
-  margin-top:17pt;
+  margin-top:20pt;
   margin-left:10pt;
 }
 

@@ -83,7 +83,7 @@ export default {
 #keyboard {
 	position: relative;
 	left:55pt;
-	top:2pt;
+	top:6pt;
 	/* margin: 50px ; */
 	width: 640px;
 	height: 159px;

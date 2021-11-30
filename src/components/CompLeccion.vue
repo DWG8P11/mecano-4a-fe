@@ -647,7 +647,7 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:1pt;
+    top:20pt;
 
 }
 .componente-leccion h1{
@@ -825,7 +825,7 @@ export default {
     width: 100pt ;
     height: 110pt ;
     right:60pt;
-    bottom: 60pt;
+    bottom: 90pt;
 }
 
 </style>
