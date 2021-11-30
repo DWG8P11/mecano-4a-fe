@@ -647,7 +647,7 @@ export default {
 
 .componente-leccion{
     position:relative;
-    top:-1pt;
+    top:1pt;
 
 }
 .componente-leccion h1{
