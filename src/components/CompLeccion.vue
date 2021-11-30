@@ -675,7 +675,7 @@ export default {
 
 .letrasNucleo{
     text-align: center;
-    line-height: 15pt;
+    line-height: 8pt;
     
 
 }
@@ -823,7 +823,7 @@ export default {
     width: 100pt ;
     height: 120pt ;
     right:60pt;
-    bottom: 50pt;
+    bottom: 60pt;
 }
 
 </style>
