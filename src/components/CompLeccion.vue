@@ -660,16 +660,16 @@ export default {
    
     position:absolute;
     top:1pt;
-    width: 70pt;
+    width: 80pt;
     height:50pt ;
     left:260pt;
 }
 .telescopio{
 
     position:absolute;
-    top:15pt;
+    top:25pt;
     width: 70pt;
-    height:40pt ;
+    height:30pt ;
     left:380pt;
 }
 
@@ -689,7 +689,7 @@ export default {
    
     margin-left:60pt;
     margin-right: 60pt;
-    margin-top: 10pt;
+    margin-top: 5pt;
     font-size: 10pt;
     color: white;
     background: rgb(0,0,0,0.15);
@@ -787,7 +787,7 @@ export default {
    
     right: 50pt;
     width: 6vw;
-    height: 0.1vh;
+    height: 0vh;
     line-height: 10pt;
 
     background: rgb(30, 174, 152);

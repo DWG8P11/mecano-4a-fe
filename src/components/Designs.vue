@@ -164,7 +164,10 @@ li {float: left;}
 	
 	}
 
-#numbers li .alt b {display: block;margin: 0 0 3px;}
+#numbers li .alt b {
+	display: block;
+	margin: 0 0 3px;
+	}
 
 #numbers li #delete span {
 	text-align: right;
@@ -209,15 +212,20 @@ li {float: left;}
 	margin: 9px 0 0 10px;
 	-webkit-box-shadow: inset 0 1px 0 #666;
 	-moz-box-shadow:inset 0 1px 0 #666;
-	box-shadow:inset 0 1px 0 #666;}
+	box-shadow:inset 0 1px 0 #666;
+	
+	}
+	
 #asdfg li #caps span {
 	text-align: left;
 	margin: 10px 0 0 10px;
-	font-size: 7.5pt;}
+	font-size: 7.5pt;
+	}
 #asdfg li #enter span {
 	text-align: right;
 	margin: 23px 10px 0 0;
-	font-size: 7.5pt;}
+	font-size: 7.5pt;
+	}
 
 
 #zxcvb li div span {
@@ -246,6 +254,7 @@ li {float: left;}
 	text-align: left;
 	margin: 31px 0 0 8px;
 	font-size: 7.5pt;
+
 }
 
 #bottomrow li #optionright span, #bottomrow li #commandright span {
