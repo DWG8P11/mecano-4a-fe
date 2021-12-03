@@ -6,17 +6,21 @@
       <!-- Header -->
       <header class="modal-header">
         <button
-          type="button"
-          class="btn-close-X"
-          @click="cerrarModal"
-          aria-label="Close modal"
+          type       = "button"
+          class      = "btn-close-X"
+          @click     = "cerrarModal"
+          aria-label = "Close modal"
         >
           X
         </button>
 
-        <slot name="header">
-          <h2> Componente Modal Lección </h2>
-        </slot>
+        <img class = "luna_nueva"       src = "../../Imagenes/ICONO_LUNA/2.png">
+        <img class = "luna_creciente"   src = "../../Imagenes/ICONO_LUNA/3.png">
+        <img class = "cuarto_creciente" src = "../../Imagenes/ICONO_LUNA/4.png">
+        <img class = "creciente_gibosa" src = "../../Imagenes/ICONO_LUNA/5.png">
+        <img class = "luna_llena"       src = "../../Imagenes/ICONO_LUNA/6.png">
+
+       
 
       </header>
 
@@ -42,9 +46,6 @@
     </div>
   </div>
 </template>
-
-
-
 
 
 <script>
@@ -141,8 +142,13 @@ export default {
 
 
 <style>
+@font-face {
+  font-family: Questa Grande;
+  src: url(../../fuentes/Questa_Grande_Regular.otf) format("Opentype");
+}
 .ModalBack {
-  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  background: rgba(50, 82, 136,0.3);
   position: fixed;
   top: 0;
   bottom: 0;
@@ -151,15 +157,29 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: Questa Grande;
+ 
 }
 
 .ModalCuadro {
-  background: rgb(8, 8, 71); /* Perdona, estaba trabajando en dev y no tengo acceso ni a las imagenes, ni a los colores */
+  background: rgb(50, 82, 136); 
   box-shadow: 2px 2px 20px 1px;
-  overflow-x: auto;
+ 
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 500pt;
+  height: 270pt;
+  border-radius: 10pt;
+}
+
+.modal-header{ 
+  z-index: 100;
+  position:relative;
+  background: transparent;
+  width: 500pt;
+  height: 100pt;
+
 }
 
 .btn-close-X{
@@ -171,13 +191,60 @@ export default {
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: rgb(127, 157, 255);
+  color:turquoise;
   background: transparent;
 }
 
-footer {
-  text-align: center;
-  margin: 10px;
+
+.luna_nueva{
+  position:absolute;
+  left: -20pt;
+  top:-10pt;
+  width: 200pt;
+  height: 100pt;
+
+
 }
+.luna_creciente{
+  position:absolute;
+  left: 70pt;
+  top:20pt;
+  width: 200pt;
+  height: 100pt;
+
+}
+.cuarto_creciente{
+  position:absolute;
+  left: 150pt;
+  top: 27pt;
+  width: 200pt;
+  height: 100pt;
+
+}
+.creciente_gibosa{
+  position:absolute;
+  right: 80pt;
+  top:20pt;
+  width: 200pt;
+  height: 100pt;
+
+}
+.luna_llena {
+  position:absolute;
+  right: 0pt;
+  top:-10pt;
+  width: 200pt;
+  height: 100pt;
+
+}
+
+.modal-body{
+  position:relative;
+  top: 50pt;
+  left:10pt;
+  text-align: center;
+}
+
+
 
 </style>
