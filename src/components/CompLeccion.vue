@@ -26,8 +26,6 @@
     </div>
 
 
-    <button v-on:click="empezarLeccion(true)"> Reiniciar Sesión </button>
-
     <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
     <Designs/>

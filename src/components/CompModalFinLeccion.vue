@@ -30,13 +30,15 @@
         <span> Tiempo de lección: {{ segundos.toFixed(2) }} segundos </span> <br/>
         <span> Velocidad: {{ (cpme/5).toFixed(0) }} palabras por minuto </span> <br/>
         <span> Precisión: {{ (100*precision).toFixed(0) }}% </span> <br/>
-        <span> PUNTAJE: {{ (3*cpme).toFixed(0) }} </span> <br/><br/>
+        <span> Puntaje: {{ (3*cpme).toFixed(0) }} </span> <br/><br/>
         <span> Resumen: {{ darFase() }} </span> <br/>
         <span> {{ darTextoResumen() }}  </span> <br/>
 
         <!-- <button > -->
 
       </section>
+
+      <button v-on:click="empezarLeccion(true)"> Reiniciar Sesión </button>
 
       <!--footer>
         <button v-on:click="metCerrarModal" id="btnCerrarModal">
@@ -90,10 +92,10 @@ export default {
     darFase: function() {
       switch(this.resumen) {
         case 0:
-          return ""
+          return "Luna nueva visible"
           break;
         case 1:
-          return "Luna nueva visible"
+          return "Luna creciente"
           break;
         case 2:
           return "Cuarto creciente"
@@ -183,6 +185,7 @@ export default {
 }
 
 .btn-close-X{
+  z-index: 100;
   position: absolute;
   top: 0;
   right: 0;
