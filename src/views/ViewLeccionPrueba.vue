@@ -1,7 +1,7 @@
 <template>
 <div class="view-leccion-prueba">
     
-    <CompLeccion :texto="textoDePrueba" :letras="['a', 'ñ']"/>
+    <CompLeccion :titulo="tituloLeccion" :texto="textoDePrueba" :letras="['a', 'ñ', ' ']" imagen="../../Imagenes/Canis_major.jpg"/>
    
 </div>
 </template>
@@ -18,7 +18,9 @@ export default {
 
     data: function() {
         return {
-            textoDePrueba:'Es la segunda estrella más brillante de la constelación Canis Major. Su principal significado es «flor de azahar». Es una estrella binaria, su estrella principal es una supergigante azul o gigante luminosa. Distante 430 años luz de la tierra. Adhara es la fuente ultravioleta extrema más brillante conocida en el cielo. Si pudiéramos ver en longitudes de onda ultravioleta, eclipsaría a todas las demás estrellas. '
+            textoDePrueba:'Es la segunda estrella más brillante de la constelación Canis Major. Su principal significado es «flor de azahar». Es una estrella binaria, su estrella principal es una supergigante azul o gigante luminosa. Distante 430 años luz de la tierra. Adhara es la fuente ultravioleta extrema más brillante conocida en el cielo. Si pudiéramos ver en longitudes de onda ultravioleta, eclipsaría a todas las demás estrellas. ',
+            tituloLeccion: "Adhara",
+            imagenLeccion: "../../Imagenes/Canis_major.jpg",
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
 <div class="componente-leccion">
-    <h1> Adhara </h1>
+    <h1> {{ titulo }} </h1>
   
     <img class = "planetas"   src = "../../Imagenes/planetas.png">
     <img class = "telescopio" src = "../../Imagenes/telescopio.png">
@@ -30,7 +30,7 @@
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
     <Designs/>
 
-    <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
+    <img class= "cuerpo_celeste" :src="require(`${imagen}`)" :key="i_posRelActual">
 
 
 </div>
@@ -44,6 +44,11 @@ export default {
     name: 'CompLeccion',
 
     props: {
+        titulo: {
+            type: String,
+            default: "Título de la Lección"
+        },
+
         texto: {
             type: String,
             default: "No se cargo un texto para esta leccion",
@@ -52,6 +57,30 @@ export default {
         letras: {
             type: Array,
             default: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', ';', ':', ,'¿', '?', '¡', '!', '"', "'", '\n', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '#', '$', '%', '&', '/', '(', ')', '=', '+', '*', '[', ']', '{', '}', '-', '_', '°', '|', '¬', '\\', '`', '~', '^', '@'],
+        },
+
+        imagen: {
+            type: String
+        },
+
+        cpmMin1: {
+            type: Number,
+            default: 100
+        },
+
+        cpmMin2: {
+            type: Number,
+            default: 200
+        },
+        
+        cpmMin3: {
+            type: Number,
+            default: 300
+        },
+        
+        cpmMin4: {
+            type: Number,
+            default: 400
         }
     },
 
@@ -66,7 +95,7 @@ export default {
             i_posRelActual: 0, // Necesario ponerla acá para que sirva como key de renderización del texto
             retroAnterior: "", // Mensaje de retroalimentación tecla oprimida
             retroSiguiente: "", // Mensaje de retroalimentación sobre tecla a oprimir
-            modalAbierto: false // Indica si el componente modal (ventana emergente) está abierto
+            modalAbierto: false, // Indica si el componente modal (ventana emergente) está abierto
         }
     },
 
