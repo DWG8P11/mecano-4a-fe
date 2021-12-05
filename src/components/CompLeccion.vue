@@ -708,7 +708,7 @@ export default {
   src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
 }
 
-.componente-leccion{
+.componente-leccion{   
     position:relative;
     top:20pt;
 
