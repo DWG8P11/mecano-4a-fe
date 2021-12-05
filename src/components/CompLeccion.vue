@@ -709,6 +709,7 @@ export default {
 }
 
 .componente-leccion{
+    overflow-y:hidden;
     position:relative;
     top:20pt;
 

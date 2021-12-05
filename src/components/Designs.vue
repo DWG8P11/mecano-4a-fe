@@ -81,9 +81,9 @@ export default {
 
 
 #keyboard {
-	position: relative;
+	position: fixed;
 	left:55pt;
-	top:6pt;
+	bottom:50px;
 	/* margin: 50px ; */
 	width: 640px;
 	height: 159px;
@@ -171,7 +171,9 @@ li {float: left;}
 
 #numbers li #delete span {
 	text-align: right;
-	margin: 23px 10px 0 0;
+	margin: 13px 13px 0 0;
+	font-size: 8pt;
+	line-height: 2px;
 	
 }
 	
@@ -185,8 +187,8 @@ li {float: left;}
 	
 #qwerty li #tab span {
 	text-align: left;
-	margin: 23px 0 0 10px;
-	font-size: 7.5pt;
+	margin: 13px 0 0 10px;
+	font-size: 8pt;
 	
 	}	
 
@@ -209,11 +211,11 @@ li {float: left;}
 	width: 4px;
 	height: 4px;
 	border-radius: 10px;
-	margin: 9px 0 0 10px;
+	margin: 0px 0 0 10px;
 	-webkit-box-shadow: inset 0 1px 0 #666;
 	-moz-box-shadow:inset 0 1px 0 #666;
 	box-shadow:inset 0 1px 0 #666;
-	
+	font-size: 8pt;
 	}
 	
 #asdfg li #caps span {
@@ -223,7 +225,7 @@ li {float: left;}
 	}
 #asdfg li #enter span {
 	text-align: right;
-	margin: 23px 10px 0 0;
+	margin: 13px 10px 0 0;
 	font-size: 7.5pt;
 	}
 
@@ -236,32 +238,32 @@ li {float: left;}
 	}
 #zxcvb li .shiftleft span {
 	text-align: left;
-	margin: 23px 0 0 10px;
-	font-size: 7.5pt;
+	margin: 13px 0 0 10px;
+	font-size: 8pt;
 	line-height: 0pt;
 	}
 #zxcvb li .shiftright span {
 	text-align: right;
-	margin: 23px 10px 0 0;
-	font-size: 7.5pt;
+	margin: 13px 10px 0 0;
+	font-size: 8pt;
 	}
-#zxcvb li .alt b {display: block;margin: 4px 0 0;}
+#zxcvb li .alt b {display: block;margin: 0px 0 0;}
 #zxcvb li .alt span {margin: 0;}
 
 	
 #bottomrow li #fn span, #bottomrow li #control span, #bottomrow li #optionleft span, #bottomrow li #commandleft span {
 	display: block;
 	text-align: left;
-	margin: 31px 0 0 8px;
-	font-size: 7.5pt;
+	margin: 13px 0 0 8px;
+	font-size: 8pt;
 
 }
 
 #bottomrow li #optionright span, #bottomrow li #commandright span {
 	display: block;
 	text-align: right;
-	margin: 31px 8px 0 0;
-	font-size: 7.5pt;
+	margin: 1px 2px 0 0;
+	font-size: 8pt;
 }
 
 #bottomrow ol li #left span, #bottomrow ol li #right span, #bottomrow ol li #up span, #bottomrow ol li #down span {
@@ -272,10 +274,10 @@ li {float: left;}
 .fn {height: 26px; width: 46px;}
 #delete {
 	width: 77px;
-	position:absolute;
-	right:7pt;
+	margin: 5px 0 0 1px;
 	
-}
+	}	
+
 #tab {width: 72px;}
 #caps {
 	width: 85px;
