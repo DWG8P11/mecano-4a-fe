@@ -30,7 +30,7 @@
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
     <Designs/>
 
-    <img class= "cuerpo_celeste" :src="require(`${imagen}`)" :key="i_posRelActual">
+    <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
 
 
 </div>

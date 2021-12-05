@@ -1,7 +1,7 @@
 <template>
 <div class="view-leccion-prueba">
     
-    <CompLeccion :titulo="tituloLeccion" :texto="textoDePrueba" :letras="['a', 'ñ', ' ']" imagen="../../Imagenes/Canis_major.jpg"/>
+    <CompLeccion :titulo="tituloLeccion" :texto="textoDePrueba" :letras="['a', 'ñ']" imagen="../../Imagenes/Canis_major.jpg"/>
    
 </div>
 </template>

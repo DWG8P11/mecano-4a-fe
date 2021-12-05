@@ -19,7 +19,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 @font-face {
   font-family: Autery;
   src: url(../../fuentes/Autery.ttf) format("truetype");
