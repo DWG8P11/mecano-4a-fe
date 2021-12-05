@@ -97,24 +97,23 @@ p {
   color: white;
   position: relative;
   top:0pt;
-  left:200pt;
-
+  left:300pt;
 
 }
 
 .telescopio{
-  position: absolute;
-  top: 135pt;
-  left:85pt;
+  position: relative;
+  top: -6pt;
+  left:-500pt;
   width: 90pt;
-  height: 60pt;
+  height: 55pt;
 
 }
 
 .maquina {
   position: relative;
-  top: 35pt;
-  right:570pt;
+  top: 25pt;
+  right:240pt;
   width: 90pt;
   height: 60pt;
 
