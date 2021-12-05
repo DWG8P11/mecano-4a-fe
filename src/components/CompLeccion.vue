@@ -27,6 +27,7 @@
 
 
     <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
+                      v-on:msjReiniciarLeccion="cerrarModalYReiniciar"
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
     <Designs/>
 
@@ -621,7 +622,7 @@ export default {
         },
 
         cerrarModal: function() {
-            console.log("En CompLeccion: orden de cerrar modal recibida.");
+            // console.log("En CompLeccion: orden de cerrar modal recibida.");
             this.modalAbierto = false;
         },
 
@@ -695,6 +696,11 @@ export default {
 
             htmlTecla.classList.add("actual");
 
+        },
+
+        cerrarModalYReiniciar: function() {
+            this.cerrarModal();
+            this.empezarLeccion(forzar = true);
         }
     }
 }

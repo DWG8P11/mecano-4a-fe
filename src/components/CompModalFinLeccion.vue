@@ -40,7 +40,8 @@
             <label for="toggle" class="button"></label>
 
             <nav class="nav">
-              <router-link to="/prueba-leccion" id="Leccion de Prueba">Intentar de nuevo</router-link>
+              <router-link to="/prueba-leccion" id="Leccion de Prueba" 
+                           v-on:click="reiniciarLeccion">Intentar de nuevo</router-link>
             </nav>
           </div>
 
@@ -72,6 +73,10 @@ export default {
     cerrarModal: function () {
       console.log("En modal: se dio la orden de cerrar.");
       this.$emit("msjCerrarModal");
+    },
+
+    reiniciarLeccion: function() {
+      this.$emit("msjReiniciarLeccion");
     },
 
     calcularResumen: function () {
