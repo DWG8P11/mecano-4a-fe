@@ -2,8 +2,12 @@
   <div class="home">
     <div class="css-typing">
       <p>A una tecla más cerca de las estrellas...</p>
-</div>
+    </div>
     
+    <img class= "telescopio" src= "../../Imagenes/telescopio2.png">  
+    <img class= "maquina" src= "../../Imagenes/maquina.png"> 
+   
+
   </div>
 </template>
 
@@ -40,7 +44,7 @@ export default {
     
     border-right: .15em solid white;
     white-space: nowrap;
-    overflow: hidden;
+  
 }
 
 .css-typing p:nth-child(1) {
@@ -92,9 +96,27 @@ p {
   font-size: 20pt;
   color: white;
   position: relative;
-  top:30pt;
+  top:0pt;
   left:200pt;
 
+
+}
+
+.telescopio{
+  position: absolute;
+  top: 135pt;
+  left:85pt;
+  width: 90pt;
+  height: 60pt;
+
+}
+
+.maquina {
+  position: relative;
+  top: 35pt;
+  right:570pt;
+  width: 90pt;
+  height: 60pt;
 
 }
 
