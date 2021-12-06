@@ -2,8 +2,8 @@
 <div class="componente-leccion">
     <h1> {{ titulo }} </h1>
   
-    <img class = "planetas"   src = "../../Imagenes/planetas.png">
-    <img class = "telescopio" src = "../../Imagenes/telescopio.png">
+    <img class = "planetas"    src = "../../Imagenes/planetas.png">
+    <img class = "telescopio1" src = "../../Imagenes/telescopio.png">
     
     
     <div class= letrasNucleo> 
@@ -732,7 +732,7 @@ export default {
     height:50pt ;
     left:260pt;
 }
-.telescopio{
+.telescopio1{
 
     position:absolute;
     top:25pt;

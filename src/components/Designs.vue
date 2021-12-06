@@ -81,9 +81,9 @@ export default {
 
 
 #keyboard {
-	position: fixed;
+	position: absolute;
 	left:55pt;
-	bottom:50px;
+	bottom:96px;
 	/* margin: 50px ; */
 	width: 640px;
 	height: 159px;
