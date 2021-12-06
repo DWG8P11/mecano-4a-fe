@@ -290,6 +290,9 @@ export default {
                 textoConHtml += this.htmlLetra(letra, this.aTextoEstilo[i]);
             });
 
+            let letraActualHtml = document.getElementById(this.letra_actual)
+            if (letraActualHtml)letraActualHtml.scrollIntoView({block: "center", behavior: "smooth"});
+
             return textoConHtml;
         },
 
@@ -760,6 +763,10 @@ export default {
     color: white;
     background: rgb(0,0,0,0.15);
     text-align: justify;
+    position:relative;
+    height: 67.2pt;
+    overflow:hidden;
+  
 
 }
 
@@ -889,7 +896,7 @@ export default {
     width: 100pt ;
     height: 110pt ;
     right:60pt;
-    bottom: 90pt;
+    bottom: 80pt;
 }
 
 </style>
