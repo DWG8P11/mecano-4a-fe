@@ -5,8 +5,6 @@
     <div class="ModalCuadro">
       <!-- Header -->
       <header class="modal-header">
-      
-
         <img class="luna_nueva"       src="../../Imagenes/ICONO_LUNA/2.png" />
         <img class="luna_creciente"   src="../../Imagenes/ICONO_LUNA/3.png" />
         <img class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
@@ -26,18 +24,30 @@
         <span> Resumen: {{ darFase() }} </span> <br />
         <span> {{ darTextoResumen() }} </span> <br />
 
-        <!-- <button > -->
+        <!-- <Botón Intentar de nuevo> -->
 
         <div class="container">
-            <input type="checkbox" id="toggle" />
-            <label for="toggle" class="button"></label>
+          <input type="checkbox" id="toggle" />
+          <label for="toggle" class="button"></label>
 
-            <nav class="nav">
-              <router-link to="/prueba-leccion" id="Leccion de Prueba" 
-                           v-on:click="reiniciarLeccion">Intentar de nuevo</router-link>
-            </nav>
-          </div>
+          <nav class="nav">
+            <router-link
+              to="/prueba-leccion"
+              id="Leccion de Prueba"
+              v-on:click="reiniciarLeccion"
+              >Intentar de nuevo</router-link
+            >
+          </nav>
+        </div>
+        <!-- <Botón Continuar> -->
+        <div class="contenedor">
+          <input type="checkbox" id="toggle2" />
+          <label for="toggle2" class="boton_continuar"></label>
 
+          <nav class="nav2">
+            <a href="#">Continuar</a>
+          </nav>
+        </div>
       </section>
     </div>
   </div>
@@ -58,7 +68,11 @@ export default {
     cpm_min4: Number,
   },
 
-  created: function () {
+  updated: function () {
+    this.calcularResumen();
+  },
+
+  mounted: function () {
     this.calcularResumen();
   },
 
@@ -68,21 +82,37 @@ export default {
       this.$emit("msjCerrarModal");
     },
 
-    reiniciarLeccion: function() {
+    reiniciarLeccion: function () {
       this.$emit("msjReiniciarLeccion");
     },
 
     calcularResumen: function () {
       if (this.cpme < this.cpm_min1) {
         this.resumen = 0;
+        console.log("Mi abrojito", document.querySelector(".luna_nueva"));
+        document
+          .querySelector(".luna_nueva")
+          .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min2) {
         this.resumen = 1;
+        document
+          .querySelector(".luna_creciente")
+          .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min3) {
         this.resumen = 2;
+        document
+          .querySelector(".cuarto_creciente")
+          .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min4) {
         this.resumen = 3;
+        document
+          .querySelector(".creciente_gibosa")
+          .classList.add("imagenSeleccionada");
       } else {
         this.resumen = 4;
+        document
+          .querySelector(".luna_llena")
+          .classList.add("imagenSeleccionada");
       }
     },
 
@@ -181,38 +211,45 @@ export default {
 
 .luna_nueva {
   position: absolute;
-  left: -20pt;
-  top: -10pt;
-  width: 200pt;
-  height: 100pt;
+  left: 50pt;
+  top: 10pt;
+  width: 62pt;
+  height: 62pt;
 }
 .luna_creciente {
   position: absolute;
-  left: 70pt;
-  top: 20pt;
-  width: 200pt;
-  height: 100pt;
+  left: 125pt;
+  top: 34pt;
+  width: 62pt;
+  height: 62pt;
 }
 .cuarto_creciente {
   position: absolute;
-  left: 150pt;
-  top: 27pt;
-  width: 200pt;
-  height: 100pt;
+  left: 207pt;
+  top: 50pt;
+  width: 62pt;
+  height: 62pt;
 }
 .creciente_gibosa {
   position: absolute;
-  right: 80pt;
-  top: 20pt;
-  width: 200pt;
-  height: 100pt;
+  right: 150pt;
+  top: 32pt;
+  width: 62pt;
+  height: 62pt;
 }
 .luna_llena {
   position: absolute;
-  right: 0pt;
-  top: -10pt;
-  width: 200pt;
-  height: 100pt;
+  right: 70pt;
+  top: 10pt;
+  width: 62pt;
+  height: 62pt;
+}
+
+.imagenSeleccionada {
+  box-shadow: 0 0 60px #4f9;        
+  border-radius: 200%;
+  filter: saturate(200%)
+
 }
 
 .modal-body {
@@ -226,8 +263,8 @@ export default {
 .button,
 .nav {
   position: absolute;
-  top:70pt;
-  right:370pt;
+  top: 70pt;
+  right: 370pt;
 }
 
 .container {
@@ -236,7 +273,6 @@ export default {
   left: 90%;
   margin-left: -20px;
 }
-
 
 #toggle {
   display: none;
@@ -273,17 +309,16 @@ export default {
   margin: 20px 0;
   text-decoration: none;
   font-family: Questa Grande;
-  font-size:10pt;
+  font-size: 10pt;
   letter-spacing: 0.5px;
   transition: all 300ms;
 }
 .nav router-link {
-  color:white
+  color: white;
 }
- 
 
 .nav a:hover {
-  color:white;
+  color: white;
 }
 
 #toggle:checked ~ .nav {
@@ -295,5 +330,79 @@ export default {
   transform: rotate(135deg);
   box-shadow: 0 0 0 0 transparent;
 }
+</style>
 
+
+
+<style scoped>
+/*Botón continuar*/
+
+.contenedor,
+.boton_continuar,
+.nav2 {
+  position: absolute;
+  top: 70pt;
+  right: 540pt;
+}
+
+.contenedor {
+  margin: auto;
+  top: 10%;
+  left: 200%;
+}
+
+#toggle2 {
+  display: none;
+}
+
+.boton_continuar {
+  z-index: 999;
+  width: 30pt;
+  height: 30pt;
+  background: black;
+  background-image: url(../../Imagenes/Gifs/Icon3.gif);
+  background-repeat: no-repeat;
+  background-size: 260%;
+  background-position: center;
+  border-radius: 100%;
+  transition: all 0.8s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+}
+
+.nav2 {
+  transform: translateY(-10%);
+  opacity: 0;
+  top: 20pt;
+  right: 250pt;
+  transition: all 0.5s ease-in-out;
+  width: 150pt;
+  transform: translateY(0%);
+}
+
+.nav2 a {
+  text-align: center;
+  display: block;
+  margin: 0;
+  text-decoration: none;
+  font-family: Questa Grande;
+  font-size: 10pt;
+  color: white;
+  letter-spacing: 0.5px;
+  transition: all 300ms;
+}
+
+.nav2 a:hover {
+  color: white;
+}
+
+#toggle2:checked ~ .nav2 {
+  opacity: 1;
+  transform: translateY(10%);
+}
+
+#toggle2:checked ~ .boton_continuar {
+  transform: rotate(320deg);
+  box-shadow: 0 0 0 0 transparent;
+}
 </style>
