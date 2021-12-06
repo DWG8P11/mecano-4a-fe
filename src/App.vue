@@ -4,6 +4,7 @@
     <router-link to="/about">About</router-link> | 
     <router-link to="/prueba-leccion">Leccion de Prueba </router-link>| 
     <router-link to="/designs"> diseño teclado </router-link>
+    | <router-link to="/inicio-sesion"> Iniciar Sesion </router-link>
   </div>
 
   <router-view/>

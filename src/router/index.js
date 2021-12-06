@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import ViewLeccionPrueba from '@/views/ViewLeccionPrueba.vue'
 import Designs from           '@/components/Designs.vue'
+import ViewInicioSesion from '@/views/ViewInicioSesion.vue'
 
 
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
     name: 'designs',
     component: Designs
   },
+  {
+    path: '/inicio-sesion',
+    name: 'inicio-sesion',
+    component: ViewInicioSesion
+  }
 ]
 
 const router = createRouter({
