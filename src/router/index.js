@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import ViewLeccionPrueba from '@/views/ViewLeccionPrueba.vue'
 import Designs from           '@/components/Designs.vue'
 import ViewInicioSesion from '@/views/ViewInicioSesion.vue'
+import ViewRegistrarNivel from '@/views/ViewRegistrarNivel.vue'
 
 
 const routes = [
@@ -33,6 +34,11 @@ const routes = [
     path: '/inicio-sesion',
     name: 'inicio-sesion',
     component: ViewInicioSesion
+  },
+  {
+    path: '/registrar-nivel',
+    name: 'registrar-nivel',
+    component: ViewRegistrarNivel
   }
 ]
 

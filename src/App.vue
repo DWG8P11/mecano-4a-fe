@@ -5,6 +5,7 @@
     <router-link to="/prueba-leccion">Leccion de Prueba </router-link>| 
     <router-link to="/designs"> diseño teclado </router-link>
     | <router-link to="/inicio-sesion"> Iniciar Sesion </router-link>
+    | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
   </div>
 
   <router-view/>
