@@ -5,20 +5,13 @@
     <div class="ModalCuadro">
       <!-- Header -->
       <header class="modal-header">
-        <button
-          type="button"
-          class="btn-close-X"
-          @click="cerrarModal"
-          aria-label="Close modal"
-        >
-          X
-        </button>
+      
 
-        <img class="luna_nueva" src="../../Imagenes/ICONO_LUNA/2.png" />
-        <img class="luna_creciente" src="../../Imagenes/ICONO_LUNA/3.png" />
+        <img class="luna_nueva"       src="../../Imagenes/ICONO_LUNA/2.png" />
+        <img class="luna_creciente"   src="../../Imagenes/ICONO_LUNA/3.png" />
         <img class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
         <img class="creciente_gibosa" src="../../Imagenes/ICONO_LUNA/5.png" />
-        <img class="luna_llena" src="../../Imagenes/ICONO_LUNA/6.png" />
+        <img class="luna_llena"       src="../../Imagenes/ICONO_LUNA/6.png" />
       </header>
 
       <section class="modal-body">
@@ -40,7 +33,8 @@
             <label for="toggle" class="button"></label>
 
             <nav class="nav">
-              <router-link to="/prueba-leccion" id="Leccion de Prueba">Intentar de nuevo</router-link>
+              <router-link to="/prueba-leccion" id="Leccion de Prueba" 
+                           v-on:click="reiniciarLeccion">Intentar de nuevo</router-link>
             </nav>
           </div>
 
@@ -72,6 +66,10 @@ export default {
     cerrarModal: function () {
       console.log("En modal: se dio la orden de cerrar.");
       this.$emit("msjCerrarModal");
+    },
+
+    reiniciarLeccion: function() {
+      this.$emit("msjReiniciarLeccion");
     },
 
     calcularResumen: function () {
@@ -179,20 +177,6 @@ export default {
   background: transparent;
   width: 500pt;
   height: 100pt;
-}
-
-.btn-close-X {
-  z-index: 100;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: none;
-  font-size: 20px;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  color: turquoise;
-  background: transparent;
 }
 
 .luna_nueva {

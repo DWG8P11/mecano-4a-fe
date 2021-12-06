@@ -27,6 +27,7 @@
 
 
     <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
+                      v-on:msjReiniciarLeccion="cerrarModalYReiniciar"
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
     <Designs/>
 
@@ -624,7 +625,7 @@ export default {
         },
 
         cerrarModal: function() {
-            console.log("En CompLeccion: orden de cerrar modal recibida.");
+            // console.log("En CompLeccion: orden de cerrar modal recibida.");
             this.modalAbierto = false;
         },
 
@@ -698,6 +699,11 @@ export default {
 
             htmlTecla.classList.add("actual");
 
+        },
+
+        cerrarModalYReiniciar: function() {
+            this.cerrarModal();
+            this.empezarLeccion(forzar = true);
         }
     }
 }
@@ -711,17 +717,16 @@ export default {
   src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
 }
 
-.componente-leccion{
-    overflow-y:hidden;
+
+.componente-leccion{   
     position:relative;
     top:20pt;
-
 }
+
 .componente-leccion h1{
     text-align: center;
     line-height: 0pt;
-    font-size:16pt;
-    
+    font-size:16pt;    
 }
 
 .planetas{
