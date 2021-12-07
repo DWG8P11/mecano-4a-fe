@@ -28,7 +28,14 @@ const routes = [
     name: 'designs',
     component: Designs
   },
+
+  {
+    path: '/ubicacion-dedos',
+    name: 'Ubicación de dedos',
+    component: LocalFingers
+  },
 ]
+
 
 const router = createRouter({
   history: createWebHistory(),

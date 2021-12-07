@@ -50,10 +50,12 @@
 <script>
 import CompLeccion from '@/components/CompLeccion.vue';
 import Designs from '@/components/Designs.vue';
+import LocalFingers from '@/components/LocalFingers.vue'
 export default {
   components: {
     CompLeccion,
     Designs,
+    LocalFingers,
   }
 }
 </script>
@@ -68,14 +70,6 @@ export default {
   src: url(../fuentes/Questa_Grande_Regular.otf) format("Opentype");
 }
 
-
-/*#app {
-  font-family             : Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing  : antialiased;
-  -moz-osx-font-smoothing : grayscale;
-  text-align              : center;
-  color                   : #2c3e50;
-}*/
 
 
 .header {

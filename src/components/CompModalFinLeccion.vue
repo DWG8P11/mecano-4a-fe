@@ -5,11 +5,11 @@
     <div class="ModalCuadro">
       <!-- Header -->
       <header class="modal-header">
-        <img class="luna_nueva"       src="../../Imagenes/ICONO_LUNA/2.png" />
-        <img class="luna_creciente"   src="../../Imagenes/ICONO_LUNA/3.png" />
+        <img class="luna_nueva" src="../../Imagenes/ICONO_LUNA/2.png" />
+        <img class="luna_creciente" src="../../Imagenes/ICONO_LUNA/3.png" />
         <img class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
         <img class="creciente_gibosa" src="../../Imagenes/ICONO_LUNA/5.png" />
-        <img class="luna_llena"       src="../../Imagenes/ICONO_LUNA/6.png" />
+        <img class="luna_llena" src="../../Imagenes/ICONO_LUNA/6.png" />
       </header>
 
       <section class="modal-body">
@@ -39,16 +39,18 @@
             >
           </nav>
         </div>
-        <!-- <Botón Continuar> -->
+      </section>
+
+      <!-- <Botón Continuar> -->
+      <footer>
         <div class="contenedor">
           <input type="checkbox" id="toggle2" />
           <label for="toggle2" class="boton_continuar"></label>
-
           <nav class="nav2">
             <a href="#">Continuar</a>
           </nav>
         </div>
-      </section>
+      </footer>
     </div>
   </div>
 </template>
@@ -246,10 +248,9 @@ export default {
 }
 
 .imagenSeleccionada {
-  box-shadow: 0 0 60px #4f9;        
+  box-shadow: 0 0 60px #4f9;
   border-radius: 200%;
-  filter: saturate(200%)
-
+  filter: saturate(200%);
 }
 
 .modal-body {
@@ -336,7 +337,9 @@ export default {
 
 <style scoped>
 /*Botón continuar*/
-
+footer{
+  background: springgreen;
+}
 .contenedor,
 .boton_continuar,
 .nav2 {
