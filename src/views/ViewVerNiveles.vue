@@ -4,13 +4,14 @@
             <div class="subtitle">Niveles</div>
 
             <div class="contenedor-galeria">
-                <div class="galeria" :key="nivelCargaNiveles">
+                <!-- <div class="galeria" :key="nivelCargaNiveles"> -->
+                <div class="galeria">
                     <div
                         class="galeria-item"
                         v-for="nivel of this.listaNiveles"
                         :key="nivel"
                     >
-                        <img class="galeria-imagen" :src="diccionarioImagenes.get(nivel.id)" />
+                        <img class="galeria-imagen" :src="diccionarioImagenes.get(nivel.id)" :key="diccionarioImagenes.get(nivel.id)"/>
 
                         <div class="galeria-item-info">
                             <ul>
@@ -53,7 +54,7 @@ export default {
             await this.$apollo
                 .mutate({
                     mutation: gql`
-                        query TraerNiveles {
+                        query TraerNivelesLigeros {
                             traerNiveles {
                                 id
                                 nombre
@@ -99,7 +100,7 @@ export default {
                     })
                     .then((respuesta) => {
                         this.diccionarioImagenes.set(id, respuesta.data.traerNivel.imagen);
-                        this.nivelCargaNiveles += 1;
+                        // this.nivelCargaNiveles += 1;
                     })
                     .catch(error => {
                         this.diccionarioImagenes.set(id, "");
