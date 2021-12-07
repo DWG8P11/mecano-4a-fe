@@ -84,7 +84,7 @@ export default {
             for (const nivel of this.listaNiveles) {
                 let id = nivel.id;
 
-                promesasImagenes.push(this.$apollo.mutate({
+                this.$apollo.mutate({
                         mutation: gql`
                             query TraerNivel($idNivel: Int!) {
                                 traerNivel(idNivel: $idNivel) {
@@ -97,17 +97,15 @@ export default {
                             idNivel: id
                         }
                     })
-                );
+                    .then((respuesta) => {
+                        this.diccionarioImagenes.set(id, respuesta.data.traerNivel.imagen);
+                        this.nivelCargaNiveles += 1;
+                    })
+                    .catch(error => {
+                        this.diccionarioImagenes.set(id, "");
+                    });
             }
-
-            let resolucionPromesasImagenes = await Promise.allSettled(promesasImagenes);
-            
-            resolucionPromesasImagenes.forEach(resolucion => {
-                if (resolucion.status == 'fulfilled') {
-                    this.diccionarioImagenes.set(resolucion.value.data.traerNivel.id, resolucion.value.data.traerNivel.imagen)
-                }
-                    
-            })
+            console.log("Diccionario de imagenes hasta ahora", this.diccionarioImagenes);
 
             this.nivelCargaNiveles += 1; // Establece que deberia cargar de nuevo la galeria
         },
