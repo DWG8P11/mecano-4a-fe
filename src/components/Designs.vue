@@ -1,98 +1,70 @@
 <template>
 <div id="keyboard">
-    	<ul class="cf">
-        	<li><a href="#" class="key c27 fn"><span id="esc">esc</span></a></li>
-        	<li><a href="#" class="key c112 fn"><span>F1</span></a></li>
-        	<li><a href="#" class="key c113 fn"><span>F2</span></a></li>
-        	<li><a href="#" class="key c114 fn"><span>F3</span></a></li>
-        	<li><a href="#" class="key c115 fn"><span>F4</span></a></li>
-        	<li><a href="#" class="key c116 fn"><span>F5</span></a></li>
-        	<li><a href="#" class="key c117 fn"><span>F6</span></a></li>
-        	<li><a href="#" class="key c118 fn"><span>F7</span></a></li>
-        	<li><a href="#" class="key c119 fn"><span>F8</span></a></li>
-        	<li><a href="#" class="key c120 fn"><span>F9</span></a></li>
-        	<li><a href="#" class="key c121 fn"><span>F10</span></a></li>
-        	<li><a href="#" class="key c122 fn"><span>F11</span></a></li>
-        	<li><a href="#" class="key c123 fn"><span>F12</span></a></li>
-        	<li><a href="#" class="key fn"><span>Eject</span></a></li>
-        </ul>
     	<ul class="cf" id="numbers">
-	    	<li><a href="#" class="key c192"><b>~</b><span>`</span></a></li>
-	    	<li><a href="#" class="key c49"><b>!</b><span>1</span></a></li>
-	    	<li><a href="#" class="key c50"><b>@</b><span>2</span></a></li>
-	    	<li><a href="#" class="key c51"><b>#</b><span>3</span></a></li>
-	    	<li><a href="#" class="key c52"><b>$</b><span>4</span></a></li>
-	    	<li><a href="#" class="key c53"><b>%</b><span>5</span></a></li>
-	    	<li><a href="#" class="key c54"><b>^</b><span>6</span></a></li>
-	    	<li><a href="#" class="key c55"><b>&amp;</b><span>7</span></a></li>
-	    	<li><a href="#" class="key c56"><b>*</b><span>8</span></a></li>
-	    	<li><a href="#" class="key c57"><b>(</b><span>9</span></a></li>
-	    	<li><a href="#" class="key c48"><b>)</b><span>0</span></a></li>
-	    	<li><a href="#" class="key c189 alt"><b>_</b><span>-</span></a></li>
-	    	<li><a href="#" class="key c187"><b>+</b><span>=</span></a></li>
-	    	<li><a href="#" class="key c46" id="delete"><span>Delete</span></a></li>
+	    	<li><div class="key Backquote"><b>~</b><span>`</span></div></li>
+	    	<li><div class="key Digit1"><b>!</b><span>1</span></div></li>
+	    	<li><div class='key Digit2'><b>@</b><span>2</span></div></li>
+	    	<li><div class="key Digit3"><b>#</b><span>3</span></div></li>
+	    	<li><div class="key Digit4"><b>$</b><span>4</span></div></li>
+	    	<li><div class="key Digit5"><b>%</b><span>5</span></div></li>
+	    	<li><div class="key Digit6"><b>^</b><span>6</span></div></li>
+	    	<li><div class="key Digit7"><b>&amp;</b><span>7</span></div></li>
+	    	<li><div class="key Digit8"><b>*</b><span>8</span></div></li>
+	    	<li><div class="key Digit9"><b>(</b><span>9</span></div></li>
+	    	<li><div class="key Digit0"><b>)</b><span>0</span></div></li>
+	    	<li><div class="key Minus alt"><b>_</b><span>-</span></div></li>
+	    	<li><div class="key Equal"><b>+</b><span>=</span></div></li>
+	    	<li><div class="key Backspace" id="delete"><span>Delete</span></div></li>
         </ul>
     	<ul class="cf" id="qwerty">
-	    	<li><a href="#" class="key c9" id="tab"><span>tab</span></a></li>
-	    	<li><a href="#" class="key c81"><span>q</span></a></li>
-	    	<li><a href="#" class="key c87"><span>w</span></a></li>
-	    	<li><a href="#" class="key c69"><span>e</span></a></li>
-	    	<li><a href="#" class="key c82"><span>r</span></a></li>
-	    	<li><a href="#" class="key c84"><span>t</span></a></li>
-	    	<li><a href="#" class="key c89"><span>y</span></a></li>
-	    	<li><a href="#" class="key c85"><span>u</span></a></li>
-	    	<li><a href="#" class="key c73"><span>i</span></a></li>
-	    	<li><a href="#" class="key c79"><span>o</span></a></li>
-	    	<li><a href="#" class="key c80"><span>p</span></a></li>
-	    	<li><a href="#" class="key c219 alt"><b>{</b><span>[</span></a></li>
-	    	<li><a href="#" class="key c221 alt"><b>}</b><span>]</span></a></li>
-	    	<li><a href="#" class="key c220 alt"><b>|</b><span>\</span></a></li>
+	    	<li><div class="key Tab" id="tab"><span>Tab</span></div></li>
+	    	<li><div class="key KeyQ"><span>q</span></div></li>
+	    	<li><div class="key KeyW"><span>w</span></div></li>
+	    	<li><div class="key KeyE"><span>e</span></div></li>
+	    	<li><div class="key KeyR"><span>r</span></div></li>
+	    	<li><div class="key KeyT"><span>t</span></div></li>
+	    	<li><div class="key KeyY"><span>y</span></div></li>
+	    	<li><div class="key KeyU"><span>u</span></div></li>
+	    	<li><div class="key KeyI"><span>i</span></div></li>
+	    	<li><div class="key KeyO"><span>o</span></div></li>
+	    	<li><div class="key KeyP"><span>p</span></div></li>
+	    	<li><div class="key BracketLeft alt"><b>{</b><span>[</span></div></li>
+	    	<li><div class="key BracketRight alt"><b>}</b><span>]</span></div></li>
+	    	<li><div class="key Backslash alt"><b>|</b><span>\</span></div></li>
         </ul>
         <ul class="cf" id="asdfg">
-	    	<li><a href="#" class="key c20 alt" id="caps"><b></b><span>caps lock</span></a></li>
-	    	<li><a href="#" class="key c65"><span>a</span></a></li>
-	    	<li><a href="#" class="key c83"><span>s</span></a></li>
-	    	<li><a href="#" class="key c68"><span>d</span></a></li>
-	    	<li><a href="#" class="key c70"><span>f</span></a></li>
-	    	<li><a href="#" class="key c71"><span>g</span></a></li>
-	    	<li><a href="#" class="key c72"><span>h</span></a></li>
-	    	<li><a href="#" class="key c74"><span>j</span></a></li>
-	    	<li><a href="#" class="key c75"><span>k</span></a></li>
-	    	<li><a href="#" class="key c76"><span>l</span></a></li>
-	    	<li><a href="#" class="key c186 alt"><b>:</b><span>;</span></a></li>
-	    	<li><a href="#" class="key c222 alt"><b>"</b><span>'</span></a></li>
-	    	<li><a href="#" class="key c13 alt" id="enter"><span>return</span></a></li>
+	    	<li><div class="key CapsLock alt" id="caps"><b></b><span>Caps Lock</span></div></li>
+	    	<li><div class="key KeyA"><span>a</span></div></li>
+	    	<li><div class="key KeyS"><span>s</span></div></li>
+	    	<li><div class="key KeyD"><span>d</span></div></li>
+	    	<li><div class="key KeyF"><span>f</span></div></li>
+	    	<li><div class="key KeyG"><span>g</span></div></li>
+	    	<li><div class="key KeyH"><span>h</span></div></li>
+	    	<li><div class="key KeyJ"><span>j</span></div></li>
+	    	<li><div class="key KeyK"><span>k</span></div></li>
+	    	<li><div class="key KeyL"><span>l</span></div></li>
+	    	<li><div class="key Semicolon alt"><b>:</b><span>;</span></div></li>
+	    	<li><div class="key Quote alt"><b>"</b><span>'</span></div></li>
+	    	<li><div class="key Enter alt" id="enter"><span>Return</span></div></li>
         </ul>
         <ul class="cf" id="zxcvb">
-	    	<li><a href="#" class="key c16 shiftleft"><span>Shift</span></a></li>
-	    	<li><a href="#" class="key c90"><span>z</span></a></li>
-	    	<li><a href="#" class="key c88"><span>x</span></a></li>
-	    	<li><a href="#" class="key c67"><span>c</span></a></li>
-	    	<li><a href="#" class="key c86"><span>v</span></a></li>
-	    	<li><a href="#" class="key c66"><span>b</span></a></li>
-	    	<li><a href="#" class="key c78"><span>n</span></a></li>
-	    	<li><a href="#" class="key c77"><span>m</span></a></li>
-	    	<li><a href="#" class="key c188 alt"><b>&lt;</b><span>,</span></a></li>
-	    	<li><a href="#" class="key c190 alt"><b>&gt;</b><span>.</span></a></li>
-	    	<li><a href="#" class="key c191 alt"><b>?</b><span>/</span></a></li>
-	    	<li><a href="#" class="key c16 shiftright"><span>Shift</span></a></li>
+	    	<li><div class="key ShiftLeft shiftleft"><span>Shift</span></div></li>
+	    	<li><div class="key KeyZ"><span>z</span></div></li>
+	    	<li><div class="key KeyX"><span>x</span></div></li>
+	    	<li><div class="key KeyC"><span>c</span></div></li>
+	    	<li><div class="key KeyV"><span>v</span></div></li>
+	    	<li><div class="key KeyB"><span>b</span></div></li>
+	    	<li><div class="key KeyN"><span>n</span></div></li>
+	    	<li><div class="key KeyM"><span>m</span></div></li>
+	    	<li><div class="key Comma alt"><b>&lt;</b><span>,</span></div></li>
+	    	<li><div class="key Period alt"><b>&gt;</b><span>.</span></div></li>
+	    	<li><div class="key Slash alt"><b>?</b><span>/</span></div></li>
+	    	<li><div class="key ShiftRight shiftright"><span>Shift</span></div></li>
         </ul>
 		<ul class="cf" id="bottomrow">
-	    	<li><a href="#" class="key" id="fn"><span>fn</span></a></li>
-	    	<li><a href="#" class="key c17" id="control"><span>control</span></a></li>
-	    	<li><a href="#" class="key option" id="optionleft"><span>option</span></a></li>
-	    	<li><a href="#" class="key command" id="commandleft"><span>command</span></a></li>
-	    	<li><a href="#" class="key c32" id="spacebar"></a></li>
-	    	<li><a href="#" class="key command" id="commandright"><span>command</span></a></li>
-	    	<li><a href="#" class="key option" id="optionright"><span>option</span></a></li>
-            <ol class="cf">
-                	<li><a href="#" class="key c37" id="left"><span>&#9666;</span></a></li>
-                <li>
-                  	  <a href="#" class="key c38" id="up"><span>&#9652;</span></a>
-                    	<a href="#" class="key c40" id="down"><span>&#9662;</span></a>
-                </li>
-                	<li><a href="#" class="key c39" id="right"><span>&#9656;</span></a></li>
-            </ol>
+	    	<li><div class="key Space" id="spacebar"></div></li>
+	    	<li><div class="key AltRight" id="commandright"><span>Alt Gr</span></div></li>
+	    	
         </ul>
     </div>
     
@@ -105,92 +77,133 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 
 #keyboard {
-	margin: 50px ;
-	width: 794px;
-	height: 315px;
-	background:	#d5d9dc;
+	position: fixed;
+	left:55pt;
+	bottom:50px;
+	/* margin: 50px ; */
+	width: 640px;
+	height: 159px;
+	background:	rgba(170, 170, 170, 0.1);
 	border-top-left-radius: 7px 21px;
 	border-top-right-radius: 7px 21px;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
-	padding: 50px 0 0 10px;
+	/* padding: 50px 0 0 10px; */
 }
 
 ul {list-style-type: none; width: 784px; margin: 0 auto;}
 li {float: left;}
 
+@font-face {
+  font-family:Questa Grande;
+  src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
+}
 
 .key{
 	display: block;
-	color: rgba(170, 170, 170, 0.74);
-	font: bold 9pt arial;
+	color:white;
+	font-family: Questa Grande;
+    font-size:8pt;
 	text-decoration: none;
 	text-align: center;
-	width: 44px;
-	height: 41px;
+	width: 30px;
+	height: 20px;
 	margin: 5px;
-	background: #fff;
+	background:transparent; 
 	border-radius: 4px;
 	border-top: 1px solid #222;
-	text-shadow: 0px -1px 0px #000;}
+	border-bottom:1px solid #222;
+	border-right:1px solid #222;
+	border-left: 1px solid #222;
+	border-color:rgb(115,239,249); 
+	box-shadow: 1px 1px 1px 1px rgb(61, 230, 230);
+	text-shadow: 0px -1px 0px #000;
+	}
 
-.key:active, .keydown {
+.keydown {
 	background: rgba(59, 171, 236, 0.795);
 	margin: 7px 5px 3px;
 	border-top: 1px solid rgb(19, 135, 245);}
+
+.aprobada {
+	background: rgb(30, 174, 152);
+}
+
+.reprobada {
+	background: crimson;
+}
+
+.actual {
+	background: rgb(241, 150, 117);
+}
 	
 .fn span {
 	display: block;
 	margin: 14px 5px 0 0;
 	text-align: right;
-	font: bold 6pt arial;
-	text-transform: uppercase;}
+	
+	}
 #esc {
 	margin: 6px 15px 0 0;
 	font-size: 7.5pt;
-	text-transform: lowercase;}
+	line-height: 0pt;
+	}
 
 
-#numbers li a span {
+#numbers li div span {
 	display: block;}
 	
-#numbers li a b {
+#numbers li div b {
 	margin: 3px 0 3px;
-	display: block;}
+	display: block;
+	line-height: 2.1pt;
+	
+	}
 
-#numbers li .alt b {display: block;margin: 0 0 3px;}
+#numbers li .alt b {
+	display: block;
+	margin: 0 0 3px;
+	}
 
 #numbers li #delete span {
 	text-align: right;
-	margin: 23px 10px 0 0;
-	font-size: 7.5pt;
-	text-transform: lowercase;}
+	margin: 13px 13px 0 0;
+	font-size: 8pt;
+	line-height: 2px;
 	
-#qwerty li a span {
+}
+	
+#qwerty li div span {
 	display: block;
 	margin: 13px 0 0;
-	text-transform: uppercase;}
+	text-transform: capitalize;
+	text-align: center;
+	line-height: 0pt;
+	}
 	
 #qwerty li #tab span {
 	text-align: left;
-	margin: 23px 0 0 10px;
-	font-size: 7.5pt;
-	text-transform: lowercase;}	
+	margin: 13px 0 0 10px;
+	font-size: 8pt;
+	
+	}	
 
-#qwerty li .alt b {display: block; margin: 3px 0 0;}
-#qwerty li .alt span {margin: 2px 0 0;}
+#qwerty li .alt b {display: block; margin: 0px 0 0;}
+#qwerty li .alt span {margin: 0px 0 0;}
 
 
-#asdfg li a span {
+#asdfg li div span {
 	display: block;
 	margin: 13px 0 0;
-	text-transform: uppercase;}
+	text-transform: capitalize;
+	line-height: 0pt;
+	}
 
-#asdfg li .alt span {margin: 0; text-transform: lowercase;}
+#asdfg li .alt span {margin: 0}
 #asdfg li .alt b {display: block; margin: 3px 0 0;}
 #asdfg li #caps b {
 	display: block;
@@ -198,68 +211,104 @@ li {float: left;}
 	width: 4px;
 	height: 4px;
 	border-radius: 10px;
-	margin: 9px 0 0 10px;
+	margin: 0px 0 0 10px;
 	-webkit-box-shadow: inset 0 1px 0 #666;
 	-moz-box-shadow:inset 0 1px 0 #666;
-	box-shadow:inset 0 1px 0 #666;}
+	box-shadow:inset 0 1px 0 #666;
+	font-size: 8pt;
+	}
+	
 #asdfg li #caps span {
 	text-align: left;
 	margin: 10px 0 0 10px;
-	font-size: 7.5pt;}
+	font-size: 7.5pt;
+	}
 #asdfg li #enter span {
 	text-align: right;
-	margin: 23px 10px 0 0;
-	font-size: 7.5pt;}
+	margin: 13px 10px 0 0;
+	font-size: 7.5pt;
+	}
 
 
-#zxcvb li a span {
+#zxcvb li div span {
 	display: block;
 	margin: 13px 0 0;
-	text-transform: uppercase;}
+	text-transform: capitalize;
+	line-height: 2pt;
+	}
 #zxcvb li .shiftleft span {
 	text-align: left;
-	margin: 23px 0 0 10px;
-	font-size: 7.5pt;
-	text-transform: lowercase;}
+	margin: 13px 0 0 10px;
+	font-size: 8pt;
+	line-height: 0pt;
+	}
 #zxcvb li .shiftright span {
 	text-align: right;
-	margin: 23px 10px 0 0;
-	font-size: 7.5pt;
-	text-transform: lowercase;}
-#zxcvb li .alt b {display: block;margin: 4px 0 0;}
+	margin: 13px 10px 0 0;
+	font-size: 8pt;
+	}
+#zxcvb li .alt b {display: block;margin: 0px 0 0;}
 #zxcvb li .alt span {margin: 0;}
 
 	
 #bottomrow li #fn span, #bottomrow li #control span, #bottomrow li #optionleft span, #bottomrow li #commandleft span {
 	display: block;
 	text-align: left;
-	margin: 31px 0 0 8px;
-	font-size: 7.5pt;
-	text-transform: lowercase;}
+	margin: 13px 0 0 8px;
+	font-size: 8pt;
+
+}
 
 #bottomrow li #optionright span, #bottomrow li #commandright span {
 	display: block;
 	text-align: right;
-	margin: 31px 8px 0 0;
-	font-size: 7.5pt;
-	text-transform: lowercase;}
+	margin: 1px 2px 0 0;
+	font-size: 8pt;
+}
 
 #bottomrow ol li #left span, #bottomrow ol li #right span, #bottomrow ol li #up span, #bottomrow ol li #down span {
 	display: block;
-	margin: 9px 0 0;}
+	margin: 9px 0 0;
+	}
 
 .fn {height: 26px; width: 46px;}
-#delete {width: 72px;}
+#delete {
+	width: 77px;
+	margin: 5px 0 0 1px;
+	
+	}	
+
 #tab {width: 72px;}
-#caps {width: 85px;}
-#enter {width: 85px;}
-.shiftleft, .shiftright {width: 112px;}
+#caps {
+	width: 85px;
+}
+#enter {
+	width: 65px;
+	position:absolute;
+	right: 7pt;
+	}
+.shiftleft {width: 112px;}
+.shiftright {
+	width: 80px;
+	position:absolute;
+	right: 7pt;
+	}
 #fn, #control, .option, .command, #spacebar {height: 49px;}
 
 #control {width: 56px;}
 .option {width: 46px;}
 .command {width: 67px;}
-#spacebar {width: 226px;}
+#spacebar {
+	width: 226px;
+	height: 14.6pt;
+	position: absolute;
+	left:150pt ;
+}
+#commandright{
+	position: absolute;
+	right: 120pt;
+
+}
 
 #left img, #up img, #down img, #right img {border: none;}
 ul ol {list-style-type: none;}
