@@ -70,12 +70,12 @@ export default {
     cpm_min4: Number,
   },
 
-  updated: function () {
+  created: function () {
     this.calcularResumen();
   },
 
   mounted: function () {
-    this.calcularResumen();
+    this.darClaseHTML();
   },
 
   methods: {
@@ -91,27 +91,37 @@ export default {
     calcularResumen: function () {
       if (this.cpme < this.cpm_min1) {
         this.resumen = 0;
-        console.log("Mi abrojito", document.querySelector(".luna_nueva"));
+      } else if (this.cpme < this.cpm_min2) {
+        this.resumen = 1;
+      } else if (this.cpme < this.cpm_min3) {
+        this.resumen = 2;
+      } else if (this.cpme < this.cpm_min4) {
+        this.resumen = 3;
+      } else {
+        this.resumen = 4;
+      }
+    },
+
+    darClaseHTML: function() {
+      console.log("LUNA NUEVA", document
+          .querySelector(".luna_nueva"))
+      if (this.cpme < this.cpm_min1) {
         document
           .querySelector(".luna_nueva")
           .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min2) {
-        this.resumen = 1;
         document
           .querySelector(".luna_creciente")
           .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min3) {
-        this.resumen = 2;
         document
           .querySelector(".cuarto_creciente")
           .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min4) {
-        this.resumen = 3;
         document
           .querySelector(".creciente_gibosa")
           .classList.add("imagenSeleccionada");
       } else {
-        this.resumen = 4;
         document
           .querySelector(".luna_llena")
           .classList.add("imagenSeleccionada");
