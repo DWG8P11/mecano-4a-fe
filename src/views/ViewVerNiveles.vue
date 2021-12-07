@@ -10,7 +10,7 @@
                         v-for="nivel of this.listaNiveles"
                         :key="nivel"
                     >
-                        <img class="galeria-imagen" :src="diccionarioImagenes[nivel.id]" />
+                        <img class="galeria-imagen" :src="diccionarioImagenes.get(nivel.id)" />
 
                         <div class="galeria-item-info">
                             <ul>
@@ -45,7 +45,7 @@ export default {
 
             gotlistaNiveles: false,
 
-            diccionarioImagenes: {},
+            diccionarioImagenes: new Map(),
         };
     },
 
@@ -102,10 +102,10 @@ export default {
                         }
                     })
                     .then((respuesta) => {
-                        this.diccionarioImagenes[id] = respuesta.data.traerNivel.imagen;
+                        this.diccionarioImagenes.set(id, respuesta.data.traerNivel.imagen);
                     })
                     .catch((error) => {
-                        this.diccionarioImagenes[id] = "";
+                        this.diccionarioImagenes.set(id, "");
                     });
             }
 
