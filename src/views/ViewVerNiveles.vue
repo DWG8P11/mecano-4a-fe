@@ -4,7 +4,7 @@
             <div class="subtitle">Niveles</div>
 
             <div class="contenedor-galeria">
-                <div class="galeria">
+                <div class="galeria" :key="nivelCargaNiveles">
                     <div
                         class="galeria-item"
                         v-for="nivel of this.listaNiveles"
@@ -16,13 +16,8 @@
                             <ul>
                                 <li class="galeria-item-nombre">
                                     <i class="nivel-nombre" aria-hidden="true"> </i>
-                                    {{ "Nombre: " + nivel.nombre || "Nivel Sin Identificar" }}
+                                    {{ `Nivel ${nivel.id}: "${nivel.nombre}"` || "Nivel Sin Identificar" }}
                                 </li>
-
-                                <!-- <li class="galeriaPhotoCredits">
-                                    <i class="photoCredit" aria-hidden="true"> </i>
-                                    {{ "Descripcion: " + nivel.descripcion }}
-                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -43,7 +38,7 @@ export default {
         return {
             listaNiveles: [],
 
-            gotlistaNiveles: false,
+            nivelCargaNiveles: 0,
 
             diccionarioImagenes: new Map(),
         };
@@ -67,28 +62,29 @@ export default {
                         }
                     `,
                 })
-                .then((respuesta) => {
+                .then(respuesta => {
                     this.listaNiveles = respuesta.data.traerNiveles;
-                    this.gotlistaNiveles = true;
+                    this.listaNiveles.sort((a, b) => {return a.id - b.id});
+
+                    this.nivelCargaNiveles += 1; // Establece que deberia cargar de nuevo la galeria
 
                     this.traerImagenes();
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.log("error", error);
-                    alert("Lista de niveles traida INcorrectamente!");
-                    this.gotlistaNiveles = false;
+                    this.nivelCargaNiveles = 0;
                 });
 
             return;
         },
 
         traerImagenes: async function () {
-            alert("Empezo getLiveImages");
+            let promesasImagenes = [];
+
             for (const nivel of this.listaNiveles) {
                 let id = nivel.id;
 
-                await this.$apollo
-                    .mutate({
+                promesasImagenes.push(this.$apollo.mutate({
                         mutation: gql`
                             query TraerNivel($idNivel: Int!) {
                                 traerNivel(idNivel: $idNivel) {
@@ -101,15 +97,19 @@ export default {
                             idNivel: id
                         }
                     })
-                    .then((respuesta) => {
-                        this.diccionarioImagenes.set(id, respuesta.data.traerNivel.imagen);
-                    })
-                    .catch((error) => {
-                        this.diccionarioImagenes.set(id, "");
-                    });
+                );
             }
 
-            alert("Termino getLiveImages");
+            let resolucionPromesasImagenes = await Promise.allSettled(promesasImagenes);
+            
+            resolucionPromesasImagenes.forEach(resolucion => {
+                if (resolucion.status == 'fulfilled') {
+                    this.diccionarioImagenes.set(resolucion.value.data.traerNivel.id, resolucion.value.data.traerNivel.imagen)
+                }
+                    
+            })
+
+            this.nivelCargaNiveles += 1; // Establece que deberia cargar de nuevo la galeria
         },
     },
 };
