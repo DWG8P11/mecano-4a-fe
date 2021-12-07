@@ -17,7 +17,7 @@
     <!--div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div-->
 
     <input :placeholder="!leccionEnCurso ? 'Empezar' : 'Continuar'"
-            id="inputTexto" v-on:click="empezarLeccion(force = false)" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
+            id="inputTexto" v-on:click="empezarLeccion(false)" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
             v-on:keydown="teclaAbajo($event.code, $event)" v-on:keyup="teclaArriba($event.code, $event)" 
             v-on:blur="salidoDeInput" readonly>
 
@@ -98,6 +98,11 @@ export default {
             retroSiguiente: "", // Mensaje de retroalimentación sobre tecla a oprimir
             modalAbierto: false, // Indica si el componente modal (ventana emergente) está abierto
         }
+    },
+
+    updated: function() {
+        let letraActualHtml = document.getElementById(this.letra_actual)
+        if (letraActualHtml)letraActualHtml.scrollIntoView({block: "center", behavior: "smooth"});
     },
 
     created: function() {
@@ -280,7 +285,7 @@ export default {
 
         // Crear HTML estilizado
         //Ejemplo: this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
-        this.texto_html = this.hacerTextoHtmlActual();
+        this.hacerTextoHtmlActual();
     },
 
     methods: {
@@ -291,8 +296,7 @@ export default {
                 textoConHtml += this.htmlLetra(letra, this.aTextoEstilo[i]);
             });
 
-            let letraActualHtml = document.getElementById(this.letra_actual)
-            if (letraActualHtml)letraActualHtml.scrollIntoView({block: "center", behavior: "smooth"});
+            this.texto_html = textoConHtml;
 
             return textoConHtml;
         },
@@ -362,10 +366,14 @@ export default {
             this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
             this.leccionEnCurso = true;
 
-            this.texto_html = this.hacerTextoHtmlActual();
+            this.hacerTextoHtmlActual();
             let inputTexto = document.getElementById("inputTexto");
             if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
             inputTexto.focus();
+
+            console.log("Despues del focus de empezar leccion: document.getElementById(this.letra_actual)", document.getElementById(this.letra_actual));
+            
+
             this.tiempo_i = new Date();
 
             // Actualizar retroalimentacion sobre tecla siguiente
@@ -557,7 +565,7 @@ export default {
 
             // Si ya se llegó al final, acabar el juego
             if (this.i_posRelActual >= this.aPosicionesDeLeccion.length) {
-                this.texto_html = this.hacerTextoHtmlActual();
+                this.hacerTextoHtmlActual();
                 return;
             }
             // De lo contrario
@@ -566,7 +574,7 @@ export default {
             this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual
 
             // Actualizar el html del texto basado en los nuevos estilos
-            this.texto_html = this.hacerTextoHtmlActual();
+            this.hacerTextoHtmlActual();
         },
 
         retrocederAnimacionTextoUno: function() {
@@ -703,7 +711,10 @@ export default {
 
         cerrarModalYReiniciar: function() {
             this.cerrarModal();
-            this.empezarLeccion(forzar = true);
+            this.empezarLeccion(true);
+            let inputTexto = document.getElementById("inputTexto");
+            if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
+            inputTexto.focus();
         }
     }
 }
