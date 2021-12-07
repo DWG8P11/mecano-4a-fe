@@ -4,6 +4,7 @@ import ViewLeccionPrueba from '@/views/ViewLeccionPrueba.vue'
 import Designs from           '@/components/Designs.vue'
 import ViewInicioSesion from '@/views/ViewInicioSesion.vue'
 import ViewRegistrarNivel from '@/views/ViewRegistrarNivel.vue'
+import ViewVerNiveles from '@/views/ViewVerNiveles.vue'
 
 
 const routes = [
@@ -39,7 +40,12 @@ const routes = [
     path: '/registrar-nivel',
     name: 'registrar-nivel',
     component: ViewRegistrarNivel
-  }
+  },
+  {
+    path: '/lista-niveles',
+    name: 'lista-niveles',
+    component: ViewVerNiveles
+  },
 ]
 
 const router = createRouter({

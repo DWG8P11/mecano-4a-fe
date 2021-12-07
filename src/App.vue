@@ -6,6 +6,7 @@
     <router-link to="/designs"> diseño teclado </router-link>
     | <router-link to="/inicio-sesion"> Iniciar Sesion </router-link>
     | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
+    | <router-link to="/lista-niveles"> Lista Niveles </router-link>
   </div>
 
   <router-view/>
