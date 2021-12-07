@@ -55,7 +55,7 @@ export default {
                 .mutate({
                     mutation: gql`
                         query TraerNivelesLigeros {
-                            traerNiveles {
+                            traerNivelesLigeros {
                                 id
                                 nombre
                                 descripcion
@@ -64,7 +64,7 @@ export default {
                     `,
                 })
                 .then(respuesta => {
-                    this.listaNiveles = respuesta.data.traerNiveles;
+                    this.listaNiveles = respuesta.data.traerNivelesLigeros;
                     this.listaNiveles.sort((a, b) => {return a.id - b.id});
 
                     this.nivelCargaNiveles += 1; // Establece que deberia cargar de nuevo la galeria
@@ -80,7 +80,6 @@ export default {
         },
 
         traerImagenes: async function () {
-            let promesasImagenes = [];
 
             for (const nivel of this.listaNiveles) {
                 let id = nivel.id;
