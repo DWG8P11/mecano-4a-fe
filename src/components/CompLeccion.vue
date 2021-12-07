@@ -83,6 +83,21 @@ export default {
         cpmMin4: {
             type: Number,
             default: 400
+        },
+
+        ignorarMayus: {
+            type: Boolean,
+            default: true,
+        },
+
+        ignorarTildes: {
+            type: Boolean,
+            default: true,
+        },
+
+        ignorarDieres: {
+            type: Boolean,
+            default: true,
         }
     },
 

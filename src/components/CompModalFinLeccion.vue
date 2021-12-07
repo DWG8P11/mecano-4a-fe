@@ -5,11 +5,11 @@
     <div class="ModalCuadro">
       <!-- Header -->
       <header class="modal-header">
-        <img class="luna_nueva" src="../../Imagenes/ICONO_LUNA/2.png" />
-        <img class="luna_creciente" src="../../Imagenes/ICONO_LUNA/3.png" />
-        <img class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
-        <img class="creciente_gibosa" src="../../Imagenes/ICONO_LUNA/5.png" />
-        <img class="luna_llena" src="../../Imagenes/ICONO_LUNA/6.png" />
+        <img  class="luna_nueva"       src="../../Imagenes/ICONO_LUNA/2.png" />
+        <img  class="luna_creciente"   src="../../Imagenes/ICONO_LUNA/3.png" />
+        <img  class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
+        <img  class="creciente_gibosa" src="../../Imagenes/ICONO_LUNA/5.png" />
+        <img  class="luna_llena"       src="../../Imagenes/ICONO_LUNA/6.png" />
       </header>
 
       <section class="modal-body">
@@ -28,7 +28,7 @@
 
         <div class="container">
           <input type="checkbox" id="toggle" />
-          <label for="toggle" class="button"></label>
+          <label for="toggle"    class="button"></label>
 
           <nav class="nav">
             <router-link
@@ -70,12 +70,12 @@ export default {
     cpm_min4: Number,
   },
 
-  updated: function () {
+  created: function () {
     this.calcularResumen();
   },
 
   mounted: function () {
-    this.calcularResumen();
+    this.darClaseHTML();
   },
 
   methods: {
@@ -91,27 +91,37 @@ export default {
     calcularResumen: function () {
       if (this.cpme < this.cpm_min1) {
         this.resumen = 0;
-        console.log("Mi abrojito", document.querySelector(".luna_nueva"));
+      } else if (this.cpme < this.cpm_min2) {
+        this.resumen = 1;
+      } else if (this.cpme < this.cpm_min3) {
+        this.resumen = 2;
+      } else if (this.cpme < this.cpm_min4) {
+        this.resumen = 3;
+      } else {
+        this.resumen = 4;
+      }
+    },
+
+    darClaseHTML: function() {
+      console.log("LUNA NUEVA", document
+          .querySelector(".luna_nueva"))
+      if (this.cpme < this.cpm_min1) {
         document
           .querySelector(".luna_nueva")
           .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min2) {
-        this.resumen = 1;
         document
           .querySelector(".luna_creciente")
           .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min3) {
-        this.resumen = 2;
         document
           .querySelector(".cuarto_creciente")
           .classList.add("imagenSeleccionada");
       } else if (this.cpme < this.cpm_min4) {
-        this.resumen = 3;
         document
           .querySelector(".creciente_gibosa")
           .classList.add("imagenSeleccionada");
       } else {
-        this.resumen = 4;
         document
           .querySelector(".luna_llena")
           .classList.add("imagenSeleccionada");
@@ -255,7 +265,7 @@ export default {
 
 .modal-body {
   position: relative;
-  top: 30pt;
+  top: 20pt;
   left: 10pt;
   text-align: center;
 }
@@ -263,8 +273,9 @@ export default {
 .container,
 .button,
 .nav {
+  z-index: 1;
   position: absolute;
-  top: 70pt;
+  top: 80pt;
   right: 370pt;
 }
 
@@ -297,7 +308,7 @@ export default {
 .nav {
   transform: translateY(-10%);
   opacity: 0;
-  top: 20pt;
+  bottom: 0pt;
   right: 250pt;
   transition: all 0.5s ease-in-out;
   width: 150pt;
@@ -338,13 +349,16 @@ export default {
 <style scoped>
 /*Botón continuar*/
 footer{
-  background: springgreen;
+  background: transparent;
+  position:relative;
+  height: 30pt;
+  top:35pt;
 }
 .contenedor,
 .boton_continuar,
 .nav2 {
   position: absolute;
-  top: 70pt;
+  bottom: 15pt;
   right: 540pt;
 }
 
@@ -374,25 +388,27 @@ footer{
 }
 
 .nav2 {
+ 
   transform: translateY(-10%);
   opacity: 0;
-  top: 20pt;
-  right: 250pt;
+  bottom:5pt;
   transition: all 0.5s ease-in-out;
   width: 150pt;
   transform: translateY(0%);
 }
 
 .nav2 a {
+
   text-align: center;
   display: block;
-  margin: 0;
+  margin-left: 30pt;
   text-decoration: none;
   font-family: Questa Grande;
   font-size: 10pt;
-  color: white;
-  letter-spacing: 0.5px;
+  color:turquoise;
+  letter-spacing: 0.1px;
   transition: all 300ms;
+ 
 }
 
 .nav2 a:hover {
