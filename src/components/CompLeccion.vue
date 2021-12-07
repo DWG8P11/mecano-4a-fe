@@ -28,7 +28,8 @@
 
     <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
                       v-on:msjReiniciarLeccion="cerrarModalYReiniciar"
-                      :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"/>
+                      :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"
+                      :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4" />
     <Designs/>
 
     <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
