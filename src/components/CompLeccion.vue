@@ -17,7 +17,7 @@
     <!--div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div-->
 
     <input :placeholder="!leccionEnCurso ? 'Empezar' : 'Continuar'"
-            id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
+            id="inputTexto" v-on:click="empezarLeccion(force = false)" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
             v-on:keydown="teclaAbajo($event.code, $event)" v-on:keyup="teclaArriba($event.code, $event)" 
             v-on:blur="salidoDeInput" readonly>
 
