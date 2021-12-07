@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import ViewLeccionPrueba from '@/views/ViewLeccionPrueba.vue'
-import Designs from           '@/components/Designs.vue'
-import LocalFingers from           '@/components/LocalFingers.vue'
+import Home                               from '../views/Home.vue'
+import ViewLeccionPrueba                  from '@/views/ViewLeccionPrueba.vue'
+import Designs                            from '@/components/Designs.vue'
+import LocalFingers                       from '@/components/LocalFingers.vue'
 
 
 const routes = [
@@ -32,7 +32,7 @@ const routes = [
 
   {
     path: '/ubicacion-dedos',
-    name: 'Ubicación de dedos',
+    name: 'Ubicacion de dedos',
     component: LocalFingers
   },
 ]

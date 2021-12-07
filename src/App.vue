@@ -48,9 +48,10 @@
 </template>
 
 <script>
-import CompLeccion from '@/components/CompLeccion.vue';
-import Designs from '@/components/Designs.vue';
-import LocalFingers from '@/components/LocalFingers.vue'
+import CompLeccion  from '@/components/CompLeccion.vue';
+import Designs      from '@/components/Designs.vue';
+import LocalFingers from '@/components/LocalFingers.vue';
+
 export default {
   components: {
     CompLeccion,
