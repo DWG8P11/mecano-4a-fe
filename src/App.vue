@@ -105,6 +105,7 @@ export default {
   font-weight: bold;
   font-size:10pt;
   color:white;
+  text-shadow: black 0.1em 0.1em 0.2em;
 
 }
 
@@ -160,6 +161,7 @@ h1 {
   text-transform: uppercase;
   transition: all 300ms;
   padding: 0;
+  text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 #toggleLog{
