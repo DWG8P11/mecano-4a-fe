@@ -1,15 +1,10 @@
 <template>
 <div class="view-leccion-prueba">
-    <h1> View de Lección de Prueba </h1>
-
-    Esta es una View creada únicamente para poder probar el Componente de Lección. Para hacer uso de esto basta con:
-    <ul>
-        <li> Modificar la propiedad <b>letras</b> al componente <i>CompLeccion</i> agregado a esta View. Si se omite por completo esta propiedad, se asume que en la lección se practicarán todas las letras del teclado español latino. </li>
-        <li> Modificar la variable <b>textoDePrueba</b> por aquel en el que se quieren practicar las teclas mencionadas. </li>
-    </ul>
-
-    <CompLeccion :texto="textoDePrueba" :letras="['a', 'e', 'i', 'o', 'u', ',', ' ', '\n', 'ñ']"/>
-    Dentro de Vista de Leccion de Prueba, luego de haber cargado el componente de Leccion con un texto de prueba.
+    
+    <CompLeccion :titulo="tituloPrueba" :texto="textoDePrueba" :letras="['a', 'ñ']" imagen="../../Imagenes/Canis_major.jpg"
+                 :cpmMin1="cpmMin1Prueba" :cpmMin2="cpmMin2Prueba" :cpmMin3="cpmMin3Prueba" :cpmMin4="cpmMin4Prueba"
+                 :ignorarMayus="ignorarMayusPrueba" :ignorarTildes="ignorarTildesPrueba" :ignorarDieres="ignorarDieresPrueba"/>
+   
 </div>
 </template>
 
@@ -25,10 +20,16 @@ export default {
 
     data: function() {
         return {
-            textoDePrueba: 'Texto de prueba para una lección de "La Nebulosa de Qwerty".\nNueva línea. \
-ASÍ SE VE UN TEXTO CON MAYÚSCULAS. \
-Ásí sé vén lás tíldés áéíóúÁÉÍÓÚ üaÜa\
-ÑñÑñÑñÑñ'
+            textoDePrueba:'Es la segunda estrella más brillante de la constelación Canis Major. Su principal significado es «flor de azahar». Es una estrella binaria, su estrella principal es una supergigante azul o gigante luminosa. Distante 430 años luz de la tierra. Adhara es la fuente ultravioleta extrema más brillante conocida en el cielo. Si pudiéramos ver en longitudes de onda ultravioleta, eclipsaría a todas las demás estrellas. La estrella tiene un tamaño 13,9 veces mayor que el tamaño del Sol y alrededor de 12,6 masas solares, suficiente para que en el futuro pueda explotar como supernova. La edad estimada de la estrella es de 22,5 millones de años. Un estudio publicado en el año 1995 encontró que la estrella es la fuente más potente de fotones del contínuo de Lyman (fotones emitidos por encima del límite de Lyman, capaces de ionizar átomos de hidrógeno en el gas más cercano),  que desempeña un papel importante en la ionización del hidrógeno en la Nube interestelar local (la nube interestelar que se extiende a lo largo de 30 años luz, a través de la cual se mueve el Sol).',
+            tituloPrueba: "Adhara",
+            imagenPrueba: "../../Imagenes/Canis_major.jpg",
+            cpmeMin1Prueba: 100,
+            cpmeMin2Prueba: 200,
+            cpmeMin3Prueba: 300,
+            cpmeMin4Prueba: 400,
+            ignorarMayusPrueba: false,
+            ignorarTildesPrueba: false,
+            ignorarDieresPrueba: false
         }
     }
 }
@@ -37,11 +38,25 @@ ASÍ SE VE UN TEXTO CON MAYÚSCULAS. \
 <style scoped>
 h1 {
     text-align: center;
+    color:black;
 }
 
 .view-leccion-prueba{
-    background: crimson;;
+    
     color: white;
     text-align: left;
+    background-image: url(../../Imagenes/sky.png);
+    background-size: cover;
+    background-attachment: fixed;
+   
+    display: flex;
+    justify-content: space-between;
+    justify-items: auto;
+    height: 100vh;
+    margin:-8px;
+    padding: 0;
+
 }
+
+
 </style>

@@ -1,35 +1,56 @@
 <template>
 <div class="componente-leccion">
-    <h1> Componente de Lección </h1>
+    <h1> {{ titulo }} </h1>
+  
+    <img class = "planetas"   src = "../../Imagenes/planetas.png">
+    <img class = "telescopio" src = "../../Imagenes/telescopio.png">
+    
+    
+    <div class= letrasNucleo> 
+        <span v-for="letra in letras" :key="letra"> {{letra}}-&nbsp;</span><br/>
+    </div>
 
-    <p> Las letras que se practicaran en esta leccion son: </p>
-    <ul>
-        <li v-for="letra in letras" :key="letra">
-            {{ letra }}
-        </li>
-    </ul>
+    <!--Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):-->
+    <!--div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div-->
 
-    Retroalimentación sobre la tecla oprimida (se debe aún ubicar y estilizar correctamente):
-    <div id="retroAnterior" :key="retroAnterior">{{ retroAnterior }} </div>
+    <!--Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):-->
+    <!--div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div-->
 
-    Información sobre la tecla a oprimir (se debe aún ubicar y estilizar correctamente):
-    <div id="retroSiguiente" :key="retroSiguiente">{{ retroSiguiente }} </div>
-    <input :placeholder="!leccionEnCurso ? 'Empezar Lección' : 'Continuar Lección'" id="inputTexto" v-on:click="empezarLeccion" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)" readonly>
+    <input :placeholder="!leccionEnCurso ? 'Empezar' : 'Continuar'"
+            id="inputTexto" v-on:click="empezarLeccion(false)" v-on:keypress="teclaPresionada($event)" v-on:keydown.backspace="borrarPresionada($event)"
+            v-on:keydown="teclaAbajo($event.code, $event)" v-on:keyup="teclaArriba($event.code, $event)" 
+            v-on:blur="salidoDeInput" readonly>
 
     <div id="texto-leccion">
         <span v-html="texto_html" :key="i_posRelActual"/>
     </div>
 
 
-    <button v-on:click="empezarLeccion(true)"> Reiniciar Sesión </button>
+    <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
+                      v-on:msjReiniciarLeccion="cerrarModalYReiniciar"
+                      :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"
+                      :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4" />
+    <Designs/>
+
+    <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
+
+
 </div>
 </template>
 
 <script>
+import CompModalLeccion from "./CompModalFinLeccion.vue"
+
+import Designs from '@/components/Designs.vue'
 export default {
     name: 'CompLeccion',
 
     props: {
+        titulo: {
+            type: String,
+            default: "Título de la Lección"
+        },
+
         texto: {
             type: String,
             default: "No se cargo un texto para esta leccion",
@@ -38,18 +59,71 @@ export default {
         letras: {
             type: Array,
             default: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', ';', ':', ,'¿', '?', '¡', '!', '"', "'", '\n', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '#', '$', '%', '&', '/', '(', ')', '=', '+', '*', '[', ']', '{', '}', '-', '_', '°', '|', '¬', '\\', '`', '~', '^', '@'],
+        },
+
+        imagen: {
+            type: String
+        },
+
+        cpmMin1: {
+            type: Number,
+            default: 100
+        },
+
+        cpmMin2: {
+            type: Number,
+            default: 200
+        },
+        
+        cpmMin3: {
+            type: Number,
+            default: 300
+        },
+        
+        cpmMin4: {
+            type: Number,
+            default: 400
+        },
+
+        ignorarMayus: {
+            type: Boolean,
+            default: true,
+        },
+
+        ignorarTildes: {
+            type: Boolean,
+            default: true,
+        },
+
+        ignorarDieres: {
+            type: Boolean,
+            default: true,
         }
     },
+
+    components: {
+        CompModalLeccion,
+        Designs,
+        },
+
 
     data: function() {
         return {
             i_posRelActual: 0, // Necesario ponerla acá para que sirva como key de renderización del texto
             retroAnterior: "", // Mensaje de retroalimentación tecla oprimida
-            retroSiguiente: "" // Mensaje de retroalimentación sobre tecla a oprimir
+            retroSiguiente: "", // Mensaje de retroalimentación sobre tecla a oprimir
+            modalAbierto: false, // Indica si el componente modal (ventana emergente) está abierto
         }
     },
 
+    updated: function() {
+        let letraActualHtml = document.getElementById(this.letra_actual)
+        if (letraActualHtml)letraActualHtml.scrollIntoView({block: "center", behavior: "smooth"});
+    },
+
     created: function() {
+        this.borrarKeyACode = {}
+        this.borrarCodeAKeys = {}
         // Estandarizar el texto y las letras
         this.textoN = this.texto.normalize(); // Tener un formato unico para las tildes... hay varias formas de escribir á
         this.letrasN = this.letras.map(letra => { // Normalizar y pasar a minúsculas las letras
@@ -76,6 +150,110 @@ export default {
         this.letra_reprobada = "letra-reprobada";
         this.letra_actual = "letra-actual";
         
+        this.keysACodes = {
+                "0": "Digit0",
+                "1": "Digit1",
+                "2": "Digit2",
+                "3": "Digit3",
+                "4": "Digit4",
+                "5": "Digit5",
+                "6": "Digit6",
+                "7": "Digit7",
+                "8": "Digit8",
+                "9": "Digit9",
+                "°": "Backquote",
+                "|": "Backquote",
+                "¬": "Backquote",
+                "!": "Digit1",
+                "\"": "Digit2",
+                "#": "Digit3",
+                "$": "Digit4",
+                "%": "Digit5",
+                "&": "Digit6",
+                "/": "Digit7",
+                "(": "Digit8",
+                ")": "Digit9",
+                "=": "Digit0",
+                "?": "Minus",
+                "'": "Minus",
+                "¡": "Equal",
+                "¿": "Equal",
+                "\\": "Minus",
+                "Q": "KeyQ",
+                "q": "KeyQ",
+                "@": "KeyQ",
+                "W": "KeyW",
+                "w": "KeyW",
+                "E": "KeyE",
+                "e": "KeyE",
+                "R": "KeyR",
+                "r": "KeyR",
+                "T": "KeyT",
+                "t": "KeyT",
+                "Y": "KeyY",
+                "y": "KeyY",
+                "U": "KeyU",
+                "u": "KeyU",
+                "I": "KeyI",
+                "i": "KeyI",
+                "O": "KeyO",
+                "o": "KeyO",
+                "P": "KeyP",
+                "p": "KeyP",
+                "¨": "BracketLeft",
+                "´": "BracketLeft",
+                "*": "BracketRight",
+                "+": "BracketRight",
+                "~": "BracketRight",
+                "]": "Backslash",
+                "}": "Backslash",
+                "À": "KeyA",
+                "a": "KeyA",
+                "S": "KeyS",
+                "s": "KeyS",
+                "D": "KeyD",
+                "d": "KeyD",
+                "F": "KeyF",
+                "f": "KeyF",
+                "G": "KeyG",
+                "g": "KeyG",
+                "H": "KeyH",
+                "h": "KeyH",
+                "J": "KeyJ",
+                "j": "KeyJ",
+                "K": "KeyK",
+                "k": "KeyK",
+                "L": "KeyL",
+                "l": "KeyL",
+                "Ñ": "Semicolon",
+                "ñ": "Semicolon",
+                "[": "Quote",
+                "{": "Quote",
+                "^": "IntlBackslash",
+                ">": "IntlBackslash",
+                "<": "IntlBackslash",
+                "Z": "KeyZ",
+                "z": "KeyZ",
+                "X": "KeyX",
+                "x": "KeyX",
+                "C": "KeyC",
+                "c": "KeyC",
+                "V": "KeyV",
+                "v": "KeyV",
+                "B": "KeyB",
+                "b": "KeyB",
+                "N": "KeyN",
+                "n": "KeyN",
+                "M": "KeyM",
+                "m": "KeyM",
+                ";": "Comma",
+                ",": "Comma",
+                ":": "Period",
+                ".": "Period",
+                "_": "Slash",
+                "-": "Slash"
+            }
+
         var letrasConAdiciones = {'á': 'a', 'Á': 'A', 
                                   'é': 'e', 'É': 'E', 
                                   'í': 'i', 'Í': 'I', 
@@ -123,7 +301,7 @@ export default {
 
         // Crear HTML estilizado
         //Ejemplo: this.texto_html = this.htmlLetra('p', {})  + this.htmlLetra('r', {clases: [this.letra_leccion]}) + this.htmlLetra('u', {clases: [this.letra_leccion, this.letra_reprobada]}) + this.htmlLetra('e', {clases: [this.letra_leccion, this.letra_aprobada]}) + this.htmlLetra('b', {clases: [this.letra_leccion, this.letra_reprobada], id: this.letra_actual}) + this.htmlLetra('a', {clases: [], id: this.letra_actual});
-        this.texto_html = this.hacerTextoHtmlActual();
+        this.hacerTextoHtmlActual();
     },
 
     methods: {
@@ -133,6 +311,8 @@ export default {
             this.aTexto.forEach((letra, i) => {
                 textoConHtml += this.htmlLetra(letra, this.aTextoEstilo[i]);
             });
+
+            this.texto_html = textoConHtml;
 
             return textoConHtml;
         },
@@ -202,14 +382,21 @@ export default {
             this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual;
             this.leccionEnCurso = true;
 
-            this.texto_html = this.hacerTextoHtmlActual();
+            this.hacerTextoHtmlActual();
             let inputTexto = document.getElementById("inputTexto");
             if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
             inputTexto.focus();
+
+            console.log("Despues del focus de empezar leccion: document.getElementById(this.letra_actual)", document.getElementById(this.letra_actual));
+            
+
             this.tiempo_i = new Date();
 
             // Actualizar retroalimentacion sobre tecla siguiente
             this.actRetroalSiguiente(`Oprime '${this.aTexto[this.aPosicionesDeLeccion[this.i_posRelActual]]}'`);
+
+            // Actualizar animacion teclado
+            this.actualizarAnimacionTeclado();
         },
 
         acabarLeccion: function(error) {
@@ -217,6 +404,7 @@ export default {
 
             // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
+                // TODO mejorar
                 return;
             }
 
@@ -240,12 +428,31 @@ export default {
             }
 
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
+
+            this.modalAbierto = true;
             
             
-            alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
+            //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
         },
 
         teclaPresionada: function(evento) {
+            
+            // Borrar: solo escrito para generar los diccionarios deseados
+            if (evento.key in this.borrarKeyACode) {
+                this.borrarKeyACode[evento.key].push(evento.code)
+            } else {
+                this.borrarKeyACode[evento.key] = [evento.code]
+            }
+
+            if (evento.code in this.borrarCodeAKeys) {
+                this.borrarCodeAKeys[evento.code].push(evento.key)
+            } else {
+                this.borrarCodeAKeys[evento.code] = [evento.key]
+            }
+
+            console.log(this.borrarKeyACode);
+            console.log(this.borrarCodeAKeys);
+
             // Seguro para evitar que la animacion pueda cambiar si no se esta en medio de una animacion
             if (!this.leccionEnCurso) {
                 return;
@@ -265,12 +472,16 @@ export default {
             // Avanzar la animación: de acuerdo a si fue acierto o no
             if ( evento.key == this.aTexto[i_posGlobActual] || (evento.key == "Enter" && this.aTexto[i_posGlobActual] == "\n") ) {
                 this.avanzarAnimacionTextoUno(true);
+                this.animarTecladoPresion(evento.code, true);
+                this.actualizarAnimacionTeclado();
                 this.n_car_ok += 1;
 
                 // Actualizar Retroalimentación
                 this.actRetroalAnterior("Bien!");
             } else {
                 this.avanzarAnimacionTextoUno(false);
+                this.animarTecladoPresion(evento.code, false);
+                this.actualizarAnimacionTeclado();
 
                 // Actualizar retroalimentación
                 let debiste;
@@ -336,6 +547,9 @@ export default {
 
             // Retroceder animacion del texto
             this.retrocederAnimacionTextoUno();
+
+            // Retroceder animacion del teclado
+            this.actualizarAnimacionTeclado();
             
             // Actualizar retroalimentacion sobre tecla anterior
             this.actRetroalAnterior('Borraste');
@@ -356,9 +570,9 @@ export default {
             delete this.aTextoEstilo[i_posGlobActual]["id"];
 
             if (fueAcierto) {
-                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-aprobada');
+                this.aTextoEstilo[i_posGlobActual]["clases"].push(this.letra_aprobada);
             } else {
-                this.aTextoEstilo[i_posGlobActual]["clases"].push('letra-reprobada');
+                this.aTextoEstilo[i_posGlobActual]["clases"].push(this.letra_reprobada);
             }
             
 
@@ -367,7 +581,7 @@ export default {
 
             // Si ya se llegó al final, acabar el juego
             if (this.i_posRelActual >= this.aPosicionesDeLeccion.length) {
-                this.texto_html = this.hacerTextoHtmlActual();
+                this.hacerTextoHtmlActual();
                 return;
             }
             // De lo contrario
@@ -376,7 +590,7 @@ export default {
             this.aTextoEstilo[i_posGlobActual]["id"] = this.letra_actual
 
             // Actualizar el html del texto basado en los nuevos estilos
-            this.texto_html = this.hacerTextoHtmlActual();
+            this.hacerTextoHtmlActual();
         },
 
         retrocederAnimacionTextoUno: function() {
@@ -432,6 +646,91 @@ export default {
 
             // Actualizar mensaje
             this.retroSiguiente = `Oprime '${oprimir}'${adicion}`;
+        },
+
+        cerrarModal: function() {
+            // console.log("En CompLeccion: orden de cerrar modal recibida.");
+            this.modalAbierto = false;
+        },
+
+        teclaAbajo: function(code, evento) {
+            console.log(evento);
+            let htmlLetra = document.querySelector(`.${code}`);
+            if (htmlLetra != undefined) {
+                htmlLetra.classList.add("keydown");
+            }
+        },
+
+        teclaArriba: function(code, evento) {
+            let htmlLetra = document.querySelector(`.${code}`);
+            if (htmlLetra != undefined) {
+                htmlLetra.classList.remove("keydown");
+            }
+        },
+
+        salidoDeInput: function () {
+            // Resetear teclado si me salgo de la lección
+            document.querySelectorAll(".key").forEach(htmlTecla => {
+                htmlTecla.classList.remove("keydown");
+            });
+        },
+
+        animarTecladoPresion(code, fueAcierto) {
+            let htmlTecla = document.querySelector(`.${code}`)
+
+            if (htmlTecla == undefined){
+                return;
+            }
+
+            if (fueAcierto) {
+                htmlTecla.classList.add("aprobada");
+            } else {
+                htmlTecla.classList.add("reprobada");
+            }
+
+            setTimeout(() =>{
+                htmlTecla.classList.remove("reprobada");
+                htmlTecla.classList.remove("aprobada");
+            }, 1000)
+        },
+
+        actualizarAnimacionTeclado: function () {
+            // Seguro de que hay tecla siguiente por oprimir
+            if (this.i_posRelActual < 0 || this.i_posRelActual >= this.aPosicionesDeLeccion.length - 1) {
+                return;
+            }
+
+            let key;
+            let code;
+
+            // Remover color de actual de la tecla anterior
+            if (this.i_posRelActual > 0) {
+                key = this.aTexto[ this.aPosicionesDeLeccion[this.i_posRelActual - 1] ];
+                code = this.keysACodes[  key  ];
+                document.querySelector(`.${code}`).classList.remove("actual");
+            }
+
+            if (this.i_posRelActual < this.aPosicionesDeLeccion.length - 1) {
+                key = this.aTexto[ this.aPosicionesDeLeccion[this.i_posRelActual + 1] ];
+                code = this.keysACodes[  key  ];
+                document.querySelector(`.${code}`).classList.remove("actual");
+            }
+
+            // Dar estilo a la tecla actual
+            key = this.aTexto[ this.aPosicionesDeLeccion[this.i_posRelActual] ];
+            code = this.keysACodes[  key  ];
+            let htmlTecla = document.querySelector(`.${code}`);
+
+            htmlTecla.classList.add("actual");
+
+        },
+
+        cerrarModalYReiniciar: function() {
+            this.cerrarModal();
+            this.empezarLeccion(true);
+            let inputTexto = document.getElementById("inputTexto");
+            if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
+            inputTexto.focus();
         }
     }
 }
@@ -439,23 +738,68 @@ export default {
 
 <style>
 
-/*@font-face {
+
+@font-face {
   font-family:Questa Grande;
-  src: url(../../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
-}*/
+  src: url(../../fuentes/Questa_Grande_Regular.otf) format("OpenType");
+}
+
+
+.componente-leccion{   
+    position:relative;
+    top:20pt;
+}
+
+.componente-leccion h1{
+    text-align: center;
+    line-height: 0pt;
+    font-size:16pt;    
+}
+
+.planetas{
+   
+    position:absolute;
+    top:1pt;
+    width: 80pt;
+    height:50pt ;
+    left:260pt;
+}
+.telescopio{
+
+    position:absolute;
+    top:25pt;
+    width: 55pt;
+    height:30pt ;
+    left:390pt;
+}
+
+.letrasNucleo{
+    text-align: center;
+    line-height: 6pt;
+    font-size: 11pt;
+    
+
+}
 
 :root {
-    --tamano-fuente: 14pt; /* Variable que determina el tamaño de las cosas */
+    --tamano-fuente: 10pt; /* Variable que determina el tamaño de las cosas */
 }
 
-.componente-leccion {
-    background:rgb(25, 8, 63);
-}
 
 #texto-leccion {
-    position: relative;
-    font-size: var(--tamano-fuente);
-    color: whitesmoke;
+   
+    margin-left:60pt;
+    margin-right: 60pt;
+    margin-top: 5pt;
+    font-size: 10pt;
+    color: white;
+    background: rgb(0,0,0,0.15);
+    text-align: justify;
+    position:relative;
+    height: 67.2pt;
+    overflow:hidden;
+  
+
 }
 
 .letra-leccion {
@@ -463,14 +807,13 @@ export default {
 
     text-align: center;
 
-    width: calc(1rem*1.3);
-    height: calc(1rem*1.3);
+    width: calc(var(--tamano-fuente)*1.1);
+    height: calc(var(--tamano-fuente)*1.2);
 
-    color: white;
-    background: black;
-
-    font-weight: 600;
-    font-family: 'Courier New', Courier, monospace; /* Mejorar */
+    color:rgb(243, 239, 201);
+    
+    font-family: Questa Grande; /* Mejorar */
+    font-size: var(--tamano-fuente);
 
     border-radius: 20%;
     border-style: solid;
@@ -482,19 +825,19 @@ export default {
 
 #letra-actual {
     /* Mejorar */
-    color: yellow;
-    border-color: yellow;
+    color: rgb(241, 150, 117);
+    border-color:orangered;
     border-width: 2px;
 }
 
 .letra-aprobada {
     /* Mejorar */
-    color: green;
+    color:rgb(30, 174, 152);
 }
 
 .letra-reprobada {
     /* Mejorar */
-    color: red;
+    color:crimson;
 }
 
 .tecla-enter {
@@ -517,19 +860,20 @@ export default {
 }
 
 #retroAnterior{
+   
     color: white;
-    font-size: calc(1.5 * var(--tamano-fuente));
-    border: yellow solid;
-    min-height: calc(2 * var(--tamano-fuente));
+    font-size: 15pt;
+    border: transparent;
     text-align: center;
+    line-height: 20pt;
 }
 
 #retroSiguiente{
     color: white;
-    font-size: calc(1.5 * var(--tamano-fuente));
-    border: yellow solid;
-    min-height: calc(2 * var(--tamano-fuente));
+    font-size:15pt;
+    border:transparent;
     text-align: center;
+    line-height: 30pt;
 }
 
 #inputTexto {
@@ -537,10 +881,54 @@ export default {
 
     /* Para centrar el bloque */
     display:block;
-    margin-right: auto;
-    margin-left: auto;
-
+    position: relative;
+    z-index: 999;
+    transform-origin: 50% 50%;
+    margin-left: 52% ;
+    margin-top: 2pt;
     text-align: center;
-    border-radius: 20%;
+    font-family: Questa Grande;
+    font-size: 15;
+   
+    right: 50pt;
+    width: 6vw;
+    height: 0vh;
+    line-height: 10pt;
+
+    background: rgb(30, 174, 152);
+    border: 1px solid #e5e7e9;
+    
+
+    border-radius: 15px;
+    padding: 9px 15px;
+
+    color: #e5e7e9;
+    background:transparent;
+    border: 1px solid rgb(30, 174, 152);
 }
+
+#inputTexto::-webkit-input-placeholder{
+    color:white;
+    font-style: bold;
+}
+
+#inputTexto:focus::-webkit-input-placeholder{
+    color:transparent;
+   
+}
+
+#inputTexto:focus{
+  outline:none;
+  border:none;
+
+}
+
+.cuerpo_celeste{
+    position:absolute;
+    width: 100pt ;
+    height: 110pt ;
+    right:60pt;
+    bottom: 80pt;
+}
+
 </style>

@@ -6,6 +6,7 @@ import ViewInicioSesion from '@/views/ViewInicioSesion.vue'
 import ViewRegistrarNivel from '@/views/ViewRegistrarNivel.vue'
 import ViewVerNiveles from '@/views/ViewVerNiveles.vue'
 import ViewVerLecciones from '@/views/ViewVerLecciones.vue'
+import LocalFingers from           '@/components/LocalFingers.vue'
 
 
 const routes = [
@@ -15,12 +16,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/login',
+    name: 'Login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
   {
     path: '/prueba-leccion',
@@ -51,8 +52,14 @@ const routes = [
     path: '/lista-lecciones',
     name: '/lista-lecciones',
     component: ViewVerLecciones
+  },
+  {
+    path: '/ubicacion-dedos',
+    name: 'Ubicación de dedos',
+    component: LocalFingers
   }
 ]
+
 
 const router = createRouter({
   history: createWebHistory(),
