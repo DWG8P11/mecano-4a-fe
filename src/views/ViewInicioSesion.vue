@@ -50,8 +50,8 @@ export default {
 
           console.log("dataLogIn.data.logIn.access", result.data.logIn.access)
           localStorage.setItem("correo", result.data.logIn.correo);
-			    localStorage.setItem("token_access", result.data.logIn.token_access);
-			    localStorage.setItem("token_refresh", result.data.logIn.token_refresh);
+			    localStorage.setItem("token_access", result.data.logIn.access);
+			    localStorage.setItem("token_refresh", result.data.logIn.refresh);
 
           alert("Inicio de sesion exitoso: " + this.usuario.correo);
           

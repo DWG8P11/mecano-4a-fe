@@ -87,7 +87,10 @@ export default {
         variables: {
           nivel: this.nuevoNivel,
         },
-      }).then(respuesta => {console.log(`respuesta ${respuesta}`)}).catch(error => {console.log(`error ${error}`)});
+      }).then(respuesta => {
+        console.log(`respuesta ${respuesta}`);
+        alert("Registro de nivel exitoso")
+        }).catch(error => {console.log(`error ${error}`)});
     },
   },
 };
