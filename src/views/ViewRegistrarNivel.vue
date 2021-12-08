@@ -53,6 +53,8 @@ export default {
       this.imagenSubida = true;
       console.log(imagenComoUrl)
       this.imagenCodificada = imagenComoUrl;
+      this.nuevoNivel.imagen = imagenComoUrl;
+      this.nuevoNivel.id = parseInt(this.nuevoNivel.id)
     },
 
     leerArchivoAsync: function (file) {
@@ -70,7 +72,7 @@ export default {
     },
 
     procesar: async function () {
-        console.log("Web tratara de registrar el siguiente nivel", this.nuevoNivel)
+        // console.log("Web tratara de registrar el siguiente nivel", this.nuevoNivel)
       await this.$apollo.mutate({
         mutation: gql`
           mutation RegistrarNivel($nivel: NivelIn!) {

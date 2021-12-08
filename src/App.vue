@@ -14,7 +14,7 @@
             <router-link to = "/prueba-leccion">Aprende</router-link> |
             <router-link to = "/login">Únete</router-link> 
             <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-            | <router-link to="/inicio-sesion"> Iniciar Sesion </router-link>
+            | <router-link to="/inicio-sesion" v-on:msjLogInCompletado="completarLogIn"> Iniciar Sesion </router-link>
     | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
     | <router-link to="/lista-niveles"> Lista Niveles </router-link>
           </div>
@@ -59,6 +59,24 @@ export default {
     CompLeccion,
     Designs,
     LocalFingers,
+  },
+
+  computed: {
+    estaAutenticado: {
+      get: function() {
+        return this.$route.meta.requiresAuth;
+      },
+      set: function() { }
+    }
+  },
+
+  methods: {
+    completarLogIn: function(data) {
+			localStorage.setItem("correo", data.correo);
+			localStorage.setItem("token_access", data.token_access);
+			localStorage.setItem("token_refresh", data.token_refresh);
+			alert("Autenticación Exitosa");
+    },
   }
 }
 </script>

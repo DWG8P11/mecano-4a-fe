@@ -12,11 +12,11 @@ const apiGatewayHttpLink = createHttpLink({ // Crea un link a partir de un strin
 
 // Un contexto para peticiones HTTP (es decir, algo que se puede añadir previo a hacer una peticion http). 
 // En este caso, consisten en añadir el header para el token  
-const authContexto = setContext((_, { headers }) => { 
+const authContexto = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            "Authorization": localStorage.getItem("token_access") || ""
+            "Authorization": "Bearer " + localStorage.getItem("token_access") || ""
         }
     }
 })

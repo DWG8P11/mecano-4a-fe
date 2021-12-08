@@ -41,7 +41,10 @@ const routes = [
   {
     path: '/registrar-nivel',
     name: 'registrar-nivel',
-    component: ViewRegistrarNivel
+    component: ViewRegistrarNivel,
+    meta: {
+      requiereAut: false
+    }
   },
   {
     path: '/lista-niveles',
@@ -51,7 +54,10 @@ const routes = [
   {
     path: '/lista-lecciones',
     name: '/lista-lecciones',
-    component: ViewVerLecciones
+    component: ViewVerLecciones,
+    meta: {
+      requiereAut: false
+    }
   },
   {
     path: '/ubicacion-dedos',
@@ -65,5 +71,53 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+
+// Funcion auxiliar para el salto entre componentes: la persona esta autenticada?
+async function estaAutenticado() {
+  if (localStorage.getItem("token_access") === null ||
+      localStorage.getItem("token_refresh") === null) {
+
+      return false;
+  }
+
+  try { // Intentar reautenticación
+
+      var respuesta = await apolloClient.mutate({
+          mutation: gql`
+          mutation ($refresh: String!) {
+                  actualizarToken(refresh: $refresh) {
+                      access
+              }
+          }
+   `,
+          variables: {
+              refresh: localStorage.getItem("token_refresh"),
+          },
+      })
+
+      localStorage.setItem("token_access", respuesta.data.actualizarToken.access);
+
+      return true;
+
+  } catch {
+      localStorage.clear();
+      alert("Su sesión expiró, por favor vuelva a iniciar sesión");
+
+      return false;
+  }
+}
+
+// Funcion que se ejecutara antes de cada SALTO entre componentes. Mucho campo para la creatividad
+router.beforeEach(async (to, from) => {
+  // TODO Mejorar
+  if (to.meta.requiereAut) {
+    if (await estaAutenticado()){
+      return true
+    }
+    return {name: Home}
+  }
+})
+
 
 export default router
