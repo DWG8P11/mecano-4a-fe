@@ -7,7 +7,7 @@ import { createApolloProvider } from '@vue/apollo-option'
 import { setContext } from 'apollo-link-context'
 
 const apiGatewayHttpLink = createHttpLink({ // Crea un link a partir de un string
-    uri: 'http://localhost:4000/',
+    uri: 'https://nebulosa-qwerty-be-gateway.herokuapp.com/',
 })
 
 // Un contexto para peticiones HTTP (es decir, algo que se puede añadir previo a hacer una peticion http). 
