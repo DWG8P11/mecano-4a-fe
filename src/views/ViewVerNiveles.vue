@@ -154,12 +154,12 @@ img {
 }
 
 .galeria {
-    background:greenyellow;
+    background     :greenyellow;
     display        : flex;
     flex-wrap      : wrap;
     margin         : -1rem -1rem;
     padding-bottom : 3rem;
-    height         : 90vh;
+    height         : 60vh;
 }
 
 .galeria-item {
@@ -187,9 +187,6 @@ img {
 /*
 The following code will only run if your browser supports CSS grid.
 */
-
-
-
 
 .galeria-item-info {
     display: none;
