@@ -34,9 +34,27 @@
             <li><div class="key KeyÑ"><span>ñ</span></div></li>
 	    
         </ul>
+
+        
+		<ul class="barra_espaciadora" id="bottomrow">
+	    	<li><div class="key Space" id="spacebar"></div></li>	
+        </ul>
+
     </div>
 
-    <img class="localFingers" src="../../Imagenes/hands.jpg" />
+    <div class="localFingers">
+        <img class="hands" src="../../Imagenes/iconosUbicacion/slide18.png" />
+            <div class="iconos_ubicacion">
+                <img class="Moon"         src="../../Imagenes/iconosUbicacion/slide13.png"/>
+                <img class="Saturno"      src="../../Imagenes/iconosUbicacion/slide14.png"/>
+                <img class="Sol"          src="../../Imagenes/iconosUbicacion/slide.png" />
+                <img class="Tierra"       src="../../Imagenes/iconosUbicacion/slide16.png" />
+                <img class="Constelacion" src="../../Imagenes/iconosUbicacion/slide17.png" />
+            </div>
+
+    </div>
+
+
 
   </div>
 </template>
@@ -54,11 +72,11 @@ export default {
 .ubicacion_dedos {
   margin: -8px;
   padding: 0;
-  background-image: url(../../Imagenes/4.png);
+  background-image: url(../../Imagenes/aurora.jpg);
   background-size: cover;
   background-position: absolute;
   background-repeat: no-repeat;
-  height: 100vh;
+  height:100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,14 +90,19 @@ export default {
   src: url(../../fuentes/Questa_Grande_Regular.otf) format("Opentype");
 }
 
+@font-face {
+  font-family: Autery;
+  src: url(../../fuentes/Autery.ttf) format("truetype");
+}
+
 /* Título de sección*/
 
 h1 {
     position:absolute;
-    top:20pt;
-    
+    top:30pt;
     color: white;
     text-align: center;
+    font-family: Autery;
 
 }
 
@@ -141,7 +164,7 @@ p {
   color: white;
   position: relative;
   bottom: 80pt;
-  left: 150pt;
+  left: 510pt;
   right: 30pt;
   text-align: justify;
 }
@@ -149,10 +172,8 @@ p {
 /* Estilo teclas guías */
 
 .teclas_guías{
-    background: fuchsia;
 	position: absolute;
 	left:55pt;
-	bottom:100px;
 	width: 30px;
 	height: 40px;
 	background:	rgba(170, 170, 170, 0.1);
@@ -160,7 +181,7 @@ p {
 	border-top-right-radius: 7px 21px;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
-
+    overflow: hidden;
 }
 
 ul {list-style-type: none; width: 784px; margin: 0 auto;}
@@ -188,8 +209,8 @@ li {float: left;}
 	}
 .teclas_izq{
     position:absolute;
-    left:210pt;
-    top:135pt;
+    left:230pt;
+    top:150pt;
 }
 
 #asdfg li div span {
@@ -227,7 +248,7 @@ li {float: left;}
 .teclas_der{
     position:absolute;
     left:373pt;
-    top:135pt;
+    top:150pt;
 }
 
 #hjklñ li div span {
@@ -262,14 +283,77 @@ li {float: left;}
 
 } 
 
+#spacebar {
+	width: 110px;
+	height: 14.6pt;
+	position: absolute;
+	left:350pt ;
+    bottom:105pt;
+    background:rgb(58, 35, 189) ;
+}
+
 
 /* Imagen con ubicación de dedos*/
-.localFingers {
+
+.hands {
+    z-index: 1;
+    display:flex;
     position:relative;
-    top: 40pt;
-    right: 250pt;
-    width: 100vh;
-    height: 40vh;
+    top: 50pt;
+    right: 550pt;
+    width: 120vh;
+    height: 60vh;
+}
+
+.iconos_ubicacion{
+    z-index: 2;
+    position:relative;
+    right: 290pt;
+}
+
+.Moon{
+    position:relative;
+    bottom:90pt;
+    left: 20pt;
+    width: 50pt;
+    height: 30pt;
+
+}
+
+.Saturno{
+    position:relative;
+    bottom:70pt;
+    right: 16pt;
+    width: 60pt;
+    height: 30pt;
+
+}
+
+.Sol{
+    position:relative;
+    bottom:105pt;
+    right: 118pt;
+    width: 60pt;
+    height: 30pt;
+
+}
+
+.Tierra{
+    position:relative;
+    bottom:95pt;
+    right: 195pt;
+    width: 52pt;
+    height: 30pt;
+
+}
+.Constelacion{
+    position:relative;
+    bottom:60pt;
+    right: 273pt;
+    width: 52pt;
+    height: 30pt;
+    filter: shadow(color white 1px 1px 1px 1px );
+
 }
 	
 </style>
