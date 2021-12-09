@@ -6,7 +6,7 @@ import ViewInicioSesion                   from '@/views/ViewInicioSesion.vue'
 import ViewRegistrarNivel                 from '@/views/ViewRegistrarNivel.vue'
 import ViewVerNiveles                     from '@/views/ViewVerNiveles.vue'
 import ViewVerLecciones                   from '@/views/ViewVerLecciones.vue'
-import LocalFingers                       from  '@/components/LocalFingers.vue'
+import LocalFingers                       from '@/components/LocalFingers.vue'
 
 
 const routes = [
