@@ -1,12 +1,12 @@
 <template>
     <div class="view-ver-niveles">
         <body>
-            <div class="subtitle">Niveles</div>
 
             <div class="contenedor-galeria">
                 <!-- <div class="galeria" :key="nivelCargaNiveles"> -->
                 <div class="galeria">
                     <div
+                        :id="'nivel-'+nivel.id"
                         class="galeria-item"
                         v-for="nivel of this.listaNiveles"
                         :key="nivel"
@@ -115,32 +115,28 @@ export default {
 
 
 <style scoped>
+
 .view-ver-niveles {
-    display: flex;
-    margin: 0pt;
-    margin-top: -70pt;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.subtitle {
-    position: relative;
-    left: 0;
-
-    font-family: Blue-Fonte;
-    color: rgb(28, 11, 127);
-    font-size: 46pt;
-
-    width: 140pt; /* El tamaño de Arrecife */
-    left: calc(50vw - 70pt);
+    display            : flex;
+    margin             : -8pt;
+    padding            : 0;
+    background-image   : url(../../Imagenes/sky.png);
+    background-size    : cover;
+    background-position: absolute;
+    background-repeat  : no-repeat;
+    height             : 126vh;
+    align-items        : center;
+    justify-content    : center;
+    overflow           : hidden;
+    
 }
 
 body {
     position: absolute;
-    top: 75pt;
-    left: 0;
-    width: 100%;
+    top     : 75pt;
+    left    : 0;
+    width   : 100%;
+
 }
 
 img {
@@ -148,43 +144,40 @@ img {
 }
 
 .contenedor-galeria {
-    position: relative;
-    max-width: 93.5rem;
-    top: 80pt;
-    margin: 0 auto;
-    padding: 0 2rem;
+    background: crimson;
+    position  : absolute;
+    width     : 93.5rem;
+    height    : 90vh;
+    top       : 30pt;
+    margin    : 0;
+    padding   : 0 2rem;
 }
 
 .galeria {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -1rem -1rem;
-    padding-bottom: 3rem;
+    background:greenyellow;
+    display        : flex;
+    flex-wrap      : wrap;
+    margin         : -1rem -1rem;
+    padding-bottom : 3rem;
+    height         : 90vh;
 }
 
 .galeria-item {
     position: relative;
-    flex: 1 0 22rem;
-    margin: 1rem;
-    color: #fff;
-    cursor: pointer;
+   
 
     /* Para mostrar como circulos */
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100%;
-    height: 0;
-    padding-bottom: 50%;
-    padding-top: 50%;
-
-    border: solid;
-    border-color: black;
+    border-radius : 50%;
+    overflow      : hidden;
+    width         : 30vh;
+    height        : 30vh;
+    border        : solid;
+    border-color  : black;
 }
 
 .galeria-imagen {
-    width: 100%;
-    height: 100%;
-
+    width     : 100%;
+    height    : 100%;
     object-fit: cover;
 
     /* Para ajustar la imagen al contenedor de tamaño 0 */
@@ -194,27 +187,17 @@ img {
 /*
 The following code will only run if your browser supports CSS grid.
 */
-@supports (display: grid) {
-    .galeria {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-        grid-gap: 2rem;
-    }
 
-    .galeria-item,
-    .galeria {
-        width: auto;
-        margin: 0;
-    }
-}
+
+
 
 .galeria-item-info {
     display: none;
 }
 
 .galeria-item-info li {
-    display: inline-block;
-    font-size: 1.5rem;
+    display    : inline-block;
+    font-size  : 1.5rem;
     font-weight: 400;
 
     /* Para centrar el texto */
@@ -223,13 +206,15 @@ The following code will only run if your browser supports CSS grid.
 
 .galeria-item:hover .galeria-item-info,
 .galeria-item:focus .galeria-item-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    display          : flex;
+    justify-content  : center;
+    align-items      : center;
+    position         : absolute;
+    bottom           : 0;
+    width            : 100%;
+    height           : 100%;
+    background-color : rgba(0, 0, 0, 0.2);
 }
+
+
 </style>
