@@ -11,7 +11,33 @@
         viaje y durante todo el recorrido.
       </p>
     </div>
-    <img class="localFingers" src="../../Imagenes/fingers2.png" />
+
+
+    <div class= "teclas_guias"> 
+        <ul  class="teclas_izq" id="asdfg">
+
+	    	<li><div class="key KeyA"><span>a</span></div></li>
+	    	<li><div class="key KeyS"><span>s</span></div></li>
+	    	<li><div class="key KeyD"><span>d</span></div></li>
+	    	<li><div class="key KeyF"><span>f</span></div></li>
+	    	<li><div class="key KeyG"><span>g</span></div></li>
+	    	
+	    
+        </ul>
+
+        <ul class="teclas_der" id="hjklñ">
+
+	    	<li><div class="key KeyH"><span>h</span></div></li>
+	    	<li><div class="key KeyJ"><span>j</span></div></li>
+	    	<li><div class="key KeyK"><span>k</span></div></li>
+	    	<li><div class="key KeyL"><span>l</span></div></li>
+            <li><div class="key KeyÑ"><span>ñ</span></div></li>
+	    
+        </ul>
+    </div>
+
+    <img class="localFingers" src="../../Imagenes/hands.jpg" />
+
   </div>
 </template>
 
@@ -23,6 +49,8 @@ export default {
 
 
 <style scoped>
+
+/* Estilo contenedor principal */
 .ubicacion_dedos {
   margin: -8px;
   padding: 0;
@@ -37,10 +65,14 @@ export default {
   overflow: hidden;
 }
 
+/* Importación de fuente */
+
 @font-face {
   font-family: Questa Grande;
   src: url(../../fuentes/Questa_Grande_Regular.otf) format("Opentype");
 }
+
+/* Título de sección*/
 
 h1 {
     position:absolute;
@@ -50,6 +82,8 @@ h1 {
     text-align: center;
 
 }
+
+/* Animación párrafo*/
 
 .Introduccion p {
   border-right: 0.15em solid white;
@@ -101,20 +135,141 @@ h1 {
 }
 
 p {
-  z-index: 99;
+ 
   font-family: Questa Grande;
-  font-size: 15pt;
+  font-size: 13pt;
   color: white;
   position: relative;
-  bottom: 90pt;
-  left: 30pt;
-  right: 100pt;
+  bottom: 80pt;
+  left: 150pt;
+  right: 30pt;
   text-align: justify;
 }
 
-.localFingers {
-  position: absolute;
-  bottom: 40pt;
-  height: 50vh;
+/* Estilo teclas guías */
+
+.teclas_guías{
+    background: fuchsia;
+	position: absolute;
+	left:55pt;
+	bottom:100px;
+	width: 30px;
+	height: 40px;
+	background:	rgba(170, 170, 170, 0.1);
+	border-top-left-radius: 7px 21px;
+	border-top-right-radius: 7px 21px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+
 }
+
+ul {list-style-type: none; width: 784px; margin: 0 auto;}
+li {float: left;}
+
+.key{
+	display: block;
+	color:white;
+	font-family: Questa Grande;
+    font-size:10pt;
+	text-decoration: none;
+	text-align: center;
+	width: 25px;
+	height: 20px;
+	margin: 4px;
+	background:transparent; 
+	border-radius: 4px;
+	border-top: 1px solid #222;
+	border-bottom:1px solid #222;
+	border-right:1px solid #222;
+	border-left: 1px solid #222;
+	border-color:rgb(250, 250, 250); 
+	box-shadow: 1px 1px 1px 1px rgb(248, 252, 252);
+    text-shadow: black 0.1em 0.1em 0.2em;
+	}
+.teclas_izq{
+    position:absolute;
+    left:210pt;
+    top:135pt;
+}
+
+#asdfg li div span {
+	display: block;
+	margin: 13px 0 0;
+	text-transform: capitalize;
+	line-height: 0pt;
+	}
+#asdfg li .KeyA {
+    background:rgb(30, 174, 152);
+
+}
+
+#asdfg li .KeyS {
+    background:rgb(255, 255, 199);
+
+}
+
+#asdfg li .KeyD {
+    background:rgb(255, 99, 71);
+
+}
+
+#asdfg li .KeyF {
+    background:rgb(115, 239, 249);
+    text-decoration: underline;
+
+}
+
+#asdfg li .KeyG {
+    background:rgb(115, 239, 249);
+
+}
+
+.teclas_der{
+    position:absolute;
+    left:373pt;
+    top:135pt;
+}
+
+#hjklñ li div span {
+	display: block;
+	margin: 13px 0 0;
+	text-transform: capitalize;
+	line-height: 0pt;
+    
+
+	}
+#hjklñ li .KeyH {
+     background:rgb(115, 239, 249);
+     
+
+}
+#hjklñ li .KeyJ {
+     background:rgb(115, 239, 249);
+     text-decoration: underline;
+
+}
+#hjklñ li .KeyK {
+     background:rgb(255, 99, 71);
+
+}
+
+#hjklñ li .KeyL {
+    background:rgb(255, 255, 199);
+}
+
+#hjklñ li .KeyÑ {
+     background:rgb(30, 174, 152);
+
+} 
+
+
+/* Imagen con ubicación de dedos*/
+.localFingers {
+    position:relative;
+    top: 40pt;
+    right: 250pt;
+    width: 100vh;
+    height: 40vh;
+}
+	
 </style>
