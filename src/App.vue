@@ -12,8 +12,11 @@
           <div class= "nav">
             <router-link to = "/">Inicio</router-link> |
             <router-link to = "/prueba-leccion">Aprende</router-link> |
-            <router-link to = "/login">Únete</router-link> | 
+            <router-link to = "/login">Únete</router-link> 
             <!-- <router-link to="/designs"> diseño teclado </router-link> -->
+            | <router-link to="/inicio-sesion"> Iniciar Sesion </router-link>
+    | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
+    | <router-link to="/lista-niveles"> Lista Niveles </router-link>
           </div>
 
           <div class="contenedorBoton">
