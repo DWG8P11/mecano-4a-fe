@@ -39,8 +39,10 @@
 </template>
 
 <script>
+
 import CompModalLeccion from "./CompModalFinLeccion.vue";
 import gql              from "graphql-tag";
+
 
 import Designs from '@/components/Designs.vue'
 export default {
@@ -440,6 +442,9 @@ export default {
 
             // Mostrar ventana con puntaje
             this.modalAbierto = true;
+
+            // Guardar en la base de datos
+            this.guardarEnDB();
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -782,7 +787,6 @@ export default {
                 }
 
                 alert(`Error -${mensaje}`);
-                
             });
         }
     }
@@ -800,7 +804,8 @@ export default {
 
 .componente-leccion{   
     position:relative;
-    top:20pt;
+    top:3.5rem;
+    z-index: 300;
 }
 
 .componente-leccion h1{

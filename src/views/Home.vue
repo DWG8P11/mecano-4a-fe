@@ -5,7 +5,7 @@
     </div>
     
     <img class= "telescopio" src= "../../Imagenes/telescopio2.png">  
-    <img class= "maquina" src= "../../Imagenes/maquina.png"> 
+    <img class= "maquina"    src= "../../Imagenes/maquina.png"> 
    
 
   </div>
