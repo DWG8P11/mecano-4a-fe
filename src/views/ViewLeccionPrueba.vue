@@ -52,9 +52,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     justify-items: auto;
-    height: 100vh;
+    height: 100%;
     margin:-8px;
     padding: 0;
+    z-index: 0;
 
 }
 

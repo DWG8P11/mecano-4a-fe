@@ -747,7 +747,9 @@ export default {
 
 .componente-leccion{   
     position:relative;
-    top:20pt;
+    margin-top:5rem;
+    height: calc(100% - 5rem);
+    z-index: 200;
 }
 
 .componente-leccion h1{
@@ -796,7 +798,9 @@ export default {
     background: rgb(0,0,0,0.15);
     text-align: justify;
     position:relative;
-    height: 67.2pt;
+    /* height: 67.2pt; */
+    /* height: 18.4vh; */
+    height: 24.6%;
     overflow:hidden;
   
 
@@ -925,10 +929,10 @@ export default {
 
 .cuerpo_celeste{
     position:absolute;
-    width: 100pt ;
-    height: 110pt ;
-    right:60pt;
-    bottom: 80pt;
+    width: 14vw;
+
+    right: 8vw;
+    bottom: 2rem;
 }
 
 </style>

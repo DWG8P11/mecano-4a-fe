@@ -15,8 +15,8 @@
             <router-link to = "/login">Únete</router-link> 
             <!-- <router-link to="/designs"> diseño teclado </router-link> -->
             | <router-link to="/inicio-sesion" v-on:msjLogInCompletado="completarLogIn"> Iniciar Sesion </router-link>
-    | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
-    | <router-link to="/lista-niveles"> Lista Niveles </router-link>
+            | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
+            | <router-link to="/lista-niveles"> Lista Niveles </router-link>
           </div>
 
           <div class="contenedorBoton">
@@ -32,11 +32,9 @@
       </div>
     </div>
      <div class="content">
-      <!--<router-view
-        v-on:UserLoginSuccesful="methodUserLogin"
-        v-on:completedSignUp="methodSignup"
-     
-      /> -->
+       <div class="leeway"> </div>
+      <router-view v-on:msjLogInCompletado="completarLogIn"/>
+  </div>
     </div>
 
     <br />
@@ -46,8 +44,7 @@
     </footer>
 
 
-  <router-view/>
-  </div>
+  
 </template>
 
 <script>
@@ -62,6 +59,9 @@ export default {
   },
 
   computed: {
+    /*
+     * Variables que se van a reevaluar frecuentemente
+     */
     estaAutenticado: {
       get: function() {
         return this.$route.meta.requiresAuth;
@@ -105,7 +105,6 @@ export default {
 }
 
 .titulo-nav-contenedorBoton{
- 
   display: flex;
   justify-content: space-between;
   justify-items: auto;
@@ -134,17 +133,29 @@ export default {
   color:turquoise;
 }
 
+body{
+  margin: 0;
+}
 </style>
 
 <style scoped>
+
+.content{
+  position: relative;
+  width: calc(100vw - 0.5rem);
+  left: 0;
+  height: calc(100vh + 0.5rem - 3.15rem);
+  
+}
+
 h1 {
   text-align: left;
   align-items: justify;
   font-family:Autery;
-  font-size: 30pt;
+  font-size: 2.5rem;
   color:white;
-  margin-top:20pt;
-  margin-left:10pt;
+  margin-top:1.6666rem;
+  margin-left:0.83333rem;
 }
 
 /*Botón login y signup*/
@@ -221,7 +232,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50px;
+  height: 3.15rem;
   left: 0;
   background-color: black;
   justify-content: space-between;
