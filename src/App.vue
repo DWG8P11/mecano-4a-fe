@@ -10,12 +10,12 @@
             <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
 
           <div class= "nav">
-            <router-link to = "/">Inicio</router-link> |
-            <router-link to = "/prueba-leccion">Aprende</router-link> |
-            <router-link to = "/login">Únete</router-link> 
+            <router-link to = "/">Inicio                             | </router-link> 
+            <router-link to = "/prueba-leccion">Aprende              | </router-link>
+            <router-link to = "/login" v-if="!estaAutenticado">Únete | </router-link> 
             <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-            | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
-            | <router-link to="/lista-niveles"> Lista Niveles </router-link>
+            <router-link to="/registrar-nivel"> Registrar Nivel      | </router-link>
+            <router-link to="/lista-niveles"> Lista Niveles            </router-link>
           </div>
 
           <div class="contenedorBoton">
@@ -23,8 +23,8 @@
             <label for="toggleLog" class="buttonLoginOut"></label>
 
             <nav class="navLog">
-              <router-link to="/iniciar-sesion" id="Abrir sesión">*Inicia Sesión</router-link>
-              <router-link to="/Home" id="Cerrar sesión">*Cierra Sesión</router-link>
+              <router-link to="/iniciar-sesion" id="Abrir sesión" v-if="!estaAutenticado">*Inicia Sesión</router-link>
+              <router-link to="/Home" id="Cerrar sesión" v-if="estaAutenticado">*Cierra Sesión</router-link>
             </nav>
           </div>
           </div>
@@ -60,9 +60,10 @@ export default {
   computed: {
     estaAutenticado: {
       get: function() {
-        return this.$route.meta.requiresAuth;
+        return this.$route.meta.requiereAut;
       },
-      set: function() { }
+      set: function() {
+      }
     }
   },
 

@@ -3,11 +3,17 @@ import App from './App.vue'
 import router from './router'
 
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
-import { createApolloProvider } from '@vue/apollo-option'
 import { setContext } from 'apollo-link-context'
 
-const apiGatewayHttpLink = createHttpLink({ // Crea un link a partir de un string
-    uri: 'https://nebulosa-qwerty-be-gateway.herokuapp.com/',
+import { createApolloProvider } from '@vue/apollo-option'
+
+// Traer URL API Gateway
+const {linkApiGateway} = require("./servidor");
+console.log("API Gateway Link", linkApiGateway)
+
+// Crea un link a partir de un string
+const apiGatewayHttpLink = createHttpLink({
+    uri: linkApiGateway,
 })
 
 // Un contexto para peticiones HTTP (es decir, algo que se puede añadir previo a hacer una peticion http). 
@@ -26,6 +32,7 @@ const apolloCliente = new ApolloClient({
     link: authContexto.concat(apiGatewayHttpLink),
     cache: new InMemoryCache()
 })
+
 
 // Para permitir que los Componentes hagan peticiones al cliente de Apollo
 const apolloProveedor = new createApolloProvider({

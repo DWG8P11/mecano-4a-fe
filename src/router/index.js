@@ -8,6 +8,10 @@ import ViewVerNiveles                     from '@/views/ViewVerNiveles.vue'
 import ViewVerLecciones                   from '@/views/ViewVerLecciones.vue'
 import LocalFingers                       from  '@/components/LocalFingers.vue'
 
+import gql from "graphql-tag";
+
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+
 
 const routes = [
   {
@@ -35,7 +39,7 @@ const routes = [
     name: 'registrar-nivel',
     component: ViewRegistrarNivel,
     meta: {
-      requiereAut: false
+      requiereAut: true
     }
   },
   {
@@ -65,26 +69,33 @@ const router = createRouter({
 })
 
 
+// Cliente auxiliar de Apollo: MEJORAR
+const { linkApiGateway } = require("../servidor");
+
+const clienteDeApollo = new ApolloClient({
+  link: createHttpLink({ uri:  linkApiGateway}),
+  cache: new InMemoryCache()
+})
+
 // Funcion auxiliar para el salto entre componentes: la persona esta autenticada?
-async function estaAutenticado() {
+async function sePudoAutenticar() {
+  console.log("Se entro a verificar si la persona se puede (re)autenticar");
   if (localStorage.getItem("token_access") === null ||
       localStorage.getItem("token_refresh") === null) {
-
       return false;
   }
 
   try { // Intentar reautenticación
-
-      var respuesta = await apolloClient.mutate({
+      var respuesta = await clienteDeApollo.mutate({
           mutation: gql`
-          mutation ($refresh: String!) {
-                  actualizarToken(refresh: $refresh) {
-                      access
-              }
+          mutation ActualizarToken($tActualizacion: String!) {
+            actualizarToken(tActualizacion: $tActualizacion) {
+              access
+            }
           }
    `,
           variables: {
-              refresh: localStorage.getItem("token_refresh"),
+              tActualizacion: localStorage.getItem("token_refresh"),
           },
       })
 
@@ -92,9 +103,9 @@ async function estaAutenticado() {
 
       return true;
 
-  } catch {
+  } catch (error) {
       localStorage.clear();
-      alert("Su sesión expiró, por favor vuelva a iniciar sesión");
+      alert("No se pudo verificar su identidad. Error:", error);
 
       return false;
   }
@@ -104,10 +115,11 @@ async function estaAutenticado() {
 router.beforeEach(async (to, from) => {
   // TODO Mejorar
   if (to.meta.requiereAut) {
-    if (await estaAutenticado()){
+    if (await sePudoAutenticar()){
       return true
     }
-    return {name: Home}
+    alert("¡Necesita estar autenticado para acceder a esta funcionalidad!");
+    return {name: 'Home'} // Para redireccionar a Home
   }
 })
 
