@@ -14,9 +14,8 @@
             <router-link to = "/prueba-leccion">Aprende</router-link> |
             <router-link to = "/login">Únete</router-link> 
             <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-            | <router-link to="/inicio-sesion" v-on:msjLogInCompletado="completarLogIn"> Iniciar Sesion </router-link>
-    | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
-    | <router-link to="/lista-niveles"> Lista Niveles </router-link>
+            | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
+            | <router-link to="/lista-niveles"> Lista Niveles </router-link>
           </div>
 
           <div class="contenedorBoton">
@@ -24,7 +23,7 @@
             <label for="toggleLog" class="buttonLoginOut"></label>
 
             <nav class="navLog">
-              <router-link to="/Login" id="Abrir sesión">*Inicia Sesión</router-link>
+              <router-link to="/iniciar-sesion" id="Abrir sesión">*Inicia Sesión</router-link>
               <router-link to="/Home" id="Cerrar sesión">*Cierra Sesión</router-link>
             </nav>
           </div>
@@ -32,6 +31,7 @@
       </div>
     </div>
      <div class="content">
+       <!-- Lo que carga los contenidos de los router links: -->
       <router-view v-on:msjLogInCompletado="completarLogIn"/>
     </div>
 
