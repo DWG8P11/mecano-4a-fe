@@ -44,12 +44,20 @@
 
     <div class="localFingers">
         <img class="hands" src="../../Imagenes/iconosUbicacion/slide18.png" />
-            <div class="iconos_ubicacion">
+            <div class="iconos_ubicacion_der">
                 <img class="Moon"         src="../../Imagenes/iconosUbicacion/slide13.png"/>
                 <img class="Saturno"      src="../../Imagenes/iconosUbicacion/slide14.png"/>
                 <img class="Sol"          src="../../Imagenes/iconosUbicacion/slide.png" />
                 <img class="Tierra"       src="../../Imagenes/iconosUbicacion/slide16.png" />
                 <img class="Constelacion" src="../../Imagenes/iconosUbicacion/slide17.png" />
+            </div>
+
+             <div class="iconos_ubicacion_izq">
+                <img class="Moon2"         src="../../Imagenes/iconosUbicacion/slide13.png"/>
+                <img class="Saturno2"      src="../../Imagenes/iconosUbicacion/slide14.png"/>
+                <img class="Sol2"          src="../../Imagenes/iconosUbicacion/slide.png" />
+                <img class="Tierra2"       src="../../Imagenes/iconosUbicacion/slide16.png" />
+                <img class="Constelacion2" src="../../Imagenes/iconosUbicacion/slide17.png" />
             </div>
 
     </div>
@@ -288,8 +296,8 @@ li {float: left;}
 	height: 14.6pt;
 	position: absolute;
 	left:350pt ;
-    bottom:105pt;
-    background:rgb(58, 35, 189) ;
+  bottom:105pt;
+  background:rgb(58, 35, 189) ;
 }
 
 
@@ -299,16 +307,17 @@ li {float: left;}
     z-index: 1;
     display:flex;
     position:relative;
-    top: 50pt;
+    top: 67pt;
     right: 550pt;
     width: 120vh;
     height: 60vh;
 }
 
-.iconos_ubicacion{
+.iconos_ubicacion_der{
     z-index: 2;
     position:relative;
     right: 290pt;
+    top:18pt;
 }
 
 .Moon{
@@ -350,6 +359,59 @@ li {float: left;}
     position:relative;
     bottom:60pt;
     right: 273pt;
+    width: 52pt;
+    height: 30pt;
+    filter: shadow(color white 1px 1px 1px 1px );
+
+}
+
+
+.iconos_ubicacion_izq{
+    z-index: 2;
+    position:relative;
+    right: 435pt;
+    top:18pt;
+}
+
+.Moon2{
+    position:relative;
+    bottom:125pt;
+    left: -24pt;
+    width: 50pt;
+    height: 30pt;
+
+}
+
+.Saturno2{
+    position:relative;
+    bottom:107pt;
+    right: 101pt;
+    width: 60pt;
+    height: 30pt;
+
+}
+
+.Sol2{
+    position:relative;
+    bottom:140pt;
+    right: 118pt;
+    width: 60pt;
+    height: 30pt;
+
+}
+
+.Tierra2{
+    position:relative;
+    bottom:130pt;
+    right: 152pt;
+    width: 52pt;
+    height: 30pt;
+
+}
+.Constelacion2{
+    position:relative;
+    bottom:100pt;
+    right: 182pt;
     width: 52pt;
     height: 30pt;
     filter: shadow(color white 1px 1px 1px 1px );
