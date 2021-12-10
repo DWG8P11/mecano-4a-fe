@@ -1,12 +1,12 @@
 <template>
     <div class="view-ver-niveles">
         <body>
-            <div class="subtitle">Niveles</div>
 
             <div class="contenedor-galeria">
                 <!-- <div class="galeria" :key="nivelCargaNiveles"> -->
                 <div class="galeria">
                     <div
+                        :id="'nivel-'+nivel.id"
                         class="galeria-item"
                         v-for="nivel of this.listaNiveles"
                         :key="nivel"
@@ -144,8 +144,8 @@ export default {
 }
 
 .galeria-item-info li {
-    display: inline-block;
-    font-size: 1.5rem;
+    display    : inline-block;
+    font-size  : 1.5rem;
     font-weight: 400;
 
     /* Para centrar el texto */
@@ -154,13 +154,15 @@ export default {
 
 .galeria-item:hover .galeria-item-info,
 .galeria-item:focus .galeria-item-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    display          : flex;
+    justify-content  : center;
+    align-items      : center;
+    position         : absolute;
+    bottom           : 0;
+    width            : 100%;
+    height           : 100%;
+    background-color : rgba(0, 0, 0, 0.2);
 }
+
+
 </style>
