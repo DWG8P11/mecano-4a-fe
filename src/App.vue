@@ -2,39 +2,46 @@
   <div id="app" class="app">
     <title>La nebulosa de Qwerty</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    
 
-    <div class = header>
-       <div class="headcontainer titulo-nav-contenedorBoton">
-         <div class="titulo">
-           <!--  <h1>La nebulosa<br />&nbsp;de Qwerty</h1> -->
+    <div class="header">
+      <div class="headcontainer titulo-nav-contenedorBoton">
+        <div class="titulo">
+          <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
+        </div>
+        <div class="nav">
+          <router-link to="/">Inicio | </router-link>
+          <router-link to="/prueba-leccion">Aprende | </router-link>
+          <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
+          <!-- <router-link to="/designs"> diseño teclado </router-link> -->
+          <router-link to="/registrar-nivel"> Registrar Nivel | </router-link>
+          <router-link to="/lista-niveles"> Lista Niveles | </router-link>
+          <router-link to="/lista-lecciones-adm"> Lista Niveles Crud </router-link>
+        </div>
 
-          <div class= "nav">
-            <router-link to = "/">Inicio                             | </router-link> 
-            <router-link to = "/prueba-leccion">Aprende              | </router-link>
-            <router-link to = "/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link> 
-            <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-            <router-link to="/registrar-nivel"> Registrar Nivel      | </router-link>
-            <router-link to="/lista-niveles"> Lista Niveles          |  </router-link>
-            <router-link to="/lista-lecciones-adm"> Lista Niveles Crud  </router-link>
+        <div class="contenedorBoton">
+          <input type="checkbox" id="toggleLog" />
+          <label for="toggleLog" class="buttonLoginOut"></label>
 
-          </div>
-
-          <div class="contenedorBoton">
-            <input type="checkbox" id="toggleLog" />
-            <label for="toggleLog" class="buttonLoginOut"></label>
-
-            <nav class="navLog">
-              <router-link to="/iniciar-sesion" id="Abrir sesión" v-if="!estaAutenticado">*Inicia Sesión</router-link>
-              <router-link to="/Home" id="Cerrar sesión" v-if="estaAutenticado">*Cierra Sesión</router-link>
-            </nav>
-          </div>
-          </div>
+          <nav class="navLog">
+            <router-link
+              to="/iniciar-sesion"
+              id="Abrir sesión"
+              v-if="!estaAutenticado"
+              >*Inicia Sesión</router-link
+            >
+            <router-link 
+              to="/Home" 
+              id="Cerrar sesión" 
+              v-if="estaAutenticado"
+              >*Cierra Sesión</router-link
+            >
+          </nav>
+        </div>
       </div>
     </div>
-     <div class="content">
-       <!-- Lo que carga los contenidos de los router links: -->
-      <router-view v-on:msjLogInCompletado="completarLogIn"/>
+    <div class="content">
+      <!-- Lo que carga los contenidos de los router links: -->
+      <router-view v-on:msjLogInCompletado="completarLogIn" />
     </div>
 
     <br />
@@ -42,16 +49,13 @@
     <footer>
       <h3>La nebulosa de Qwerty</h3>
     </footer>
-
-
-  
   </div>
 </template>
 
 <script>
-import CompLeccion from '@/components/CompLeccion.vue';
-import Designs from '@/components/Designs.vue';
-import LocalFingers from '@/components/LocalFingers.vue'
+import CompLeccion from "@/components/CompLeccion.vue";
+import Designs from "@/components/Designs.vue";
+import LocalFingers from "@/components/LocalFingers.vue";
 export default {
   components: {
     CompLeccion,
@@ -61,25 +65,24 @@ export default {
 
   computed: {
     estaAutenticado: {
-      get: function() {
+      get: function () {
         return this.$route.meta.requiereAut;
       },
-      set: function() {
-      }
-    }
+      set: function () {},
+    },
   },
 
   methods: {
-    completarLogIn: function(data) {
-			localStorage.setItem("usuario", data.usuario);
+    completarLogIn: function (data) {
+      localStorage.setItem("usuario", data.usuario);
       localStorage.setItem("correo", data.correo);
       localStorage.setItem("es_administrador", data.es_administrador);
-			localStorage.setItem("token_access", data.token_access);
-			localStorage.setItem("token_refresh", data.token_refresh);
-			alert(`¡Bienvenid@ ${data.usuario}!`);
+      localStorage.setItem("token_access", data.token_access);
+      localStorage.setItem("token_refresh", data.token_refresh);
+      alert(`¡Bienvenid@ ${data.usuario}!`);
     },
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -92,8 +95,6 @@ export default {
   src: url(../fuentes/Questa_Grande_Regular.otf) format("Opentype");
 }
 
-
-
 .header {
   background: black;
   padding: 0rem 0;
@@ -105,69 +106,69 @@ export default {
   z-index: 100;
 }
 
-.titulo-nav-contenedorBoton{
- 
+.content {
+  z-index: 100;
+}
+
+.titulo-nav-contenedorBoton {
   display: flex;
   justify-content: space-between;
   justify-items: auto;
 }
 
 .nav {
+  z-index: 400;
   padding: 10px;
   background: transparent;
   height: 10pt;
-  position:absolute;
+  position: absolute;
   right: 60pt;
-  top:20pt;
-  
+  top: 20pt;
 }
 
 .nav a {
-  font-family:Questa Grande;
+  font-family: Questa Grande;
   font-weight: bold;
-  font-size:10pt;
-  color:white;
+  font-size: 10pt;
+  color: white;
   text-shadow: black 0.1em 0.1em 0.2em;
-
 }
 
 .nav a.router-link-exact-active {
-  color:turquoise;
+  color: turquoise;
 }
-
 </style>
 
 <style scoped>
 h1 {
   text-align: left;
   align-items: justify;
-  font-family:Autery;
+  font-family: Autery;
   font-size: 30pt;
-  color:white;
-  margin-top:20pt;
-  margin-left:10pt;
+  color: white;
+  margin-top: 20pt;
+  margin-left: 10pt;
 }
 
 /*Botón login y signup*/
 
 .buttonlogout,
 .buttonLoginOut,
-.navLog{
+.navLog {
   position: absolute;
-  top:20pt;
-  right:-25pt;
+  top: 20pt;
+  right: -25pt;
 }
 
-.buttonlogout{
-  margin:auto;
-  top:1pt;
-  left:80%;
+.buttonlogout {
+  margin: auto;
+  top: 1pt;
+  left: 80%;
 }
 
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
-
 }
 
 .navLog a {
@@ -186,7 +187,7 @@ h1 {
   text-shadow: black 0.1em 0.1em 0.2em;
 }
 
-#toggleLog{
+#toggleLog {
   display: none;
 }
 
@@ -199,7 +200,7 @@ h1 {
   box-shadow: 0 0 0 0 transparent;
 }
 
-.buttonLoginOut{
+.buttonLoginOut {
   z-index: 999;
   width: 40px;
   height: 40px;
@@ -213,7 +214,6 @@ h1 {
   margin-top: 5pt;
   margin-right: 50pt;
   transition: all 1s ease-in-out;
- 
 }
 
 /*Estilo footer*/

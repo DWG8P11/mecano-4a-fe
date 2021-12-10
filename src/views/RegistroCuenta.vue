@@ -102,7 +102,7 @@ methods: {
 
 
 
-<style>
+<style scoped>
 @font-face {
   font-family: Questa Grande;
   src: url(../../fuentes/Questa_Grande_Regular.otf) format("Opentype");

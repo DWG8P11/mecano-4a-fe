@@ -40,12 +40,23 @@
 
 <script>
 import CompModalLeccion from "./CompModalFinLeccion.vue"
+import gql from "graphql-tag";
 
 import Designs from '@/components/Designs.vue'
 export default {
     name: 'CompLeccion',
 
     props: {
+        id: {
+            type: String,
+            default: "LeccionNoIdentificada"
+        },
+
+        usuarioIni: {
+            type: String,
+            default: "UsuarioNoIdentificado"
+        },
+
         titulo: {
             type: String,
             default: "Título de la Lección"
@@ -430,6 +441,9 @@ export default {
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
 
             this.modalAbierto = true;
+
+            // Guardar en la base de datos
+            this.guardarEnDB();
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -731,6 +745,35 @@ export default {
             let inputTexto = document.getElementById("inputTexto");
             if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
             inputTexto.focus();
+        },
+
+        guardarEnDB: async function() {
+            console.log("Se va a registrar el puntaje en la base de datos...");
+
+            this.$apollo.mutate({
+                mutation: gql`
+                mutation ActualizarToken($puntaje: PuntajeIn!) {
+                    crearPuntaje(puntaje: $puntaje) {
+                        usuario
+                        leccionId
+                    }
+                }
+                `,
+                variables: {
+                    puntaje: {
+                        usuario: this.usuarioIni,
+                        leccionId: this.id,
+                        precision: this.porc_acierto,
+                        cpm_e: this.cpm_efectiva,
+                        segundos: this.milisegundos_tot/1000,
+                        fecha: String( Date.now() )
+                    }
+                }}
+            ).then(respuesta => {
+                
+            }).catch(error => {
+
+            });
         }
     }
 }
@@ -747,7 +790,8 @@ export default {
 
 .componente-leccion{   
     position:relative;
-    top:20pt;
+    top:3.5rem;
+    z-index: 300;
 }
 
 .componente-leccion h1{
