@@ -7,15 +7,17 @@
     <div class = header>
        <div class="headcontainer titulo-nav-contenedorBoton">
          <div class="titulo">
-            <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
+           <!--  <h1>La nebulosa<br />&nbsp;de Qwerty</h1> -->
 
           <div class= "nav">
             <router-link to = "/">Inicio                             | </router-link> 
             <router-link to = "/prueba-leccion">Aprende              | </router-link>
-            <router-link to = "/login" v-if="!estaAutenticado">Únete | </router-link> 
+            <router-link to = "/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link> 
             <!-- <router-link to="/designs"> diseño teclado </router-link> -->
             <router-link to="/registrar-nivel"> Registrar Nivel      | </router-link>
-            <router-link to="/lista-niveles"> Lista Niveles            </router-link>
+            <router-link to="/lista-niveles"> Lista Niveles          |  </router-link>
+            <router-link to="/lista-lecciones-adm"> Lista Niveles Crud  </router-link>
+
           </div>
 
           <div class="contenedorBoton">

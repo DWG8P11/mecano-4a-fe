@@ -6,7 +6,11 @@ import ViewInicioSesion                   from '@/views/ViewInicioSesion.vue'
 import ViewRegistrarNivel                 from '@/views/ViewRegistrarNivel.vue'
 import ViewVerNiveles                     from '@/views/ViewVerNiveles.vue'
 import ViewVerLecciones                   from '@/views/ViewVerLecciones.vue'
-import LocalFingers                       from  '@/components/LocalFingers.vue'
+import LocalFingers                       from '@/components/LocalFingers.vue'
+import ViewNivelesCrud 			              from '@/views/ViewNivelesCrud.vue'
+import RegistroCuenta                     from '@/views/RegistroCuenta.vue'
+
+
 
 import gql from "graphql-tag";
 
@@ -54,6 +58,16 @@ const routes = [
     meta: {
       requiereAut: false
     }
+  },
+  {
+    path: '/lista-lecciones-adm',
+    name: '/lista-lecciones-adm',
+    component: ViewNivelesCrud
+  },
+  {
+    path: '/registro-cuenta',
+    name: '/registro-cuenta',
+    component: RegistroCuenta
   },
   {
     path: '/ubicacion-dedos',
