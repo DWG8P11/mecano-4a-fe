@@ -115,81 +115,29 @@ export default {
 
 
 <style scoped>
-
-.view-ver-niveles {
-    display            : flex;
-    margin             : -8pt;
-    padding            : 0;
-    background-image   : url(../../Imagenes/sky.png);
-    background-size    : cover;
-    background-position: absolute;
-    background-repeat  : no-repeat;
-    height             : 126vh;
-    align-items        : center;
-    justify-content    : center;
-    overflow           : hidden;
-    
-}
-
-body {
-    position: absolute;
-    top     : 75pt;
-    left    : 0;
-    width   : 100%;
-
-}
-
-img {
-    display: block;
-}
-
-.contenedor-galeria {
-    background: crimson;
-    position  : absolute;
-    width     : 93.5rem;
-    height    : 90vh;
-    top       : 30pt;
-    margin    : 0;
-    padding   : 0 2rem;
-}
-
-.galeria {
-    background:greenyellow;
-    display        : flex;
-    flex-wrap      : wrap;
-    margin         : -1rem -1rem;
-    padding-bottom : 3rem;
-    height         : 90vh;
-}
-
 .galeria-item {
     position: relative;
-   
+   /* Para mostrar como circulos */
+    border-radius: 50%;
+    overflow: hidden;
+    
+    width: 20vh;
+    height: 0;
+    padding-bottom: 10vh;
+    padding-top: 10vh; 
 
-    /* Para mostrar como circulos */
-    border-radius : 50%;
-    overflow      : hidden;
-    width         : 30vh;
-    height        : 30vh;
-    border        : solid;
-    border-color  : black;
+    border: solid;
+    border-color: black;
+
+    justify-items: center;
+    justify-content: center;
 }
 
 .galeria-imagen {
-    width     : 100%;
-    height    : 100%;
+    transform: translate(0, -50%);
     object-fit: cover;
-
-    /* Para ajustar la imagen al contenedor de tamaño 0 */
-    position: absolute; /* Para ignorar el height 0 del contenedor*/
-    top: 0;
+    width: 100%;
 }
-/*
-The following code will only run if your browser supports CSS grid.
-*/
-
-
-
 
 .galeria-item-info {
     display: none;
