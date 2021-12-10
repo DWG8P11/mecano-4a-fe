@@ -32,11 +32,7 @@
       </div>
     </div>
      <div class="content">
-      <!--<router-view
-        v-on:UserLoginSuccesful="methodUserLogin"
-        v-on:completedSignUp="methodSignup"
-     
-      /> -->
+      <router-view v-on:msjLogInCompletado="completarLogIn"/>
     </div>
 
     <br />
@@ -46,7 +42,7 @@
     </footer>
 
 
-  <router-view/>
+  
   </div>
 </template>
 
@@ -72,10 +68,12 @@ export default {
 
   methods: {
     completarLogIn: function(data) {
-			localStorage.setItem("correo", data.correo);
+			localStorage.setItem("usuario", data.usuario);
+      localStorage.setItem("correo", data.correo);
+      localStorage.setItem("es_administrador", data.es_administrador);
 			localStorage.setItem("token_access", data.token_access);
 			localStorage.setItem("token_refresh", data.token_refresh);
-			alert("Autenticación Exitosa");
+			alert(`¡Bienvenid@ ${data.usuario}!`);
     },
   }
 }
