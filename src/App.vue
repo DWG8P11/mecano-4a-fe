@@ -65,6 +65,9 @@ export default {
   },
 
   computed: {
+    /*
+     * Variables que se van a reevaluar frecuentemente
+     */
     estaAutenticado: {
       get: function () {
         return this.$route.meta.requiereAut;
@@ -107,11 +110,7 @@ export default {
   z-index: 100;
 }
 
-.content {
-  z-index: 100;
-}
-
-.titulo-nav-contenedorBoton {
+.titulo-nav-contenedorBoton{
   display: flex;
   justify-content: space-between;
   justify-items: auto;
@@ -138,17 +137,30 @@ export default {
 .nav a.router-link-exact-active {
   color: turquoise;
 }
+
+body{
+  margin: 0;
+}
 </style>
 
 <style scoped>
+
+.content{
+  position: relative;
+  width: calc(100vw - 0.5rem);
+  left: 0;
+  height: calc(100vh + 0.5rem - 3.15rem - 8.5rem);
+  padding-top: 8.5rem;
+}
+
 h1 {
   text-align: left;
   align-items: justify;
-  font-family: Autery;
-  font-size: 30pt;
-  color: white;
-  margin-top: 20pt;
-  margin-left: 10pt;
+  font-family:Autery;
+  font-size: 2.5rem;
+  color:white;
+  margin-top:1.6666rem;
+  margin-left:0.83333rem;
 }
 
 /*Botón login y signup*/
@@ -223,7 +235,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50px;
+  height: 3.15rem;
   left: 0;
   background-color: black;
   justify-content: space-between;
