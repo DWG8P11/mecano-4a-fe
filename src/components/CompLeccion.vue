@@ -39,8 +39,10 @@
 </template>
 
 <script>
-import CompModalLeccion from "./CompModalFinLeccion.vue"
-import gql from "graphql-tag";
+
+import CompModalLeccion from "./CompModalFinLeccion.vue";
+import gql              from "graphql-tag";
+
 
 import Designs from '@/components/Designs.vue'
 export default {
@@ -52,11 +54,6 @@ export default {
             default: "LeccionNoIdentificada"
         },
 
-        usuarioIni: {
-            type: String,
-            default: "UsuarioNoIdentificado"
-        },
-
         titulo: {
             type: String,
             default: "Título de la Lección"
@@ -64,7 +61,7 @@ export default {
 
         texto: {
             type: String,
-            default: "No se cargo un texto para esta leccion",
+            default: "No se cargó un texto para esta lección.",
         },
 
         letras: {
@@ -440,6 +437,10 @@ export default {
 
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
 
+            // Guardar en DB
+            this.guardarPuntaje();
+
+            // Mostrar ventana con puntaje
             this.modalAbierto = true;
 
             // Guardar en la base de datos
@@ -747,8 +748,13 @@ export default {
             inputTexto.focus();
         },
 
-        guardarEnDB: async function() {
+        guardarPuntaje: function() {
             console.log("Se va a registrar el puntaje en la base de datos...");
+
+            if (!this.estaAutenticado) {
+                alert("¡No estas autenticado!");
+                return;
+            }
 
             this.$apollo.mutate({
                 mutation: gql`
@@ -761,18 +767,26 @@ export default {
                 `,
                 variables: {
                     puntaje: {
-                        usuario: this.usuarioIni,
+                        usuario: localStorage.getItem("usuario"),
                         leccionId: this.id,
                         precision: this.porc_acierto,
-                        cpm_e: this.cpm_efectiva,
+                        cpm_e: parseInt(this.cpm_efectiva),
                         segundos: this.milisegundos_tot/1000,
                         fecha: String( Date.now() )
                     }
                 }}
             ).then(respuesta => {
-                
+                alert("¡Puntaje guardado exitosamente!", respuesta);
             }).catch(error => {
+                let mensaje = error.message + "\n\n";
+                
+                if (error.networkError) {
+                    error.networkError.result.errors.forEach(errorApi => {
+                        mensaje += errorApi.message + "\n";
+                    });
+                }
 
+                alert(`Error -${mensaje}`);
             });
         }
     }
