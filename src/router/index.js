@@ -9,7 +9,7 @@ import ViewVerLecciones                   from '@/views/ViewVerLecciones.vue'
 import LocalFingers                       from '@/components/LocalFingers.vue'
 import ViewNivelesCrud 			              from '@/views/ViewNivelesCrud.vue'
 import RegistroCuenta                     from '@/views/RegistroCuenta.vue'
-
+import ViewLeccionesCrud                  from '@/views/ViewLeccionesCrud.vue'
 
 
 import gql from "graphql-tag";
@@ -62,9 +62,14 @@ const routes = [
     props: ruta => ({nNivel: parseInt(ruta.query.nivel)})  // Esto hará que al ir a /lista-leccione s?nivel=2, se le pase al componente el prop nNivel = 2
   },
   {
+    path: '/lista-niveles-adm',
+    name: '/lista-niveles-adm',
+    component: ViewNivelesCrud
+  },
+  {
     path: '/lista-lecciones-adm',
     name: '/lista-lecciones-adm',
-    component: ViewNivelesCrud
+    component: ViewLeccionesCrud
   },
   {
     path: '/registro-cuenta',

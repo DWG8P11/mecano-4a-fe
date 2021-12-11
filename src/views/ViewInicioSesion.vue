@@ -1,14 +1,18 @@
 <template>
+  
   <div class="view-inicio-sesion">
-    <h2>Iniciar sesión</h2>
-
+    <div class="container">
     <form v-on:submit.prevent="procesarInicioSesion">
-      <input type="text" v-model="usuario.correo" placeholder="Correo" />
-      <br />
-      <input type="password" v-model="usuario.password" placeholder="Contraseña" />
-      <br />
-      <button type="submit">Iniciar Sesión</button>
+      <input class="redondeado" type="text" v-model="usuario.correo" placeholder="Correo" />
+      <br/>
+              <img class= "planetas" src= "../../Imagenes/planetas.png">  
+      <br>
+      <input class="redondeado" type="password" v-model="usuario.password" placeholder="Contraseña" />
+      <br/>
+      <br>
+      <button class="btnIniciar" type="submit">Iniciar Sesión</button>
     </form>
+    </div>
   </div>
 </template>
 
@@ -65,7 +69,42 @@ export default {
 </script>
 
 <style scoped>
-.view-inicio-sesion{
-  margin: 5rem;
+
+.planetas{
+  top: 80pt;
+  left:160pt;
+  width: 200pt;
+  height: 120pt;
+
 }
+
+.view-inicio-sesion {
+    text-align: center;
+    margin: 200px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.redondeado {
+    border-radius: 25px;
+    padding: 8px;
+    width: 100%;
+    font-family: Arial;
+    font-size: 25px;
+    font-style: italic;
+    
+    border: 1px solid turquoise;
+    background-color: powderblue;
+    color: black;
+ }
+
+.btnIniciar{
+  padding: 8px;
+  width: 50%;
+  background-color: Rgb(30,174,152);
+  color: white;
+}
+
 </style>
