@@ -790,8 +790,10 @@ export default {
 
 .componente-leccion{   
     position:relative;
-    top:3.5rem;
-    z-index: 300;
+    width: 100%;
+    margin-top:5rem;
+    height: calc(100% - 5rem);
+    z-index: 200;
 }
 
 .componente-leccion h1{
@@ -806,7 +808,8 @@ export default {
     top:1pt;
     width: 80pt;
     height:50pt ;
-    left:260pt;
+    transform: translate(-50%);
+    left:calc(50vw - 4rem);
 }
 .telescopio{
 
@@ -814,7 +817,8 @@ export default {
     top:25pt;
     width: 55pt;
     height:30pt ;
-    left:390pt;
+    transform: translate(-50%);
+    left:calc(50vw + 4.5rem);
 }
 
 .letrasNucleo{
@@ -840,7 +844,9 @@ export default {
     background: rgb(0,0,0,0.15);
     text-align: justify;
     position:relative;
-    height: 67.2pt;
+    /* height: 67.2pt; */
+    /* height: 18.4vh; */
+    height: 24.6%;
     overflow:hidden;
   
 
@@ -927,15 +933,15 @@ export default {
     display:block;
     position: relative;
     z-index: 999;
-    transform-origin: 50% 50%;
-    margin-left: 52% ;
+    transform: translate(-50%);
+    left: 50vw;
     margin-top: 2pt;
     text-align: center;
     font-family: Questa Grande;
     font-size: 15;
    
     right: 50pt;
-    width: 6vw;
+    width: 3.8rem;
     height: 0vh;
     line-height: 10pt;
 
@@ -969,10 +975,10 @@ export default {
 
 .cuerpo_celeste{
     position:absolute;
-    width: 100pt ;
-    height: 110pt ;
-    right:60pt;
-    bottom: 80pt;
+    width: 14vw;
+
+    right: 8vw;
+    bottom: 2rem;
 }
 
 </style>
