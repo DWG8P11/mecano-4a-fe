@@ -5,7 +5,7 @@
 
             <div class="contenedor-galeria">
                 <div class="galeria">
-                    <div
+                    <router-link :to="`/aprende/leccionDB?=${leccion.id}`"
                         class="galeria-item"
                         v-for="leccion of this.listaLecciones"
                         :key="leccion"
@@ -20,7 +20,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </body>
@@ -66,15 +66,6 @@ export default {
                                 titulo
                                 nivel
                                 n_leccion
-                                texto
-                                teclas
-                                mini1
-                                mini2
-                                mini3
-                                mini4
-                                ignorarMayus
-                                ignorarTildes
-                                ignorarDieres
                             }
                         }
                     `,
@@ -84,7 +75,7 @@ export default {
                 })
                 .then(respuesta => {
                     this.listaLecciones = respuesta.data.traerLeccionesLigeras;
-                    
+
                     // Ordenar por numero de nivel y luego por # leccion
                     this.listaLecciones.sort((a, b) => { 
                         if (a.nivel != b.nivel) {

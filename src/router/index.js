@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home                               from '../views/Home.vue'
-import ViewLeccionPrueba                  from '@/views/ViewLeccionPrueba.vue'
+import ViewLeccionDB                  from '@/views/ViewLeccionDB.vue'
 import Designs                            from '@/components/Designs.vue'
 import ViewInicioSesion                   from '@/views/ViewInicioSesion.vue'
 import ViewRegistrarNivel                 from '@/views/ViewRegistrarNivel.vue'
@@ -24,9 +24,10 @@ const routes = [
     component: Home
   },
   {
-    path: '/prueba-leccion',
-    name: 'Leccion de Prueba',
-    component: ViewLeccionPrueba
+    path: '/aprende/leccionDB',
+    name: 'Leccion de DB',
+    component: ViewLeccionDB,
+    props: ruta => ({idLeccion: parseInt(ruta.query.id)}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
   },
   {
     path: '/designs',

@@ -1,5 +1,5 @@
 <template>
-<div class="view-leccion-prueba">
+<div class="view-leccion-db">
     
     <CompLeccion :titulo="tituloPrueba" :texto="textoDePrueba" :letras="['a', 'ñ']" imagen="../../Imagenes/Canis_major.jpg"
                  :cpmMin1="cpmMin1Prueba" :cpmMin2="cpmMin2Prueba" :cpmMin3="cpmMin3Prueba" :cpmMin4="cpmMin4Prueba"
@@ -12,7 +12,7 @@
 import CompLeccion from '@/components/CompLeccion.vue'
 
 export default {
-    name: 'ViewLeccionPrueba',
+    name: 'ViewLeccionDB',
     
     components: {
         CompLeccion
@@ -31,6 +31,10 @@ export default {
             ignorarTildesPrueba: false,
             ignorarDieresPrueba: false
         }
+    },
+
+    created: function() {
+        
     }
 }
 </script>
@@ -41,7 +45,7 @@ h1 {
     color:black;
 }
 
-.view-leccion-prueba{
+.view-leccion-db{
     
     color: white;
     text-align: left;
