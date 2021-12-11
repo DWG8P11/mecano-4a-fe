@@ -57,7 +57,8 @@ const routes = [
     component: ViewVerLecciones,
     meta: {
       requiereAut: false
-    }
+    },
+    props: ruta => ({nNivel: parseInt(ruta.query.nivel)})  // Esto hará que al ir a /lista-leccione s?nivel=2, se le pase al componente el prop nNivel = 2
   },
   {
     path: '/lista-lecciones-adm',

@@ -1,10 +1,9 @@
 <template>
     <div class="view-ver-lecciones">
         <body>
-            <div class="subtitle">Lecciones</div>
+            <div class="subtitle">Lecciones{{ nNivel? `: Nivel ${nNivel}` :  ''}} </div>
 
             <div class="contenedor-galeria">
-                <!-- <div class="galeria" :key="leccionCargaLecciones"> -->
                 <div class="galeria">
                     <div
                         class="galeria-item"
@@ -35,6 +34,13 @@ import gql from "graphql-tag";
 export default {
     name: "ViewGaleriaLecciones",
 
+    props: {
+        nNivel: {
+            type: Number,
+            default: 1
+        }
+    },
+
     data: function () {
         return {
             listaLecciones: [],
@@ -54,8 +60,8 @@ export default {
             await this.$apollo
                 .mutate({
                     mutation: gql`
-                        query TraerLeccionesLigeras {
-                            traerLeccionesLigeras {
+                        query TraerLeccionesLigeras($nivel: Int) {
+                            traerLeccionesLigeras(nivel: $nivel) {
                                 id
                                 titulo
                                 nivel
@@ -72,17 +78,27 @@ export default {
                             }
                         }
                     `,
+                    variables: {
+                        nivel: this.nNivel // En el router me aseguro de que sea un entero
+                    }
                 })
                 .then(respuesta => {
                     this.listaLecciones = respuesta.data.traerLeccionesLigeras;
-                    this.listaLecciones.sort((a, b) => {return a.id - b.id});
+                    
+                    // Ordenar por numero de nivel y luego por # leccion
+                    this.listaLecciones.sort((a, b) => { 
+                        if (a.nivel != b.nivel) {
+                            return a.nivel - b.nivel
+                        } 
+                        return a.n_leccion - b.n_leccion
+                    });
 
                     this.leccionCargaLecciones += 1; // Establece que deberia cargar de nuevo la galeria
 
                     this.traerImagenes();
                 })
                 .catch(error => {
-                    console.log("error", error);
+                    console.log("error", JSON.stringify(error.networkError));
                     this.leccionCargaLecciones = 0;
                 });
 
