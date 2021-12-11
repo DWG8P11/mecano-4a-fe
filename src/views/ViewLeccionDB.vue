@@ -77,11 +77,8 @@ export default {
                         idLeccion: this.idLeccion
                     }
                 });
-                console.log("respuesta.data.traerLeccionPorId", JSON.stringify(respuesta.data.traerLeccionPorId))
+
                 let info = respuesta.data.traerLeccionPorId;
-                
-                
-                alert("Leccion traida exitosamente. id", this.idLeccion, ".");
 
                 this.titulo = info.titulo;
                 this.nivel = info.nivel;

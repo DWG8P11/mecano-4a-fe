@@ -13,14 +13,14 @@
                     >
                         <img class="galeria-imagen" :src="diccionarioImagenes.get(nivel.id)" :key="diccionarioImagenes.get(nivel.id)"/>
 
-                        <div class="galeria-item-info">
+                        <router-link :to="`/lista-lecciones?nivel=${nivel.id}`" class="galeria-item-info">
                             <ul>
                                 <li class="galeria-item-nombre">
                                     <i class="nivel-nombre" aria-hidden="true"> </i>
                                     {{ `Nivel ${nivel.id}: "${nivel.nombre}"` || "Nivel Sin Identificar" }}
                                 </li>
                             </ul>
-                        </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
