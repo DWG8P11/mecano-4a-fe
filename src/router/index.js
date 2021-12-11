@@ -27,7 +27,7 @@ const routes = [
     path: '/aprende/leccionDB',
     name: 'Leccion de DB',
     component: ViewLeccionDB,
-    props: ruta => ({idLeccion: parseInt(ruta.query.id)}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
+    props: ruta => ({idLeccion: ruta.query.id}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
   },
   {
     path: '/designs',

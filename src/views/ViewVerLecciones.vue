@@ -5,7 +5,7 @@
 
             <div class="contenedor-galeria">
                 <div class="galeria">
-                    <router-link :to="`/aprende/leccionDB?=${leccion.id}`"
+                    <router-link :to="`/aprende/leccionDB?id=${leccion.id}`"
                         class="galeria-item"
                         v-for="leccion of this.listaLecciones"
                         :key="leccion"

@@ -1,15 +1,17 @@
 <template>
 <div class="view-leccion-db">
     
-    <CompLeccion :titulo="tituloPrueba" :texto="textoDePrueba" :letras="['a', 'ñ']" imagen="../../Imagenes/Canis_major.jpg"
-                 :cpmMin1="cpmMin1Prueba" :cpmMin2="cpmMin2Prueba" :cpmMin3="cpmMin3Prueba" :cpmMin4="cpmMin4Prueba"
-                 :ignorarMayus="ignorarMayusPrueba" :ignorarTildes="ignorarTildesPrueba" :ignorarDieres="ignorarDieresPrueba"/>
+    <CompLeccion :titulo="titulo" :texto="texto" :letras="letras" :imagen="imagen"
+                 :cpmMin1="cpmMin1" :cpmMin2="cpmMin2" :cpmMin3="cpmMin3" :cpmMin4="cpmMin4"
+                 :ignorarMayus="ignorarMayus" :ignorarTildes="ignorarTildes" :ignorarDieres="ignorarDieres"
+                 :key="texto"/>
    
 </div>
 </template>
 
 <script>
 import CompLeccion from '@/components/CompLeccion.vue'
+import gql from "graphql-tag";
 
 export default {
     name: 'ViewLeccionDB',
@@ -18,23 +20,89 @@ export default {
         CompLeccion
     },
 
+    props: {
+        idLeccion: String
+    },
+
     data: function() {
         return {
-            textoDePrueba:'Es la segunda estrella más brillante de la constelación Canis Major. Su principal significado es «flor de azahar». Es una estrella binaria, su estrella principal es una supergigante azul o gigante luminosa. Distante 430 años luz de la tierra. Adhara es la fuente ultravioleta extrema más brillante conocida en el cielo. Si pudiéramos ver en longitudes de onda ultravioleta, eclipsaría a todas las demás estrellas. La estrella tiene un tamaño 13,9 veces mayor que el tamaño del Sol y alrededor de 12,6 masas solares, suficiente para que en el futuro pueda explotar como supernova. La edad estimada de la estrella es de 22,5 millones de años. Un estudio publicado en el año 1995 encontró que la estrella es la fuente más potente de fotones del contínuo de Lyman (fotones emitidos por encima del límite de Lyman, capaces de ionizar átomos de hidrógeno en el gas más cercano),  que desempeña un papel importante en la ionización del hidrógeno en la Nube interestelar local (la nube interestelar que se extiende a lo largo de 30 años luz, a través de la cual se mueve el Sol).',
-            tituloPrueba: "Adhara",
-            imagenPrueba: "../../Imagenes/Canis_major.jpg",
-            cpmeMin1Prueba: 100,
-            cpmeMin2Prueba: 200,
-            cpmeMin3Prueba: 300,
-            cpmeMin4Prueba: 400,
-            ignorarMayusPrueba: false,
-            ignorarTildesPrueba: false,
-            ignorarDieresPrueba: false
+            texto: "No hay texto.",
+            titulo: "No hay título.",
+            letras: Array,
+            imagen: "",
+            cpmeMin1: 100,
+            cpmeMin2: 200,
+            cpmeMin3: 300,
+            cpmeMin4: 400,
+            ignorarMayus: false,
+            ignorarTildes: false,
+            ignorarDieres: false,
+            nivel: Number,
+            n_leccion: Number
         }
     },
 
     created: function() {
-        
+        console.log("ViewLeccionDB fue creado, y idLeccion vale", this.idLeccion);
+        this.traerLeccionPorId();
+    },
+
+    methods: {
+        traerLeccionPorId: async function() {
+            try{ 
+                let respuesta = await this.$apollo.query({
+                    query: gql`
+                        query Query($idLeccion: String!) {
+                            traerLeccionPorId(idLeccion: $idLeccion) {
+                                id
+                                titulo
+                                nivel
+                                n_leccion
+                                texto
+                                teclas
+                                imagen
+                                mini1
+                                mini2
+                                mini3
+                                mini4
+                                ignorarMayus
+                                ignorarTildes
+                                ignorarDieres
+                            }
+                        }
+
+                    `
+                ,
+                    variables: {
+                        idLeccion: this.idLeccion
+                    }
+                });
+                console.log("respuesta.data.traerLeccionPorId", JSON.stringify(respuesta.data.traerLeccionPorId))
+                let info = respuesta.data.traerLeccionPorId;
+                
+                
+                alert("Leccion traida exitosamente. id", this.idLeccion, ".");
+
+                this.titulo = info.titulo;
+                this.nivel = info.nivel;
+                this.n_leccion = info.n_leccion;
+                this.texto = info.texto;
+                this.letras = info.teclas;
+                this.imagen = info.imagen;
+                this.mini1 = info.mini1;
+                this.mini2 = info.mini2;
+                this.mini3 = info.mini3;
+                this.mini4 = info.mini4;
+                this.ignorarMayus = info.ignorarMayus;
+                this.ignorarTildes = info.ignorarTildes;
+                this.ignorarDieres = info.ignorarDieres;
+            
+            } catch(error) {
+                alert("Error trayendo la lección.", error)
+                console.log("Error trayendo la lección", JSON.stringify(error.networkError))
+            
+            }
+        }
     }
 }
 </script>
