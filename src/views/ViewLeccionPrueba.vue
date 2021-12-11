@@ -1,7 +1,7 @@
 <template>
 <div class="view-leccion-prueba">
     
-    <CompLeccion :titulo="tituloPrueba" :texto="textoDePrueba" :letras="['a', 'ñ']" imagen="../../Imagenes/Canis_major.jpg"
+    <CompLeccion id="61a2e093a98b545e515921df" :titulo="tituloPrueba" :texto="textoDePrueba" :letras="['a', 'ñ']" imagen="../../Imagenes/Canis_major.jpg"
                  :cpmMin1="cpmMin1Prueba" :cpmMin2="cpmMin2Prueba" :cpmMin3="cpmMin3Prueba" :cpmMin4="cpmMin4Prueba"
                  :ignorarMayus="ignorarMayusPrueba" :ignorarTildes="ignorarTildesPrueba" :ignorarDieres="ignorarDieresPrueba"/>
    
@@ -52,9 +52,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     justify-items: auto;
-    height: 100vh;
+    height: 100%;
     margin:-8px;
     padding: 0;
+    z-index: 0;
 
 }
 

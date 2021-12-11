@@ -32,20 +32,28 @@
                       :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4" />
     <Designs/>
 
-    <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
+    <img class= "cuerpo_celeste" :src="imagen">
 
 
 </div>
 </template>
 
 <script>
-import CompModalLeccion from "./CompModalFinLeccion.vue"
+
+import CompModalLeccion from "./CompModalFinLeccion.vue";
+import gql              from "graphql-tag";
+
 
 import Designs from '@/components/Designs.vue'
 export default {
     name: 'CompLeccion',
 
     props: {
+        id: {
+            type: String,
+            default: "LeccionNoIdentificada"
+        },
+
         titulo: {
             type: String,
             default: "Título de la Lección"
@@ -53,7 +61,7 @@ export default {
 
         texto: {
             type: String,
-            default: "No se cargo un texto para esta leccion",
+            default: "No se cargó un texto para esta lección.",
         },
 
         letras: {
@@ -429,7 +437,14 @@ export default {
 
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
 
+            // Guardar en DB
+            this.guardarPuntaje();
+
+            // Mostrar ventana con puntaje
             this.modalAbierto = true;
+
+            // Guardar en la base de datos
+            this.guardarEnDB();
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -731,6 +746,48 @@ export default {
             let inputTexto = document.getElementById("inputTexto");
             if (inputTexto == null) acabarLeccion("La página no cargó todos los elementos necesarios para la lección");
             inputTexto.focus();
+        },
+
+        guardarPuntaje: function() {
+            console.log("Se va a registrar el puntaje en la base de datos...");
+
+            if (!this.estaAutenticado) {
+                alert("¡No estas autenticado!");
+                return;
+            }
+
+            this.$apollo.mutate({
+                mutation: gql`
+                mutation ActualizarToken($puntaje: PuntajeIn!) {
+                    crearPuntaje(puntaje: $puntaje) {
+                        usuario
+                        leccionId
+                    }
+                }
+                `,
+                variables: {
+                    puntaje: {
+                        usuario: localStorage.getItem("usuario"),
+                        leccionId: this.id,
+                        precision: this.porc_acierto,
+                        cpm_e: parseInt(this.cpm_efectiva),
+                        segundos: this.milisegundos_tot/1000,
+                        fecha: String( Date.now() )
+                    }
+                }}
+            ).then(respuesta => {
+                alert("¡Puntaje guardado exitosamente!", respuesta);
+            }).catch(error => {
+                let mensaje = error.message + "\n\n";
+                
+                if (error.networkError) {
+                    error.networkError.result.errors.forEach(errorApi => {
+                        mensaje += errorApi.message + "\n";
+                    });
+                }
+
+                alert(`Error -${mensaje}`);
+            });
         }
     }
 }
@@ -747,7 +804,10 @@ export default {
 
 .componente-leccion{   
     position:relative;
-    top:20pt;
+    width: 100%;
+    margin-top:5rem;
+    height: calc(100% - 5rem);
+    z-index: 200;
 }
 
 .componente-leccion h1{
@@ -762,7 +822,8 @@ export default {
     top:1pt;
     width: 80pt;
     height:50pt ;
-    left:260pt;
+    transform: translate(-50%);
+    left:calc(50vw - 4rem);
 }
 .telescopio{
 
@@ -770,7 +831,8 @@ export default {
     top:25pt;
     width: 55pt;
     height:30pt ;
-    left:390pt;
+    transform: translate(-50%);
+    left:calc(50vw + 4.5rem);
 }
 
 .letrasNucleo{
@@ -796,7 +858,9 @@ export default {
     background: rgb(0,0,0,0.15);
     text-align: justify;
     position:relative;
-    height: 67.2pt;
+    /* height: 67.2pt; */
+    /* height: 18.4vh; */
+    height: 24.6%;
     overflow:hidden;
   
 
@@ -883,15 +947,15 @@ export default {
     display:block;
     position: relative;
     z-index: 999;
-    transform-origin: 50% 50%;
-    margin-left: 52% ;
+    transform: translate(-50%);
+    left: 50vw;
     margin-top: 2pt;
     text-align: center;
     font-family: Questa Grande;
     font-size: 15;
    
     right: 50pt;
-    width: 6vw;
+    width: 3.8rem;
     height: 0vh;
     line-height: 10pt;
 
@@ -925,10 +989,10 @@ export default {
 
 .cuerpo_celeste{
     position:absolute;
-    width: 100pt ;
-    height: 110pt ;
-    right:60pt;
-    bottom: 80pt;
+    width: 14vw;
+
+    right: 8vw;
+    bottom: 2rem;
 }
 
 </style>

@@ -14,6 +14,8 @@
 
 <script>
 import gql from "graphql-tag";
+import jwt_decode from "jwt-decode";
+
 export default {
   name: "ViewInicioSesion",
   data: function () {
@@ -42,18 +44,28 @@ export default {
         })
         .then((result) => {
           let dataLogIn = {
-            correo: this.usuario.correo,
             token_access: result.data.logIn.access,
             token_refresh: result.data.logIn.refresh,
+            usuario: jwt_decode(result.data.logIn.access).usuario,
+            correo: this.usuario.correo,
+            es_administrador: jwt_decode(result.data.logIn.access).es_administrador,
           };
-          this.$emit("completedLogIn", dataLogIn);
-          alert("Inicio de sesion exitoso: " + this.usuario.correo);
+          
+          this.$emit("msjLogInCompletado", dataLogIn);
+
+          
+			// alert("Autenticación Exitosa");
         })
         .catch((error) => {
-            console.log(error)
-          alert("ERROR 401: Credenciales Incorrectas.");
+          alert("Error realizando la autenticacion:", error);
         });
     },
   },
 };
 </script>
+
+<style scoped>
+.view-inicio-sesion{
+  margin: 5rem;
+}
+</style>

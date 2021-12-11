@@ -5,7 +5,7 @@
     </div>
     
     <img class= "telescopio" src= "../../Imagenes/telescopio2.png">  
-    <img class= "maquina" src= "../../Imagenes/maquina.png"> 
+    <img class= "maquina"    src= "../../Imagenes/maquina.png"> 
    
 
   </div>
@@ -37,6 +37,9 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+
+    position: relative;
+    top: -8.5rem;
     
 }
 

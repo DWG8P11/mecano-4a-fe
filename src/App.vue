@@ -2,41 +2,46 @@
   <div id="app" class="app">
     <title>La nebulosa de Qwerty</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    
 
-    <div class = header>
-       <div class="headcontainer titulo-nav-contenedorBoton">
-         <div class="titulo">
-            <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
+    <div class="header">
+      <div class="headcontainer titulo-nav-contenedorBoton">
+        <div class="titulo">
+          <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
+        </div>
+        <div class="nav">
+          <router-link to="/">Inicio | </router-link>
+          <router-link to="/lista-niveles"> Aprende | </router-link>
+          <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
+          <!-- <router-link to="/designs"> diseño teclado </router-link> -->
+          <router-link to="/registrar-nivel"> Registrar Nivel | </router-link>
+          <router-link to="/aprende/leccionDB?id=61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
+          <router-link to="/lista-lecciones-adm"> Lista Niveles Crud </router-link>
+        </div>
 
-          <div class= "nav">
-            <router-link to = "/">Inicio</router-link> |
-            <router-link to = "/prueba-leccion">Aprende</router-link> |
-            <router-link to = "/login">Únete</router-link> 
-            <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-            | <router-link to="/inicio-sesion"> Iniciar Sesion </router-link>
-    | <router-link to="/registrar-nivel"> Registrar Nivel </router-link>
-    | <router-link to="/lista-niveles"> Lista Niveles </router-link>
-          </div>
+        <div class="contenedorBoton">
+          <input type="checkbox" id="toggleLog" />
+          <label for="toggleLog" class="buttonLoginOut"></label>
 
-          <div class="contenedorBoton">
-            <input type="checkbox" id="toggleLog" />
-            <label for="toggleLog" class="buttonLoginOut"></label>
-
-            <nav class="navLog">
-              <router-link to="/Login" id="Abrir sesión">*Inicia Sesión</router-link>
-              <router-link to="/Home" id="Cerrar sesión">*Cierra Sesión</router-link>
-            </nav>
-          </div>
-          </div>
+          <nav class="navLog">
+            <router-link
+              to="/iniciar-sesion"
+              id="Abrir sesión"
+              v-if="!estaAutenticado"
+              >*Inicia Sesión</router-link
+            >
+            <router-link 
+              to="/Home" 
+              id="Cerrar sesión" 
+              v-if="estaAutenticado"
+              >*Cierra Sesión</router-link
+            >
+          </nav>
+        </div>
       </div>
     </div>
-     <div class="content">
-      <!--<router-view
-        v-on:UserLoginSuccesful="methodUserLogin"
-        v-on:completedSignUp="methodSignup"
-     
-      /> -->
+    <div class="content">
+      <!-- Lo que carga los contenidos de los router links: -->
+      <router-view v-on:msjLogInCompletado="completarLogIn" />
     </div>
 
     <br />
@@ -44,23 +49,44 @@
     <footer>
       <h3>La nebulosa de Qwerty</h3>
     </footer>
-
-
-  <router-view/>
   </div>
 </template>
 
 <script>
-import CompLeccion from '@/components/CompLeccion.vue';
-import Designs from '@/components/Designs.vue';
-import LocalFingers from '@/components/LocalFingers.vue'
+import CompLeccion  from '@/components/CompLeccion.vue';
+import Designs      from '@/components/Designs.vue';
+import LocalFingers from '@/components/LocalFingers.vue';
+
 export default {
   components: {
     CompLeccion,
     Designs,
     LocalFingers,
-  }
-}
+  },
+
+  computed: {
+    /*
+     * Variables que se van a reevaluar frecuentemente
+     */
+    estaAutenticado: {
+      get: function () {
+        return this.$route.meta.requiereAut;
+      },
+      set: function () {},
+    },
+  },
+
+  methods: {
+    completarLogIn: function (data) {
+      localStorage.setItem("usuario", data.usuario);
+      localStorage.setItem("correo", data.correo);
+      localStorage.setItem("es_administrador", data.es_administrador);
+      localStorage.setItem("token_access", data.token_access);
+      localStorage.setItem("token_refresh", data.token_refresh);
+      alert(`¡Bienvenid@ ${data.usuario}!`);
+    },
+  },
+};
 </script>
 
 <style>
@@ -72,8 +98,6 @@ export default {
   font-family: Questa Grande;
   src: url(../fuentes/Questa_Grande_Regular.otf) format("Opentype");
 }
-
-
 
 .header {
   background: black;
@@ -87,68 +111,77 @@ export default {
 }
 
 .titulo-nav-contenedorBoton{
- 
   display: flex;
   justify-content: space-between;
   justify-items: auto;
 }
 
 .nav {
+  z-index: 400;
   padding: 10px;
   background: transparent;
   height: 10pt;
-  position:absolute;
+  position: absolute;
   right: 60pt;
-  top:20pt;
-  
+  top: 20pt;
 }
 
 .nav a {
-  font-family:Questa Grande;
+  font-family: Questa Grande;
   font-weight: bold;
-  font-size:10pt;
-  color:white;
+  font-size: 10pt;
+  color: white;
   text-shadow: black 0.1em 0.1em 0.2em;
-
 }
 
 .nav a.router-link-exact-active {
-  color:turquoise;
+  color: turquoise;
 }
 
+body{
+  margin: 0;
+}
 </style>
 
 <style scoped>
+
+.content{
+  position: relative;
+  width: calc(100vw - 0.5rem);
+  left: 0;
+  height: calc(100vh + 0.5rem - 3.15rem - 8.5rem);
+  padding-top: 8.5rem;
+}
+
 h1 {
   text-align: left;
   align-items: justify;
   font-family:Autery;
-  font-size: 30pt;
+  font-size: 2.5rem;
   color:white;
-  margin-top:20pt;
-  margin-left:10pt;
+  margin-top:1.6666rem;
+  margin-left:0.83333rem;
 }
 
 /*Botón login y signup*/
 
 .buttonlogout,
 .buttonLoginOut,
-.navLog{
+.navLog {
   position: absolute;
-  top:20pt;
-  right:-25pt;
+  top: 20pt;
+  right: -25pt;
 }
 
-.buttonlogout{
-  margin:auto;
-  top:1pt;
-  left:80%;
+.buttonlogout {
+  margin: auto;
+  top: 1pt;
+  left: 80%;
 }
 
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
-
 }
 
 .navLog a {
@@ -167,7 +200,7 @@ h1 {
   text-shadow: black 0.1em 0.1em 0.2em;
 }
 
-#toggleLog{
+#toggleLog {
   display: none;
 }
 
@@ -180,7 +213,7 @@ h1 {
   box-shadow: 0 0 0 0 transparent;
 }
 
-.buttonLoginOut{
+.buttonLoginOut {
   z-index: 999;
   width: 40px;
   height: 40px;
@@ -194,7 +227,6 @@ h1 {
   margin-top: 5pt;
   margin-right: 50pt;
   transition: all 1s ease-in-out;
- 
 }
 
 /*Estilo footer*/
@@ -203,7 +235,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50px;
+  height: 3.15rem;
   left: 0;
   background-color: black;
   justify-content: space-between;
