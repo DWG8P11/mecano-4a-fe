@@ -32,7 +32,7 @@
                       :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4" />
     <Designs/>
 
-    <img class= "cuerpo_celeste" src="../../Imagenes/Canis_major.jpg">
+    <img class= "cuerpo_celeste" :src="imagen">
 
 
 </div>

@@ -10,11 +10,11 @@
         </div>
         <div class="nav">
           <router-link to="/">Inicio | </router-link>
-          <router-link to="/prueba-leccion">Aprende | </router-link>
+          <router-link to="/lista-niveles"> Aprende | </router-link>
           <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
           <router-link to="/registrar-nivel"> Registrar Nivel | </router-link>
-          <router-link to="/lista-niveles"> Lista Niveles | </router-link>
+          <router-link to="/aprende/leccionDB?id=61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
           <router-link to="/lista-lecciones-adm"> Lista Niveles Crud </router-link>
         </div>
 
