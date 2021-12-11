@@ -1,3 +1,3 @@
 module.exports = {
-    linkApiGateway: "https://nebulosa-qwerty-be-gateway.herokuapp.com/",
+    linkApiGateway: "http://localhost:4000/",
 }

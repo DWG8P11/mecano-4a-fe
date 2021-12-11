@@ -10,6 +10,7 @@ import LocalFingers                       from '@/components/LocalFingers.vue'
 import ViewNivelesCrud 			              from '@/views/ViewNivelesCrud.vue'
 import RegistroCuenta                     from '@/views/RegistroCuenta.vue'
 import ViewLeccionesCrud                  from '@/views/ViewLeccionesCrud.vue'
+import ViewPerfil                             from '@/views/ViewPerfil.vue'
 
 
 import gql from "graphql-tag";
@@ -80,6 +81,11 @@ const routes = [
     path: '/ubicacion-dedos',
     name: 'Ubicación de dedos',
     component: LocalFingers
+  },
+  {
+    path: '/perfil',
+    name: 'ViewPerfil',
+    component: ViewPerfil
   }
 ]
 
