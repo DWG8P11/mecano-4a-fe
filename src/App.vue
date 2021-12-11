@@ -149,8 +149,8 @@ body{
   position: relative;
   width: calc(100vw - 0.5rem);
   left: 0;
-  height: calc(100vh + 0.5rem - 3.15rem);
-  
+  height: calc(100vh + 0.5rem - 3.15rem - 8.5rem);
+  padding-top: 8.5rem;
 }
 
 h1 {
