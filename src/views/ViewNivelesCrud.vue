@@ -126,7 +126,7 @@ export default {
 
 .container h1 {
     text-align: center;
-    margin: 80px 0 20px 0;
+    margin: 0px 0 20px 0;
 }
 
 .container form{

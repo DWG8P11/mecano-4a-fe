@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home                               from '../views/Home.vue'
-import ViewLeccionPrueba                  from '@/views/ViewLeccionPrueba.vue'
+import ViewLeccionDB                  from '@/views/ViewLeccionDB.vue'
 import Designs                            from '@/components/Designs.vue'
 import ViewInicioSesion                   from '@/views/ViewInicioSesion.vue'
 import ViewRegistrarNivel                 from '@/views/ViewRegistrarNivel.vue'
@@ -24,9 +24,10 @@ const routes = [
     component: Home
   },
   {
-    path: '/prueba-leccion',
-    name: 'Leccion de Prueba',
-    component: ViewLeccionPrueba
+    path: '/aprende/leccionDB',
+    name: 'Leccion de DB',
+    component: ViewLeccionDB,
+    props: ruta => ({idLeccion: ruta.query.id}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
   },
   {
     path: '/designs',
@@ -57,7 +58,8 @@ const routes = [
     component: ViewVerLecciones,
     meta: {
       requiereAut: false
-    }
+    },
+    props: ruta => ({nNivel: parseInt(ruta.query.nivel)})  // Esto hará que al ir a /lista-leccione s?nivel=2, se le pase al componente el prop nNivel = 2
   },
   {
     path: '/lista-niveles-adm',
