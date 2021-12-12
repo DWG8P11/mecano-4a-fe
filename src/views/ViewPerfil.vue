@@ -4,7 +4,7 @@
             <h1> Perfil </h1>
         </header>
         <section class="perfil-cuerpo">
-            <form v-on:submit.prevent="procesar">
+            <form id="formulario-usuario-datos">
                 <label for="usuario"> Nombre de Usuario</label>
                 <input id="usuario" type="text" v-model="usuarioForm.usuario" disabled/>
                 <br/>
@@ -30,9 +30,21 @@
                 <input id="administrador" type="text" v-model="usuarioForm.administrador" disabled/>
                 <br/>
 
-                <button id="boton-submit-nivel" type="submit" disabled>
-                    Registrar Nivel
+                <button id="activar-actualizar-datos" class="btn-crud-usuario" type="button" v-if="!actualizandoDatos"
+                        v-on:click="activarModificacionDatos">
+                    Actualizar Datos
                 </button>
+
+                <button id="submit-actualizar-datos" class="btn-crud-usuario" type="submit" v-if="actualizandoDatos"
+                        v-on:click="actualizarDatos">
+                    Actualizar Usuario
+                </button>
+
+                <button id="activar-actualizar-datos" class="btn-crud-usuario" type="button" v-if="actualizandoDatos"
+                        v-on:click="eliminarUsuario">
+                    Eliminar Usuario
+                </button>
+                
             </form>
         </section>
     </div>
@@ -55,7 +67,10 @@ export default {
             departamento: "",
             ciudad: "",
             es_administrador: "",
-        }
+        },
+
+        actualizandoDatos: false,
+        actualizandoContrasena: false
     },
 
     created: function() {
@@ -83,13 +98,29 @@ export default {
                 }
             ).then(respuesta => {
                 console.log("Detalles de usuario traidos correctamente.");
-                console.log(JSON.stringify(respuesta.data.detallesUsuarioAutenticado));
                 this.usuarioForm = respuesta.data.detallesUsuarioAutenticado;
             }).catch(error => {
                 alert("No se pudo cargar su perfil.", error);
                 console.log("Error trayendo los datos del usuario", error);
             });
+        },
+
+        activarModificacionDatos: async function() {
+            console.log("Habilitada modif datos");
+            this.actualizandoDatos = true;
+            let inputsDatos = document.querySelectorAll("#formulario-usuario-datos input");
+
+            inputsDatos.forEach(elemento => elemento.removeAttribute('disabled'));
+        },
+        
+        actualizarDatos: async function() {
+            console.log("Orden de actualizar datos recibida.");
+        },
+
+        eliminarUsuario: async function() {
+            console.log("Orden de eliminar usuario recibida.")
         }
+
     }
 }
 </script>
