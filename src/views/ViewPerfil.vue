@@ -2,7 +2,7 @@
     <div class="view-perfil">
         <div class="header">
             Perfil
-        </div>
+        </div><br/>
         <section class="perfil-cuerpo">
             <form id="formulario-usuario-datos">
                 <label for="usuario"> Nombre de Usuario</label>
@@ -53,7 +53,12 @@
                 </div>
             </form>
         </section>
-
+        <br/>
+        <br/>
+        <div class="header">
+            Puntajes de {{usuarioIn.usuario}}
+        </div>
+        <br/>
         <section class="puntajes-usuario">
             <table class="tabla-puntajes-usuario" :key="cambiaGaleria">
                 <tr>
@@ -70,7 +75,7 @@
                     v-for="puntaje in listaPuntajes"
                     :key="puntaje.id"
                 >
-                    <td>{{ puntaje.fecha }}</td>
+                    <td>{{ (new Date(puntaje.fecha)).toISOString().slice(0,10) }}</td>
                     <td>{{ (3* puntaje.cpm_e).toFixed(0) }}</td>
                     <td>{{ (100 * puntaje.precision).toFixed(0) }}</td>
                     <td>{{ (puntaje.cpm_e/5).toFixed(0) }}</td>
@@ -384,8 +389,11 @@ export default {
 }
 .header{
     position: relative;
-    background: yellow;
+    text-align: center;
+    background: transparent;
     font-size: 2rem;
+    height: 2rem;
+    color: rgb(50,82,136);
     /* top: 0; */
 }
 
@@ -395,7 +403,7 @@ export default {
     top: 0rem;
     margin-left: auto;
     margin-right: auto;
-    height: 50vh;
+    /* height: 50vh; */
 
     /* width: 90vw; */
     
@@ -408,10 +416,14 @@ export default {
 @supports (display: grid) {
     form {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(24rem, auto));
+        grid-template-columns: repeat(1, 24rem);
+        /* grid-row: 1/2; */
+        /* grid-gap: 0.3rem; */
+        grid-auto-rows: minmax(3rem, auto);
     }
     .view-perfil {
         display: grid;
+
     }
 }
 
@@ -449,7 +461,7 @@ button {
     height: 3rem;
 
     color: #E5E7E9;
-    background: rgb(28, 11,127);
+    background: rgb(30,174,152);
     border: 1px solid #E5E7E9;
 
     border-radius: 5px;
