@@ -854,10 +854,12 @@ export default {
         },
 
         cargarSiguienteLeccion: function() {
-            if (this.idSigLec <= 0){
+            if (this.idLecSig <= 0){
+                console.log("No hay siguiente leccion.");
                 this.$router.push({name: "ViewVerNiveles"})
             } else {
-                this.$router.push({path: `/leccionDB?id=${this.idSigLec}`})
+                console.log("A punto de cargar al  siguiente leccion");
+                this.$router.push({path: `/leccionDB`, params:{id:this.idLecSig}})
             }
         }
     }

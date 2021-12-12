@@ -176,6 +176,7 @@ export default {
     },
 
     mandarMensajeContinuar: function() {
+      console.log("LLega a mandarMensajeContinuar")
       this.$emit("msjContinuar");
     }
   },
