@@ -59,7 +59,7 @@ export default {
             departamento: "",
             ciudad: "",
             password: "",
-            is_staff: "",
+            is_staff: false,
          },
         };
 },
@@ -92,7 +92,8 @@ methods: {
 
         })
         .catch((error) => {
-           console.log(error)
+          alert("Error registrando al usuario. " + error);
+           console.log(JSON.stringify(error))
         });
 
       },
