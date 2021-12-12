@@ -277,7 +277,7 @@ export default {
                 })
                 .then(respuesta => {
                     console.log("Puntajes del usuario traidos correctamente.", respuesta.data.traerPuntajes[0]);
-                    this.listaPuntajes = respuesta.data.traerPuntajes;
+                    this.listaPuntajes = [... respuesta.data.traerPuntajes]; // OJO: no se puede hacer una igualdad simple
                     console.log(this.listaPuntajes, typeof(this.listaPuntajes));
 
                     this.cambiaGaleria += 1;
@@ -318,10 +318,36 @@ export default {
                     .then(respuesta => {
                         console.log("Traida info de leccion", id);
                         this.diccInfoLecciones.set(id, respuesta.data.traerLeccionPorId);
+                        this.cambiaGaleria += 1;
                         
+                        // Ordenar lista puntajes
+                        // this.listaPuntajes.sort((pa, pb) =>{
+                        //     // console.log("Empezo sorting", this.diccInfoLecciones, this.diccInfoLecciones.get(pa.leccionId))
+                        //     if (!pa.leccionId) return -1;
+                        //     if (!pb.leccionId) return 1;
+                        //     const infoLecA = this.diccInfoLecciones.get(pa.leccionId);
+                        //     const infoLecB = this.diccInfoLecciones.get(pb.leccionId);
+                        //     const nivA = infoLecA.nivel;
+                        //     const nivB = infoLecB.nivel;
+                            
+                        //     if (!nivA) return -1;
+                        //     if (!nivB) return 1;
+                        //     if (nivA != nivB) return nivA - nivB;
+                            
+                        //     const nLecA = infoLecA.n_leccion;
+                        //     const nLecB = infoLecB.n_leccion;
+
+                        //     console.log("Leyo los numeros de leccion y los niveles", nivA, nivB, nLecA, nLecB);
+                        //     if (!nLecA) return -1;
+                        //     if (!nLecB) return 1;
+                        //     return nLecA - nLecB;
+                        // });
+                        // console.log("TERMINO SORTING");
+
                         this.cambiaGaleria += 1;
                     })
                     .catch(error => {
+                        console.log("ERROR.", error)
                         console.log("No se pudo traer la info de la leccion", id)
                         console.log("Error", JSON.stringify(error));
                         this.diccInfoLecciones.set(id, {});
