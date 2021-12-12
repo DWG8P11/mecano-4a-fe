@@ -225,11 +225,7 @@ export default {
 <style scoped>
 
 .container{
-    margin: 0;
-    padding: 0;
-    height: 120vh;
-    width: 100vw;
-   
+
     display: flex;
     justify-content: center;
     align-items: center;
