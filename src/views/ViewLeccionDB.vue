@@ -121,8 +121,9 @@ h1 {
     display: flex;
     justify-content: space-between;
     justify-items: auto;
-    height: 100vh;
-    margin:-8px;
+    height: calc(100% + 8.5rem);
+    width: 100%;
+    /* margin:-8px; */
     padding: 0;
 
     position: relative;
