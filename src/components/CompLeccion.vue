@@ -29,7 +29,8 @@
     <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
                       v-on:msjReiniciarLeccion="cerrarModalYReiniciar"
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"
-                      :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4"/>
+                      :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4"
+                      v-on:msjContinuar="cargarSiguienteLeccion"/>
     <Designs/>
 
     <img class= "cuerpo_celeste" :src="imagen">
@@ -846,8 +847,18 @@ export default {
                     console.log("Leccion actual encontrada en el indice", iEnc);
                     if (encontrado && iEnc < listaLecciones.length - 1) {
                         this.idLecSig = listaLecciones[iEnc+1];
+                    } else {
+                        this.idLecSig = listaLecciones[0];
                     }
                 }).catch(error => {console.log("No se pudo traer la lista actual de lecciones", JSON.stringify(error))});
+        },
+
+        cargarSiguienteLeccion: function() {
+            if (this.idSigLec <= 0){
+                this.$router.push({name: "ViewVerNiveles"})
+            } else {
+                this.$router.push({path: `/leccionDB?id=${this.idSigLec}`})
+            }
         }
     }
 }
