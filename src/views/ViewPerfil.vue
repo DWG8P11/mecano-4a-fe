@@ -451,6 +451,10 @@ input{
     font-size: 1.1rem;
 }
 
+td {
+    text-align: center;
+}
+
 .contenedor-botones-datos {
     display: flex;
     justify-content: center;
