@@ -35,6 +35,11 @@
                     Actualizar Datos
                 </button>
 
+                <button id="cancelar-actualizar-datos" class="btn-crud-usuario" type="button" v-if="actualizandoDatos"
+                        v-on:click="cancelarModificacionDatos">
+                    Cancelar Modificación
+                </button>
+
                 <button id="submit-actualizar-datos" class="btn-crud-usuario" type="submit" v-if="actualizandoDatos"
                         v-on:click="actualizarDatos">
                     Actualizar Usuario
@@ -69,6 +74,10 @@ export default {
             es_administrador: "",
         },
 
+        modeloPrueba: {
+            texto: ""
+        },
+
         actualizandoDatos: false,
         actualizandoContrasena: false
     },
@@ -83,22 +92,27 @@ export default {
                 {
                     query: gql`
                     query Query {
-                            detallesUsuarioAutenticado {
-                                id
-                                nombre
-                                usuario
-                                correo
-                                telefono
-                                pais
-                                departamento
-                                ciudad
-                                administrador
-                            }
+                        detallesUsuarioAutenticado {
+                            id
+                            nombre
+                            usuario
+                            correo
+                            telefono
+                            pais
+                            departamento
+                            ciudad
+                            administrador
+                        }
                     }`
                 }
             ).then(respuesta => {
                 console.log("Detalles de usuario traidos correctamente.");
-                this.usuarioForm = respuesta.data.detallesUsuarioAutenticado;
+
+                // Actualizar campos del formulario (soft clone, para que no diga al modificar el input que estamos modificando objetos que son read only)
+                this.usuarioForm = {...respuesta.data.detallesUsuarioAutenticado}
+
+                // Guardar los datos recibidos, para poder recuperarlos en caso de que se modifique el formulario
+                this.usuarioIn = this.usuarioForm;
             }).catch(error => {
                 alert("No se pudo cargar su perfil.", error);
                 console.log("Error trayendo los datos del usuario", error);
@@ -107,10 +121,27 @@ export default {
 
         activarModificacionDatos: async function() {
             console.log("Habilitada modif datos");
+            // Cambiar variable que indica que los campos están siendo cargados (esto visibiliza los botones necesarios)
             this.actualizandoDatos = true;
+
+            // Habilitar edicion de campos
             let inputsDatos = document.querySelectorAll("#formulario-usuario-datos input");
 
             inputsDatos.forEach(elemento => elemento.removeAttribute('disabled'));
+        },
+
+        cancelarModificacionDatos: async function() {
+            // Cambiar variable de estado de modificacion
+            this.actualizandoDatos = false;
+
+            // Deshabilitar edicion de campos
+            let inputsDatos = document.querySelectorAll("#formulario-usuario-datos input");
+
+            inputsDatos.forEach(elemento => elemento.setAttribute('disabled', ""));
+
+            // Restaurar campos
+            this.usuarioForm = this.usuarioIn;
+            
         },
         
         actualizarDatos: async function() {
