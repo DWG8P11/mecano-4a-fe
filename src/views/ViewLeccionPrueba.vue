@@ -56,7 +56,6 @@ h1 {
     margin:-8px;
     padding: 0;
     z-index: 0;
-
 }
 
 

@@ -218,11 +218,15 @@ export default {
 }
 
 .redondeado{
-    font-family: Arial;
-    font-style: italic;
-
-    border: 2px solid turquoise;
-    background-color: white;
+    width: 12vw;
+    height: 3vh;
+ 
+    box-sizing: border-box;
+    padding: 10pt 20pt;
+    margin: 3pt 0;
+ 
+    border: 1px solid rgb(217,217,217);
+    border-radius: 30px;
 }
 
 

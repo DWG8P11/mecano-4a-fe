@@ -6,28 +6,28 @@
         <section class="formu">
             <form v-on:submit.prevent="guardarLeccion">
                 <ul>
-                    <li>
-                    <input type="text" v-model="Lecciones.titulo" placeholder="Titulo">
-                    <input type="number" v-model="Lecciones.nivel" placeholder="# Nivel">
-                    </li>
-                    <li>
-                    <input type="number" v-model="Lecciones.n_leccion" placeholder="# Numero de lección">
-                    <input type="text" v-model="Lecciones.texto" placeholder="Texto"> 
-                    </li>
-                    <li>
-                    <input type="text" v-model="Lecciones.teclas" placeholder="Teclas" class="teclas" />
+                    <p>
+                    <input class="redondeado" type="text" v-model="Lecciones.titulo" placeholder="Titulo">
+                    <input class="redondeado" type="number" v-model="Lecciones.nivel" placeholder="# Nivel">
+                    </p>
+                    <p>
+                    <input class="redondeado" type="number" v-model="Lecciones.n_leccion" placeholder="# Numero de lección">
+                    <input class="redondeado" type="text" v-model="Lecciones.texto" placeholder="Texto"> 
+                    </p>
+                    <p>
+                    <input class="redondeado" type="text" v-model="Lecciones.teclas" placeholder="Teclas" />
                     <input type="file" v-on:change="codificarImagenComoURL" />
-                    </li>
-                    <li>                                                           
-                    <input type="number" v-model="Lecciones.mini1" placeholder="# Caract por min minimos 1"> 
-                    <input type="number" v-model="Lecciones.mini2" placeholder="# Caract por min minimos 2"> 
-                    </li>
-                    <li>
-                    <input type="number" v-model="Lecciones.mini3" placeholder="# Caract por min minimos 3">                                                 
-                    <input type="number" v-model="Lecciones.mini4" placeholder="# Caract por min minimos 4"> 
-                    </li>
+                    </p>
+                    <p>                                                           
+                    <input class="redondeado" type="number" v-model="Lecciones.mini1" placeholder="# Caract por min minimos 1"> 
+                    <input class="redondeado" type="number" v-model="Lecciones.mini2" placeholder="# Caract por min minimos 2"> 
+                    </p>
+                    <p>
+                    <input class="redondeado" type="number" v-model="Lecciones.mini3" placeholder="# Caract por min minimos 3">                                                 
+                    <input class="redondeado" type="number" v-model="Lecciones.mini4" placeholder="# Caract por min minimos 4"> 
+                    </p>
 
-                    <button type="submit">Guardar</button>
+                    <button class="btnGuardar" type="submit">Guardar</button>
                     
                 </ul>
             </form>
@@ -224,9 +224,21 @@ export default {
 
 <style scoped>
 
+.container{
+    margin: 0;
+    padding: 0;
+    height: 120vh;
+    width: 100vw;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .container h1 {
     text-align: center;
-    margin: 10px 0 20px 0;
+    margin: 2px 0 10px 0;
 }
 
 .container form{
@@ -240,8 +252,6 @@ export default {
     }
 
 .formulario section{
-        width: 100%;
-        height: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -259,15 +269,39 @@ export default {
         color: Rgb(50,82,136);
     }
 
-    .container tr:nth-child(even){background-color: #f2f2f2;}
-
-    .container tr:hover {background-color: #ddd;}
-
-    .container th, td {
-        text-align: left;
-        vertical-align: top;
-        border: 0.5px solid Rgb(50,82,136);
-        border-collapse: collapse;
+    .container input{
+    width: 20vw;
+    height: 3vh;
+ 
+    padding: 10pt 20pt;
+    margin: 3pt 0;
     }
+
+    .redondeado{
+    width: 12vw;
+    height: 3vh;
+ 
+    box-sizing: border-box;
+    padding: 10pt 20pt;
+    margin: 3pt 0;
+ 
+    border: 1px solid rgb(217,217,217);
+    border-radius: 30px;
+    }
+
+    .formulario .btnGuardar  {
+        color: #E5E7E9;
+        background: rgb(28, 11,127);
+        border: 1px solid #E5E7E9;
+        padding: 5pt 20pt;
+        margin: 3pt 0;
+        text-align: center;
+}
+    .formulario button:hover{
+    color: #E5E7E9;
+    background: turquoise;
+    border: 1px solid rgb(28, 11,127);
+}
+
 
 </style>
