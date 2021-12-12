@@ -78,24 +78,22 @@ export default {
 </script>
 
 <style scoped>
-
-
 #keyboard {
 	position: fixed;
-	left:55pt;
-	bottom:50px;
+	left:6.1111rem;
+	bottom:4.1667rem;
 	/* margin: 50px ; */
-	width: 640px;
-	height: 159px;
+	width: 53.3333rem;
+	height: 13.25rem;
 	background:	rgba(170, 170, 170, 0.1);
-	border-top-left-radius: 7px 21px;
-	border-top-right-radius: 7px 21px;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+	border-top-left-radius: 0.5833rem 1.75rem;
+	border-top-right-radius: 0.5833rem 1.75rem;
+	border-bottom-right-radius: 0.8333rem;
+	border-bottom-left-radius: 0.8333rem;
 	/* padding: 50px 0 0 10px; */
 }
 
-ul {list-style-type: none; width: 784px; margin: 0 auto;}
+ul {list-style-type: none; width: 65.3333rem; margin: 0 auto;}
 li {float: left;}
 
 @font-face {
@@ -107,27 +105,27 @@ li {float: left;}
 	display: block;
 	color:white;
 	font-family: Questa Grande;
-    font-size:8pt;
+    font-size:0.8889rem;
 	text-decoration: none;
 	text-align: center;
-	width: 30px;
-	height: 20px;
-	margin: 5px;
+	width: 2.5rem;
+	height: 1.6667rem;
+	margin: 0.4167rem;
 	background:transparent; 
-	border-radius: 4px;
-	border-top: 1px solid #222;
-	border-bottom:1px solid #222;
-	border-right:1px solid #222;
-	border-left: 1px solid #222;
+	border-radius: 0.3333rem;
+	border-top: 0.0833rem solid #222;
+	border-bottom:0.0833rem solid #222;
+	border-right:0.0833rem solid #222;
+	border-left: 0.0833rem solid #222;
 	border-color:rgb(115,239,249); 
-	box-shadow: 1px 1px 1px 1px rgb(61, 230, 230);
-	text-shadow: 0px -1px 0px #000;
+	box-shadow: 0.0833rem 0.0833rem 0.0833rem 0.0833rem rgb(61, 230, 230);
+	text-shadow: 0rem -0.0833rem 0rem #000;
 	}
 
 .keydown {
 	background: rgba(59, 171, 236, 0.795);
-	margin: 7px 5px 3px;
-	border-top: 1px solid rgb(19, 135, 245);}
+	margin: 0.5833rem 0.4167rem 0.25rem;
+	border-top: 0.0833rem solid rgb(19, 135, 245);}
 
 .aprobada {
 	background: rgb(30, 174, 152);
@@ -143,14 +141,14 @@ li {float: left;}
 	
 .fn span {
 	display: block;
-	margin: 14px 5px 0 0;
+	margin: 1.1667rem 0.4167rem 0 0;
 	text-align: right;
 	
 	}
 #esc {
-	margin: 6px 15px 0 0;
-	font-size: 7.5pt;
-	line-height: 0pt;
+	margin: 0.5rem 1.25rem 0 0;
+	font-size: 0.8333rem;
+	line-height: 0rem;
 	}
 
 
@@ -158,186 +156,189 @@ li {float: left;}
 	display: block;}
 	
 #numbers li div b {
-	margin: 3px 0 3px;
+	margin: 0.25rem 0 0.25rem;
 	display: block;
-	line-height: 2.1pt;
+	line-height: 0.2333rem;
 	
 	}
 
 #numbers li .alt b {
 	display: block;
-	margin: 0 0 3px;
+	margin: 0 0 0.25rem;
 	}
 
 #numbers li #delete span {
 	text-align: right;
-	margin: 13px 13px 0 0;
-	font-size: 8pt;
-	line-height: 2px;
+	margin: 1.0833rem 1.0833rem 0 0;
+	font-size: 0.8889rem;
+	line-height: 0.1667rem;
 	
 }
 	
 #qwerty li div span {
 	display: block;
-	margin: 13px 0 0;
+	margin: 1.0833rem 0 0;
 	text-transform: capitalize;
 	text-align: center;
-	line-height: 0pt;
+	line-height: 0rem;
 	}
 	
 #qwerty li #tab span {
 	text-align: left;
-	margin: 13px 0 0 10px;
-	font-size: 8pt;
+	margin: 1.0833rem 0 0 0.8333rem;
+	font-size: 0.8889rem;
 	
 	}	
 
-#qwerty li .alt b {display: block; margin: 0px 0 0;}
-#qwerty li .alt span {margin: 0px 0 0;}
+#qwerty li .alt b {display: block; margin: 0rem 0 0;}
+#qwerty li .alt span {margin: 0rem 0 0;}
 
 
 #asdfg li div span {
 	display: block;
-	margin: 13px 0 0;
+	margin: 1.0833rem 0 0;
 	text-transform: capitalize;
-	line-height: 0pt;
+	line-height: 0rem;
 	}
 
 #asdfg li .alt span {margin: 0}
-#asdfg li .alt b {display: block; margin: 3px 0 0;}
+#asdfg li .alt b {display: block; margin: 0.25rem 0 0;}
 #asdfg li #caps b {
 	display: block;
 	background: #999;
-	width: 4px;
-	height: 4px;
-	border-radius: 10px;
-	margin: 0px 0 0 10px;
-	-webkit-box-shadow: inset 0 1px 0 #666;
-	-moz-box-shadow:inset 0 1px 0 #666;
-	box-shadow:inset 0 1px 0 #666;
-	font-size: 8pt;
+	width: 0.3333rem;
+	height: 0.3333rem;
+	border-radius: 0.8333rem;
+	margin: 0rem 0 0 0.8333rem;
+	-webkit-box-shadow: inset 0 0.0833rem 0 #666;
+	-moz-box-shadow:inset 0 0.0833rem 0 #666;
+	box-shadow:inset 0 0.0833rem 0 #666;
+	font-size: 0.8889rem;
 	}
 	
 #asdfg li #caps span {
 	text-align: left;
-	margin: 10px 0 0 10px;
-	font-size: 7.5pt;
+	margin: 0.8333rem 0 0 0.8333rem;
+	font-size: 0.8333rem;
 	}
 #asdfg li #enter span {
 	text-align: right;
-	margin: 13px 10px 0 0;
-	font-size: 7.5pt;
+	margin: 1.0833rem 0.8333rem 0 0;
+	font-size: 0.8333rem;
 	}
 
 
 #zxcvb li div span {
 	display: block;
-	margin: 13px 0 0;
+	margin: 1.0833rem 0 0;
 	text-transform: capitalize;
-	line-height: 2pt;
+	line-height: 0.2222rem;
 	}
 #zxcvb li .shiftleft span {
 	text-align: left;
-	margin: 13px 0 0 10px;
-	font-size: 8pt;
-	line-height: 0pt;
+	margin: 1.0833rem 0 0 0.8333rem;
+	font-size: 0.8888rem;
+	line-height: 0rem;
 	}
 #zxcvb li .shiftright span {
 	text-align: right;
-	margin: 13px 10px 0 0;
-	font-size: 8pt;
+	margin: 1.0833rem 0.8333rem 0 0;
+	font-size: 0.8889rem;
 	}
-#zxcvb li .alt b {display: block;margin: 0px 0 0;}
+#zxcvb li .alt b {display: block;margin: 0rem 0 0;}
 #zxcvb li .alt span {margin: 0;}
 
 	
 #bottomrow li #fn span, #bottomrow li #control span, #bottomrow li #optionleft span, #bottomrow li #commandleft span {
 	display: block;
 	text-align: left;
-	margin: 13px 0 0 8px;
-	font-size: 8pt;
+	margin: 1.0833rem 0 0 0.6667rem;
+	font-size: 0.8889rem;
 
 }
 
 #bottomrow li #optionright span, #bottomrow li #commandright span {
 	display: block;
 	text-align: right;
-	margin: 1px 2px 0 0;
-	font-size: 8pt;
+	margin: 0.0833rem 0.1667rem 0 0;
+	font-size: 0.8889rem;
 }
 
 #bottomrow ol li #left span, #bottomrow ol li #right span, #bottomrow ol li #up span, #bottomrow ol li #down span {
 	display: block;
-	margin: 9px 0 0;
+	margin: 0.75rem 0 0;
 	}
 
-.fn {height: 26px; width: 46px;}
+.fn {height: 2.1667rem; width: 3.8333rem;}
+
 #delete {
-	width: 77px;
-	margin: 5px 0 0 1px;
+	width: 6.4167rem;
+	margin: 0.4167rem 0 0 0.0833rem;
 	
 	}	
 
-#tab {width: 72px;}
+#tab {width: 6rem;}
 #caps {
-	width: 85px;
+	width: 7.0833rem;
 }
 #enter {
-	width: 65px;
+	width: 5.4167rem;
 	position:absolute;
-	right: 7pt;
+	right: 0.7778rem;
 	}
-.shiftleft {width: 112px;}
+.shiftleft {width: 9.3333rem;}
 .shiftright {
-	width: 80px;
+	width: 6.6667rem;
 	position:absolute;
-	right: 7pt;
+	right: 0.7778rem;
 	}
-#fn, #control, .option, .command, #spacebar {height: 49px;}
+#fn, #control, .option, .command, #spacebar {height: 4.0833rem;}
 
-#control {width: 56px;}
-.option {width: 46px;}
-.command {width: 67px;}
+#control {width: 4.6667rem;}
+.option {width: 3.8333rem;}
+.command {width: 5.5833rem;}
 #spacebar {
-	width: 226px;
-	height: 14.6pt;
+	width: 18.8333rem;
+	height: 1.6222rem;
 	position: absolute;
-	left:150pt ;
+	left:16.6667rem ;
 }
 #commandright{
 	position: absolute;
-	right: 120pt;
+	right: 13.3333rem;
 
 }
 
 #left img, #up img, #down img, #right img {border: none;}
 ul ol {list-style-type: none;}
-#down {height: 23px;}
-#up, #left, #right {height: 24px;}
-#left, #right {margin: 30px 5px 5px;}
-#left:active, #right:active {margin: 32px 5px 3px;}
-#up {margin: 5px 5px 1px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}
-#up:active {margin: 8px 5px -2px;}
-#down {margin: 0 5px 5px; border-top-left-radius: 0px; border-top-right-radius: 0px;}
-#down:Active {margin: 3px 5px 4px;}
+#down {height: 1.9167rem;}
+#up, #left, #right {height: 2rem;}
+#left, #right {margin: 2.5rem 0.4167rem 0.4167rem;}
+#left:active, #right:active {margin: 2.6667rem 0.4167rem 0.25rem;}
+#up {margin: 0.4167rem 0.4167rem 0.0833rem; border-bottom-right-radius: 0rem; border-bottom-left-radius: 0rem;}
+#up:active {margin: 0.6667rem 0.4167rem -0.1667rem;}
+#down {margin: 0 0.4167rem 0.4167rem; border-top-left-radius: 0rem; border-top-right-radius: 0rem;}
+#down:Active {margin: 0.25rem 0.4167rem 0.3333rem;}
 
 h1 {
 	color: #888;
 	text-align: center;
-	font: bold 25pt/25pt arial;
-	margin: 30px 0 60px;}
+	font: bold 2.7777rem/2.7777rem arial;
+	margin: 2.5rem 0 5rem;
+}
 	
 h2 {
 	color: #666;
-	font: 13pt/0pt arial;}
+	font: 1.4444rem/0rem arial;
+}
 	
 p {
 	color: #999;
-	font: 9pt/17pt arial;
-	margin: 0 0 50px;}
+	font: 1rem/1.8889rem arial;
+	margin: 0 0 4.1667rem;
+}
 
-
-ul, ol {padding: 0px; margin: 0;}
+ul, ol {padding: 0rem; margin: 0;}
 	
 /* Micro Clearfix by Nicolas Gallagher - http://nicolasgallagher.com/micro-clearfix-hack */
         /* For modern browsers */
@@ -346,4 +347,4 @@ ul, ol {padding: 0px; margin: 0;}
 
         /* For IE 6/7 (trigger hasLayout) */
         .cf {zoom:1;}
-</style>>
+</style>

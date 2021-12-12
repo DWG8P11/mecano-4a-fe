@@ -104,17 +104,12 @@ methods: {
 
 
 <style scoped>
-@font-face {
-  font-family: Questa Grande;
-  src: url(../../fuentes/Questa_Grande_Regular.otf) format("Opentype");
-}
     h1 {
         color:black;
         text-shadow: black 0.1em 0.1em 0.2em;
     }
 
     .signUp_user{
-        margin: 0;
         padding: 0%;
         height: 150%;
         width: 100%;
@@ -122,6 +117,7 @@ methods: {
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
 
        .container_signUp_user {
@@ -134,7 +130,6 @@ methods: {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 50px 0 20px 0;
     }
 
     .signUp_user h2{
@@ -155,9 +150,7 @@ methods: {
 
         border-radius: 5px;
         padding: 10px 25px;
-        margin: 5px 0 25px 0;
     }
-
     .signUp_user button:hover{
         color: #E5E7E9;
         background: turquoise;

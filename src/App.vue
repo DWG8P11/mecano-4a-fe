@@ -15,8 +15,8 @@
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
           <router-link to="/registrar-nivel"> Registrar Nivel | </router-link>
           <router-link to="/aprende/leccionDB?id=61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
-          <router-link to="/lista-niveles-adm"> Lista Niveles Crud | </router-link>
-          <router-link to="/lista-lecciones-adm"> Lista Lecciones Crud  </router-link>
+          <router-link to="/lista-niveles-adm"> Crear Niveles | </router-link>
+          <router-link to="/lista-lecciones-adm"> Crear Lecciones  </router-link>
           <router-link to="/perfil" v-if="estaAutenticado">| Perfil </router-link>
         </div>
         

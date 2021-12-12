@@ -313,7 +313,7 @@ button {
     align-content: center;
 
     font-family: Questa Grande;
-    font-size: 
+    font-size: 1.5rem;
 }
 
 button:hover{
