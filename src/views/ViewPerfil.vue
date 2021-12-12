@@ -193,8 +193,24 @@ export default {
 
         eliminarUsuario: async function() {
             console.log("Orden de eliminar usuario recibida.")
-        }
 
+            this.$apollo.mutate(
+                {
+                    mutation: gql`
+                        mutation Mutation($idUsuario: Int!) {
+                            eliminarUsuario(idUsuario: $idUsuario)
+                        }`,
+                    variables: {
+                        idUsuario: this.usuarioIn.id
+                    }
+                }
+            ).then(respuesta => {
+                alert("Usuario eliminado correctamente. " + respuesta)
+            }).catch(error => {
+                alert("Error eliminando el usuario." + error);
+                console.log(error.networkError);
+            });
+        }
     }
 }
 </script>
