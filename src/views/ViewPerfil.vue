@@ -55,7 +55,7 @@
         </section>
 
         <section class="puntajes-usuario">
-            <table class="tabla-puntajes-usuario" :key="diccInfoLecciones">
+            <table class="tabla-puntajes-usuario" :key="cambiaGaleria">
                 <tr>
                     <th>fecha</th>
                     <th>Puntaje</th>
@@ -74,8 +74,8 @@
                     <td>{{ (3* puntaje.cpm_e).toFixed(0) }}</td>
                     <td>{{ (100 * puntaje.precision).toFixed(0) }}</td>
                     <td>{{ (puntaje.cpm_e/5).toFixed(0) }}</td>
-                    <td>{{ diccInfoLecciones.get(puntaje.idLeccion)? diccInfoLecciones.get(puntaje.idLeccion).nivel : null }}</td>
-                    <td>{{ diccInfoLecciones.get(puntaje.idLeccion)? diccInfoLecciones.get(puntaje.idLeccion).n_leccion : null }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).nivel : null }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).n_leccion : null }}</td>
                     <td>{{ puntaje.leccionId }}</td>
                 </tr>
             </table>
@@ -110,7 +110,9 @@ export default {
 
         listaPuntajes: [],
 
-        diccInfoLecciones: new Map()
+        diccInfoLecciones: new Map(),
+
+        cambiaGaleria: 0
     },
 
     created: function() {
@@ -276,6 +278,8 @@ export default {
                     this.listaPuntajes = respuesta.data.traerPuntajes;
                     console.log(this.listaPuntajes, typeof(this.listaPuntajes));
 
+                    this.cambiaGaleria += 1;
+
                     // this.puntajeCargaPuntajees += 1; // Establece que deberia cargar de nuevo la galeria
                     
                     this.traerInfoLecciones();
@@ -312,12 +316,16 @@ export default {
                     .then(respuesta => {
                         console.log("Traida info de leccion", id);
                         this.diccInfoLecciones.set(id, respuesta.data.traerLeccionPorId);
-                        // this.puntajeCargaPuntajees += 1;
+                        
+                        this.cambiaGaleria += 1;
                     })
                     .catch(error => {
                         console.log("No se pudo traer la info de la leccion", id)
                         console.log("Error", JSON.stringify(error));
-                        this.diccInfoLecciones.set(id, {nivel: "#", nLeccion: "#"});
+                        this.diccInfoLecciones.set(id, {nivel: "#", n_leccion: "#"});
+                        console.log(this.diccInfoLecciones)
+
+                        this.cambiaGaleria += 1;
                     });
             }
         }
