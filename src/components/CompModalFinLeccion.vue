@@ -31,10 +31,10 @@
           <label for="toggle"    class="button"></label>
 
           <nav class="nav">
-            <href
+            <a
               id="Leccion de Prueba"
               v-on:click="reiniciarLeccion"
-              >Intentar de nuevo</href
+              >Intentar de nuevo</a
             >
           </nav>
         </div>

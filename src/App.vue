@@ -17,10 +17,12 @@
           <router-link to="/aprende/leccionDB?id=61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
           <router-link to="/lista-niveles-adm"> Crear Niveles | </router-link>
           <router-link to="/lista-lecciones-adm"> Crear Lecciones  </router-link>
-          
+          <router-link to="/perfil" v-if="estaAutenticado">| Perfil </router-link>
         </div>
-
+        
+        
         <div class="contenedorBoton">
+          <span v-if="estaAutenticado">{{ darNombreUsuario() }}</span>
           <input type="checkbox" id="toggleLog" />
           <label for="toggleLog" class="buttonLoginOut"></label>
 
@@ -31,11 +33,12 @@
               v-if="!estaAutenticado"
               >*Inicia Sesión</router-link
             >
-            <router-link 
-              to="/Home" 
+            <button 
+              to="/" 
               id="Cerrar sesión" 
               v-if="estaAutenticado"
-              >*Cierra Sesión</router-link
+              v-on:click="cerrarSesion"
+              >*Cierra Sesión</button
             >
           </nav>
         </div>
@@ -44,7 +47,7 @@
     </div>
     <div class="content">
       <!-- Lo que carga los contenidos de los router links: -->
-      <router-view v-on:msjLogInCompletado="completarLogIn" />
+      <router-view v-on:msjLogInCompletado="completarLogIn"/>
     </div>
 
     <br />
@@ -59,6 +62,7 @@
 import CompLeccion  from '@/components/CompLeccion.vue';
 import Designs      from '@/components/Designs.vue';
 import LocalFingers from '@/components/LocalFingers.vue';
+import sePudoAutenticar from "@/SePuedeAutenticar";
 
 export default {
   components: {
@@ -67,16 +71,29 @@ export default {
     LocalFingers,
   },
 
-  computed: {
-    /*
-     * Variables que se van a reevaluar frecuentemente
-     */
-    estaAutenticado: {
-      get: function () {
-        return this.$route.meta.requiereAut;
-      },
-      set: function () {},
-    },
+  data: {
+    estaAutenticado: false,
+  },
+
+  // computed: {
+  //   /*
+  //    * Variables que se van a reevaluar frecuentemente
+  //    */
+  //   estaAutenticado: {
+  //     get: function () {
+  //       console.log("Esta calculando estaAutenticado", localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined)
+  //       return localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined;
+  //     },
+  //     set: function () {},
+  //   },
+  // },
+  created: function() {
+    this.actualizarAutenticacion();
+  },
+
+  beforeUpdate: function() {
+    console.log("Antes de actualizar App, estaAutenticado vale", this.estaAutenticado);
+    this.actualizarAutenticacion();
   },
 
   methods: {
@@ -86,8 +103,27 @@ export default {
       localStorage.setItem("es_administrador", data.es_administrador);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
+      this.$forceUpdate();
       alert(`¡Bienvenid@ ${data.usuario}!`);
     },
+
+    darNombreUsuario: function () {
+      return localStorage.getItem("usuario");
+    },
+
+    cerrarSesion: function() {
+      console.log("Cerrando sesion");
+      localStorage.clear();
+      this.$forceUpdate();
+    },
+
+    actualizarAutenticacion: function() {
+      console.log("Se entro a actualizarAutenticacion");
+      this.estaAutenticado = localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined
+      sePudoAutenticar(this.$apollo).then(respuesta => this.estaAutenticado = respuesta)
+        .catch(error => {console.log(error); this.estaAutenticado = false;});
+      // console.log(rta);
+    }
   },
 };
 </script>
@@ -164,6 +200,7 @@ h1 {
   color:white;
   margin-top:1.6666rem;
   margin-left:0.83333rem;
+  text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 /*Botón login y signup*/

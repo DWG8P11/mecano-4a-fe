@@ -136,6 +136,7 @@ export default {
        
     }
 
+
 .section {
        text-align: center; 
     }

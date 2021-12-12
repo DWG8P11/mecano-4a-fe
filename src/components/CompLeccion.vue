@@ -442,9 +442,6 @@ export default {
 
             // Mostrar ventana con puntaje
             this.modalAbierto = true;
-
-            // Guardar en la base de datos
-            this.guardarEnDB();
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -749,9 +746,9 @@ export default {
         },
 
         guardarPuntaje: function() {
-            console.log("Se va a registrar el puntaje en la base de datos...");
+            console.log("Se va registrar el puntaje en la base de datos...");
 
-            if (!this.estaAutenticado) {
+            if (!localStorage.getItem("usuario")) {
                 alert("¡No estas autenticado!");
                 return;
             }

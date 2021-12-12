@@ -1,7 +1,7 @@
 <template>
 <div class="view-leccion-db">
     
-    <CompLeccion :titulo="titulo" :texto="texto" :letras="letras" :imagen="imagen"
+    <CompLeccion :id="id" :titulo="titulo" :texto="texto" :letras="letras" :imagen="imagen"
                  :cpmMin1="cpmMin1" :cpmMin2="cpmMin2" :cpmMin3="cpmMin3" :cpmMin4="cpmMin4"
                  :ignorarMayus="ignorarMayus" :ignorarTildes="ignorarTildes" :ignorarDieres="ignorarDieres"
                  :key="texto"/>
@@ -26,6 +26,7 @@ export default {
 
     data: function() {
         return {
+            id: "LeccionNoIdentificada",
             texto: "No hay texto.",
             titulo: "No hay título.",
             letras: Array,
@@ -80,6 +81,7 @@ export default {
 
                 let info = respuesta.data.traerLeccionPorId;
 
+                this.id = info.id;
                 this.titulo = info.titulo;
                 this.nivel = info.nivel;
                 this.n_leccion = info.n_leccion;

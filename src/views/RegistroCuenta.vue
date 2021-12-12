@@ -51,15 +51,16 @@ export default {
     data: function() {
         return {
         users: {
-            nombre: "",
-            usuario: "",
-            correo: "",
-            telefono: "",
-            pais: "",
-            departamento: "",
-            ciudad: "",
-            password: "",
-            is_staff: "",
+            nombre: null,
+            usuario: null,
+            correo: null,
+            telefono: null,
+            pais: null,
+            departamento: null,
+            ciudad: null,
+            password: null,
+            is_staff: false,
+
          },
         };
 },
@@ -92,8 +93,8 @@ methods: {
 
         })
         .catch((error) => {
-           console.log(error)
-           alert("Campos Vacios");
+          alert("Error registrando al usuario. " + error);
+           console.log(JSON.stringify(error))
         });
 
       },
