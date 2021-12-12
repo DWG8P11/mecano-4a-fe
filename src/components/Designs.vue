@@ -80,9 +80,10 @@ export default {
 <style scoped>
 
 
+
 #keyboard {
 	position: fixed;
-	left:55pt;
+	left:73.3333px;
 	bottom:50px;
 	/* margin: 50px ; */
 	width: 640px;
@@ -107,7 +108,7 @@ li {float: left;}
 	display: block;
 	color:white;
 	font-family: Questa Grande;
-    font-size:8pt;
+    font-size:10.6666px;
 	text-decoration: none;
 	text-align: center;
 	width: 30px;
@@ -149,7 +150,7 @@ li {float: left;}
 	}
 #esc {
 	margin: 6px 15px 0 0;
-	font-size: 7.5pt;
+	font-size: 10px;
 	line-height: 0pt;
 	}
 
@@ -160,7 +161,7 @@ li {float: left;}
 #numbers li div b {
 	margin: 3px 0 3px;
 	display: block;
-	line-height: 2.1pt;
+	line-height: 2.8px;
 	
 	}
 
@@ -182,13 +183,13 @@ li {float: left;}
 	margin: 13px 0 0;
 	text-transform: capitalize;
 	text-align: center;
-	line-height: 0pt;
+	line-height: 0px;
 	}
 	
 #qwerty li #tab span {
 	text-align: left;
 	margin: 13px 0 0 10px;
-	font-size: 8pt;
+	font-size: 10.6666px;
 	
 	}	
 
@@ -200,7 +201,7 @@ li {float: left;}
 	display: block;
 	margin: 13px 0 0;
 	text-transform: capitalize;
-	line-height: 0pt;
+	line-height: 0px;
 	}
 
 #asdfg li .alt span {margin: 0}
@@ -215,18 +216,18 @@ li {float: left;}
 	-webkit-box-shadow: inset 0 1px 0 #666;
 	-moz-box-shadow:inset 0 1px 0 #666;
 	box-shadow:inset 0 1px 0 #666;
-	font-size: 8pt;
+	font-size: 10.6666px;
 	}
 	
 #asdfg li #caps span {
 	text-align: left;
 	margin: 10px 0 0 10px;
-	font-size: 7.5pt;
+	font-size: 10px;
 	}
 #asdfg li #enter span {
 	text-align: right;
 	margin: 13px 10px 0 0;
-	font-size: 7.5pt;
+	font-size: 10px;
 	}
 
 
@@ -234,18 +235,18 @@ li {float: left;}
 	display: block;
 	margin: 13px 0 0;
 	text-transform: capitalize;
-	line-height: 2pt;
+	line-height: 2.666px;
 	}
 #zxcvb li .shiftleft span {
 	text-align: left;
 	margin: 13px 0 0 10px;
-	font-size: 8pt;
-	line-height: 0pt;
+	font-size: 10.666px;
+	line-height: 0px;
 	}
 #zxcvb li .shiftright span {
 	text-align: right;
 	margin: 13px 10px 0 0;
-	font-size: 8pt;
+	font-size: 10.6666px;
 	}
 #zxcvb li .alt b {display: block;margin: 0px 0 0;}
 #zxcvb li .alt span {margin: 0;}
@@ -255,7 +256,7 @@ li {float: left;}
 	display: block;
 	text-align: left;
 	margin: 13px 0 0 8px;
-	font-size: 8pt;
+	font-size: 10.6666px;
 
 }
 
@@ -263,7 +264,7 @@ li {float: left;}
 	display: block;
 	text-align: right;
 	margin: 1px 2px 0 0;
-	font-size: 8pt;
+	font-size: 10.6666px;
 }
 
 #bottomrow ol li #left span, #bottomrow ol li #right span, #bottomrow ol li #up span, #bottomrow ol li #down span {
@@ -285,13 +286,13 @@ li {float: left;}
 #enter {
 	width: 65px;
 	position:absolute;
-	right: 7pt;
+	right: 9.333px;
 	}
 .shiftleft {width: 112px;}
 .shiftright {
 	width: 80px;
 	position:absolute;
-	right: 7pt;
+	right: 9.333px;
 	}
 #fn, #control, .option, .command, #spacebar {height: 49px;}
 
@@ -300,13 +301,13 @@ li {float: left;}
 .command {width: 67px;}
 #spacebar {
 	width: 226px;
-	height: 14.6pt;
+	height: 19.4666px;
 	position: absolute;
-	left:150pt ;
+	left:200px ;
 }
 #commandright{
 	position: absolute;
-	right: 120pt;
+	right: 160px;
 
 }
 
@@ -324,16 +325,16 @@ ul ol {list-style-type: none;}
 h1 {
 	color: #888;
 	text-align: center;
-	font: bold 25pt/25pt arial;
+	font: bold 33.333px/33.333px arial;
 	margin: 30px 0 60px;}
 	
 h2 {
 	color: #666;
-	font: 13pt/0pt arial;}
+	font: 17.3333px/0px arial;}
 	
 p {
 	color: #999;
-	font: 9pt/17pt arial;
+	font: 12px/22.6666px arial;
 	margin: 0 0 50px;}
 
 
