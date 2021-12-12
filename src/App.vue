@@ -200,6 +200,7 @@ h1 {
   color:white;
   margin-top:1.6666rem;
   margin-left:0.83333rem;
+  text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 /*Botón login y signup*/

@@ -53,6 +53,29 @@
                 </div>
             </form>
         </section>
+
+        <section class="puntajes-usuario">
+            <table class="tabla-puntajes-usuario" :key="listaPuntajes">
+                <tr>
+                    <th>fecha</th>
+                    <th>Puntaje</th>
+                    <th>Precisión</th>
+                    <th>Palabras por minuto</th>
+                    <th>Nivel</th>
+                    <th># Lección</th>
+
+                </tr>
+                <tr
+                    v-for="puntaje in listaPuntajes"
+                    :key="puntaje.id"
+                >
+                    <td>{{ puntaje.fecha }}</td>
+                    <td>{{ (3* puntaje.cpm_e).toFixed(0) }}</td>
+                    <td>{{ (100 * puntaje.precision).toFixed(0) }}</td>
+                    <td>{{ (puntaje.cpm_e/5).toFixed(0) }}</td>
+                </tr>
+            </table>
+        </section>
     </div>
 </template>
 
@@ -79,16 +102,21 @@ export default {
         },
 
         actualizandoDatos: false,
-        actualizandoContrasena: false
+        actualizandoContrasena: false,
+
+        listaPuntajes: [],
+
+        diccInfoLecciones: new Map()
     },
 
     created: function() {
-        this.traerDetallesUsuario();
+        this.traerDetallesUsuario().then(respuesta => this.traerPuntajes());
+        
     },
 
     methods: {
         traerDetallesUsuario: async function() {
-            this.$apollo.query(
+            await this.$apollo.query(
                 {
                     query: gql`
                     query Query {
@@ -217,6 +245,46 @@ export default {
                 alert("Error eliminando el usuario." + error);
                 console.log(error.networkError);
             });
+        },
+
+        traerPuntajes: async function() {
+            console.log("Se estan trayendo los puntajes del usuario.");
+            await this.$apollo
+                .query({
+                    query: gql`
+                    query TraerPuntajes($usuario: String) {
+                        traerPuntajes(usuario: $usuario) {
+                            id
+                            usuario
+                            leccionId
+                            precision
+                            cpm_e
+                            segundos
+                            fecha
+                        }
+                    }`,
+                    variables: {
+                        usuario: this.usuarioIn.usuario
+                    }
+                })
+                .then(respuesta => {
+                    console.log("Puntajes del usuario traidos correctamente.", respuesta.data.traerPuntajes[0]);
+                    this.listaPuntajes = respuesta.data.traerPuntajes;
+                    console.log(this.listaPuntajes, typeof(this.listaPuntajes));
+
+                    // this.nivelCargaNiveles += 1; // Establece que deberia cargar de nuevo la galeria
+
+                    this.traerInfoLecciones();
+                })
+                .catch(error => {
+                    console.log("Hubo un error trayendo los puntajes del usuario.", error);
+                    console.log("error", error);
+                    this.nivelCargaNiveles = 0;
+                });
+        },
+
+        traerInfoLecciones: function() {
+
         }
     }
 }
