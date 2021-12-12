@@ -161,7 +161,6 @@ export default {
   padding: 0;
   background-image: url(../../Imagenes/sky.png);
   background-size: cover;
-
   background-repeat: no-repeat;
   height: 100vh;
   display: flex;
@@ -226,7 +225,7 @@ export default {
 #nivel-1 {
   z-index: 999;
   position: absolute;
-  right: 230pt;
+  left: 700pt;
   bottom:90pt;
 }
 
