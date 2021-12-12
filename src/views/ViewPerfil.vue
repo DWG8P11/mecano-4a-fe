@@ -55,7 +55,7 @@
         </section>
 
         <section class="puntajes-usuario">
-            <table class="tabla-puntajes-usuario" :key="listaPuntajes">
+            <table class="tabla-puntajes-usuario" :key="diccInfoLecciones">
                 <tr>
                     <th>fecha</th>
                     <th>Puntaje</th>
@@ -63,6 +63,7 @@
                     <th>Palabras por minuto</th>
                     <th>Nivel</th>
                     <th># Lección</th>
+                    <th>ID Lección</th>
 
                 </tr>
                 <tr
@@ -73,6 +74,9 @@
                     <td>{{ (3* puntaje.cpm_e).toFixed(0) }}</td>
                     <td>{{ (100 * puntaje.precision).toFixed(0) }}</td>
                     <td>{{ (puntaje.cpm_e/5).toFixed(0) }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.idLeccion)? diccInfoLecciones.get(puntaje.idLeccion).nivel : null }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.idLeccion)? diccInfoLecciones.get(puntaje.idLeccion).n_leccion : null }}</td>
+                    <td>{{ puntaje.leccionId }}</td>
                 </tr>
             </table>
         </section>
@@ -272,19 +276,50 @@ export default {
                     this.listaPuntajes = respuesta.data.traerPuntajes;
                     console.log(this.listaPuntajes, typeof(this.listaPuntajes));
 
-                    // this.nivelCargaNiveles += 1; // Establece que deberia cargar de nuevo la galeria
-
+                    // this.puntajeCargaPuntajees += 1; // Establece que deberia cargar de nuevo la galeria
+                    
                     this.traerInfoLecciones();
                 })
                 .catch(error => {
                     console.log("Hubo un error trayendo los puntajes del usuario.", error);
                     console.log("error", error);
-                    this.nivelCargaNiveles = 0;
+                    this.puntajeCargaPuntajees = 0;
                 });
         },
 
         traerInfoLecciones: function() {
+            for (const puntaje of this.listaPuntajes) {
+                console.log(puntaje)
+                let id = puntaje.leccionId;
+                if (this.diccInfoLecciones.get(id)) continue;
 
+                console.log("Trayendo info de la leccion", id)
+
+                this.$apollo.query({
+                        query: gql`
+                            query TraerLeccionPorId($idLeccion: String!) {
+                                traerLeccionPorId(idLeccion: $idLeccion) {
+                                    id
+                                    nivel
+                                    n_leccion
+                                }
+                            }
+                        `,
+                        variables: {
+                            idLeccion: id
+                        }
+                    })
+                    .then(respuesta => {
+                        console.log("Traida info de leccion", id);
+                        this.diccInfoLecciones.set(id, respuesta.data.traerLeccionPorId);
+                        // this.puntajeCargaPuntajees += 1;
+                    })
+                    .catch(error => {
+                        console.log("No se pudo traer la info de la leccion", id)
+                        console.log("Error", JSON.stringify(error));
+                        this.diccInfoLecciones.set(id, {nivel: "#", nLeccion: "#"});
+                    });
+            }
         }
     }
 }
