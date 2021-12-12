@@ -4,6 +4,7 @@
     <CompLeccion :id="id" :titulo="titulo" :texto="texto" :letras="letras" :imagen="imagen"
                  :cpmMin1="cpmMin1" :cpmMin2="cpmMin2" :cpmMin3="cpmMin3" :cpmMin4="cpmMin4"
                  :ignorarMayus="ignorarMayus" :ignorarTildes="ignorarTildes" :ignorarDieres="ignorarDieres"
+                 :nivel="nivel" :nLeccion="n_leccion"
                  :key="texto"/>
    
 </div>
