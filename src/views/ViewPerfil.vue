@@ -55,8 +55,8 @@
         </section>
         <br/>
         <br/>
-        <div class="header">
-            Puntajes de {{usuarioIn.usuario}}
+        <div class="header" v-if="usuarioIn">
+            {{ usuarioIn.hasOwnProperty("usuario")? `Puntajes de ${usuarioIn.usuario}` : "Puntajes"}}
         </div>
         <br/>
         <section class="puntajes-usuario">
