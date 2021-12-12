@@ -27,7 +27,7 @@
                 <input id="ciudad" type="text" v-model="usuarioForm.ciudad"  disabled/>
                 <br/>
                 <label for="administrador"> ¿Es Administrador? </label>
-                <input id="administrador" type="text" v-model="usuarioForm.administrador" disabled/>
+                <input id="administrador" type="text" v-model="usuarioForm.is_staff" disabled/>
                 <br/>
 
                 <button id="activar-actualizar-datos" class="btn-crud-usuario" type="button" v-if="!actualizandoDatos"
@@ -41,7 +41,7 @@
                 </button>
 
                 <button id="submit-actualizar-datos" class="btn-crud-usuario" type="submit" v-if="actualizandoDatos"
-                        v-on:click="actualizarDatos">
+                        v-on:click.prevent="actualizarDatos">
                     Actualizar Usuario
                 </button>
 
@@ -63,15 +63,14 @@ export default {
 
     data: {
         usuarioForm: {
-            id: "",
             nombre: "",
             usuario: "",
             correo: "",
-            telefo: "",
+            telefono: "",
             pais: "",
             departamento: "",
             ciudad: "",
-            es_administrador: "",
+            is_staff: "",
         },
 
         modeloPrueba: {
@@ -109,10 +108,16 @@ export default {
                 console.log("Detalles de usuario traidos correctamente.");
 
                 // Actualizar campos del formulario (soft clone, para que no diga al modificar el input que estamos modificando objetos que son read only)
-                this.usuarioForm = {...respuesta.data.detallesUsuarioAutenticado}
+                Object.keys(this.usuarioForm).forEach(llave => {
+                            if (llave != "is_staff"){ 
+                                this.usuarioForm[llave] = respuesta.data.detallesUsuarioAutenticado[llave]
+                            } else {
+                                this.usuarioForm[llave] = respuesta.data.detallesUsuarioAutenticado["administrador"]
+                            }
+                        });
 
                 // Guardar los datos recibidos, para poder recuperarlos en caso de que se modifique el formulario
-                this.usuarioIn = {... this.usuarioForm};
+                this.usuarioIn = {... respuesta.data.detallesUsuarioAutenticado};
             }).catch(error => {
                 alert("No se pudo cargar su perfil.", error);
                 console.log("Error trayendo los datos del usuario", error);
@@ -140,12 +145,50 @@ export default {
             inputsDatos.forEach(elemento => elemento.setAttribute('disabled', ""));
 
             // Restaurar campos
-            this.usuarioForm = {... this.usuarioIn};
+            Object.keys(this.usuarioForm).forEach(llave => {
+                            if (llave != "is_staff"){ 
+                                this.usuarioForm[llave] = this.usuarioIn[llave]
+                            } else {
+                                this.usuarioForm[llave] = this.usuarioIn["administrador"]
+                            }
+                        });
             
         },
         
         actualizarDatos: async function() {
             console.log("Orden de actualizar datos recibida.");
+
+            this.$apollo.mutate(
+                {
+                    mutation: gql`
+                    mutation Mutation($idUsuario: Int!, $actualizacionInput: UsuarioAct!) {
+                        actualizarUsuario(idUsuario: $idUsuario, actualizacionInput: $actualizacionInput) {
+                            id
+                            nombre
+                            usuario
+                            correo
+                            telefono
+                            pais
+                            departamento
+                            ciudad
+                            administrador
+                        }
+                    }`,
+                    variables: {
+                        idUsuario: this.usuarioIn.id,
+                        actualizacionInput: this.usuarioForm
+                    }
+                }
+            ).then( respuesta => {
+                alert("Usuario actualizado satisfactoriamente.")
+                console.log(respuesta.data.actualizarUsuario)
+            }
+            ).catch( error => {
+                alert("No se pudo actualizar el usuario.")
+                console.log("Error actualizando", JSON.stringify(error), error.networkError)
+            }
+
+            );
         },
 
         eliminarUsuario: async function() {
