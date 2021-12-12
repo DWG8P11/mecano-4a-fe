@@ -112,7 +112,7 @@ export default {
                 this.usuarioForm = {...respuesta.data.detallesUsuarioAutenticado}
 
                 // Guardar los datos recibidos, para poder recuperarlos en caso de que se modifique el formulario
-                this.usuarioIn = this.usuarioForm;
+                this.usuarioIn = {... this.usuarioForm};
             }).catch(error => {
                 alert("No se pudo cargar su perfil.", error);
                 console.log("Error trayendo los datos del usuario", error);
@@ -140,7 +140,7 @@ export default {
             inputsDatos.forEach(elemento => elemento.setAttribute('disabled', ""));
 
             // Restaurar campos
-            this.usuarioForm = this.usuarioIn;
+            this.usuarioForm = {... this.usuarioIn};
             
         },
         
