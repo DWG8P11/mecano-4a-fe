@@ -27,7 +27,7 @@
                 <input id="ciudad" type="text" v-model="usuarioForm.ciudad"  disabled/>
                 <br/>
                 <label for="administrador"> ¿Es Administrador? </label>
-                <input id="administrador" type="text" v-model="usuarioForm.is_staff" disabled/>
+                <input id="administrador" type="checkbox" v-model="usuarioForm.is_staff" disabled/>
                 <br/>
                 
                 <div class="contenedor-botones-datos">
@@ -66,6 +66,7 @@
                     <th>Puntaje</th>
                     <th>Precisión</th>
                     <th>Palabras por minuto</th>
+                    <th>Nombre Lección </th>
                     <th>Nivel</th>
                     <th># Lección</th>
                     <th>ID Lección</th>
@@ -79,6 +80,7 @@
                     <td>{{ (3* puntaje.cpm_e).toFixed(0) }}</td>
                     <td>{{ (100 * puntaje.precision).toFixed(0) }}</td>
                     <td>{{ (puntaje.cpm_e/5).toFixed(0) }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).titulo : null }}</td>
                     <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).nivel : null }}</td>
                     <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).n_leccion : null }}</td>
                     <td>{{ puntaje.leccionId }}</td>
@@ -96,18 +98,14 @@ export default {
 
     data: {
         usuarioForm: {
-            nombre: "",
-            usuario: "",
-            correo: "",
-            telefono: "",
-            pais: "",
-            departamento: "",
-            ciudad: "",
-            is_staff: "",
-        },
-
-        modeloPrueba: {
-            texto: ""
+            nombre: null,
+            usuario: null,
+            correo: null,
+            telefono: null,
+            pais: null,
+            departamento: null,
+            ciudad: null,
+            is_staff: false,
         },
 
         actualizandoDatos: false,
@@ -313,6 +311,7 @@ export default {
                                     id
                                     nivel
                                     n_leccion
+                                    titulo
                                 }
                             }
                         `,
@@ -442,7 +441,7 @@ input{
 
     box-sizing: border-box;
     padding: 10pt 20pt;
-    margin: 0 0;
+    margin: auto;
 
     border: 1px solid rgb(217,217,217);
     border-radius: 30px;
