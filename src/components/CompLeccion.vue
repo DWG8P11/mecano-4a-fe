@@ -1,5 +1,5 @@
 <template>
-<div class="componente-leccion">
+<div class="componente-leccion" :key="this.id">
     <h1> {{ titulo }} </h1>
   
     <img class = "planetas"   src = "../../Imagenes/planetas.png">
@@ -854,13 +854,22 @@ export default {
         },
 
         cargarSiguienteLeccion: function() {
-            if (this.idLecSig <= 0){
-                console.log("No hay siguiente leccion.");
-                this.$router.push({name: "ViewVerNiveles"})
-            } else {
-                console.log("A punto de cargar al  siguiente leccion", this.idLecSig);
-                this.$router.push({name: `Leccion de DB`, params:{idLeccion: this.idLecSig}})
-            }
+            // console.log("Justo antes de cargarSiguienteLeccion, el id actual es", this.id);
+            // if (this.idLecSig <= 0){
+            //     console.log("No hay siguiente leccion.");
+            //     this.$router.push({name: "ViewVerNiveles"})
+            //     this.$forceUpdate();
+            // } else {
+            //     console.log("A punto de cargar al  siguiente leccion", this.idLecSig);
+            //     this.$router.push({name: `Leccion de DB`, params:{idLeccion: this.idLecSig}})
+            //     this.$forceUpdate();
+            // }
+            // console.log("Justo despues cargarSiguienteLeccion, el id es", this.id);
+            // this.cerrarModal();
+            // console.log("Justo despues de cerrar el Modal, el id es", this.id);
+            // this.$forceUpdate();
+
+            this.$emit("msjCargarLeccion", this.idLecSig);
         }
     }
 }
