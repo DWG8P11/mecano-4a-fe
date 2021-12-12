@@ -2,7 +2,7 @@
     <div class="view-perfil">
         <div class="header">
             Perfil
-        </div>
+        </div><br/>
         <section class="perfil-cuerpo">
             <form id="formulario-usuario-datos">
                 <label for="usuario"> Nombre de Usuario</label>
@@ -53,6 +53,38 @@
                 </div>
             </form>
         </section>
+        <br/>
+        <br/>
+        <div class="header">
+            Puntajes de {{usuarioIn.usuario}}
+        </div>
+        <br/>
+        <section class="puntajes-usuario">
+            <table class="tabla-puntajes-usuario" :key="cambiaGaleria">
+                <tr>
+                    <th>fecha</th>
+                    <th>Puntaje</th>
+                    <th>Precisión</th>
+                    <th>Palabras por minuto</th>
+                    <th>Nivel</th>
+                    <th># Lección</th>
+                    <th>ID Lección</th>
+
+                </tr>
+                <tr
+                    v-for="puntaje in listaPuntajes"
+                    :key="puntaje.id"
+                >
+                    <td>{{ (new Date(puntaje.fecha)).toISOString().slice(0,10) }}</td>
+                    <td>{{ (3* puntaje.cpm_e).toFixed(0) }}</td>
+                    <td>{{ (100 * puntaje.precision).toFixed(0) }}</td>
+                    <td>{{ (puntaje.cpm_e/5).toFixed(0) }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).nivel : null }}</td>
+                    <td>{{ diccInfoLecciones.get(puntaje.leccionId)? diccInfoLecciones.get(puntaje.leccionId).n_leccion : null }}</td>
+                    <td>{{ puntaje.leccionId }}</td>
+                </tr>
+            </table>
+        </section>
     </div>
 </template>
 
@@ -79,16 +111,25 @@ export default {
         },
 
         actualizandoDatos: false,
-        actualizandoContrasena: false
+        actualizandoContrasena: false,
+
+        listaPuntajes: [],
+
+        diccInfoLecciones: new Map(),
+
+        cambiaGaleria: 0,
+
+        nivelInvalido: 9999
     },
 
     created: function() {
-        this.traerDetallesUsuario();
+        this.traerDetallesUsuario().then(respuesta => this.traerPuntajes());
+        
     },
 
     methods: {
         traerDetallesUsuario: async function() {
-            this.$apollo.query(
+            await this.$apollo.query(
                 {
                     query: gql`
                     query Query {
@@ -217,6 +258,109 @@ export default {
                 alert("Error eliminando el usuario." + error);
                 console.log(error.networkError);
             });
+        },
+
+        traerPuntajes: async function() {
+            console.log("Se estan trayendo los puntajes del usuario.");
+            await this.$apollo
+                .query({
+                    query: gql`
+                    query TraerPuntajes($usuario: String) {
+                        traerPuntajes(usuario: $usuario) {
+                            id
+                            usuario
+                            leccionId
+                            precision
+                            cpm_e
+                            segundos
+                            fecha
+                        }
+                    }`,
+                    variables: {
+                        usuario: this.usuarioIn.usuario
+                    }
+                })
+                .then(respuesta => {
+                    console.log("Puntajes del usuario traidos correctamente.", respuesta.data.traerPuntajes[0]);
+                    this.listaPuntajes = [... respuesta.data.traerPuntajes]; // OJO: no se puede hacer una igualdad simple
+                    console.log(this.listaPuntajes, typeof(this.listaPuntajes));
+
+                    this.cambiaGaleria += 1;
+
+                    // this.puntajeCargaPuntajees += 1; // Establece que deberia cargar de nuevo la galeria
+                    
+                    this.traerInfoLecciones();
+                })
+                .catch(error => {
+                    console.log("Hubo un error trayendo los puntajes del usuario.", error);
+                    console.log("error", error);
+                    this.puntajeCargaPuntajees = 0;
+                });
+        },
+
+        traerInfoLecciones: function() {
+            for (const puntaje of this.listaPuntajes) {
+                console.log(puntaje)
+                let id = puntaje.leccionId;
+                if (this.diccInfoLecciones.get(id)) continue;
+
+                console.log("Trayendo info de la leccion", id)
+
+                this.$apollo.query({
+                        query: gql`
+                            query TraerLeccionPorId($idLeccion: String!) {
+                                traerLeccionPorId(idLeccion: $idLeccion) {
+                                    id
+                                    nivel
+                                    n_leccion
+                                }
+                            }
+                        `,
+                        variables: {
+                            idLeccion: id
+                        }
+                    })
+                    .then(respuesta => {
+                        console.log("Traida info de leccion", id);
+                        this.diccInfoLecciones.set(id, respuesta.data.traerLeccionPorId);
+                        this.cambiaGaleria += 1;
+                        
+                        // Ordenar lista puntajes
+                        // this.listaPuntajes.sort((pa, pb) =>{
+                        //     // console.log("Empezo sorting", this.diccInfoLecciones, this.diccInfoLecciones.get(pa.leccionId))
+                        //     if (!pa.leccionId) return -1;
+                        //     if (!pb.leccionId) return 1;
+                        //     const infoLecA = this.diccInfoLecciones.get(pa.leccionId);
+                        //     const infoLecB = this.diccInfoLecciones.get(pb.leccionId);
+                        //     const nivA = infoLecA.nivel;
+                        //     const nivB = infoLecB.nivel;
+                            
+                        //     if (!nivA) return -1;
+                        //     if (!nivB) return 1;
+                        //     if (nivA != nivB) return nivA - nivB;
+                            
+                        //     const nLecA = infoLecA.n_leccion;
+                        //     const nLecB = infoLecB.n_leccion;
+
+                        //     console.log("Leyo los numeros de leccion y los niveles", nivA, nivB, nLecA, nLecB);
+                        //     if (!nLecA) return -1;
+                        //     if (!nLecB) return 1;
+                        //     return nLecA - nLecB;
+                        // });
+                        // console.log("TERMINO SORTING");
+
+                        this.cambiaGaleria += 1;
+                    })
+                    .catch(error => {
+                        console.log("ERROR.", error)
+                        console.log("No se pudo traer la info de la leccion", id)
+                        console.log("Error", JSON.stringify(error));
+                        this.diccInfoLecciones.set(id, {});
+                        console.log(this.diccInfoLecciones)
+
+                        this.cambiaGaleria += 1;
+                    });
+            }
         }
     }
 }
@@ -245,8 +389,11 @@ export default {
 }
 .header{
     position: relative;
-    background: yellow;
+    text-align: center;
+    background: transparent;
     font-size: 2rem;
+    height: 2rem;
+    color: rgb(50,82,136);
     /* top: 0; */
 }
 
@@ -256,7 +403,7 @@ export default {
     top: 0rem;
     margin-left: auto;
     margin-right: auto;
-    height: 50vh;
+    /* height: 50vh; */
 
     /* width: 90vw; */
     
@@ -269,10 +416,14 @@ export default {
 @supports (display: grid) {
     form {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(24rem, auto));
+        grid-template-columns: repeat(1, 24rem);
+        /* grid-row: 1/2; */
+        /* grid-gap: 0.3rem; */
+        grid-auto-rows: minmax(3rem, auto);
     }
     .view-perfil {
         display: grid;
+
     }
 }
 
@@ -300,6 +451,10 @@ input{
     font-size: 1.1rem;
 }
 
+td {
+    text-align: center;
+}
+
 .contenedor-botones-datos {
     display: flex;
     justify-content: center;
@@ -310,7 +465,7 @@ button {
     height: 3rem;
 
     color: #E5E7E9;
-    background: rgb(28, 11,127);
+    background: rgb(30,174,152);
     border: 1px solid #E5E7E9;
 
     border-radius: 5px;
