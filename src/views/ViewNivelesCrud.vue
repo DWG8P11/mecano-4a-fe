@@ -4,12 +4,14 @@
         <div class="formulario">
         <h1>Crear Niveles</h1>
         <section class="formu">
-            <form v-on:submit.prevent="processListNivel">
-                <input type="text" v-model="Niveles.nombre" placeholder="Nombre">
-                <input type="text" v-model="Niveles.descripcion" placeholder="Descripcion">
-                <input type="text" v-model="Niveles.imagen" placeholder="Imagen">            
+            <form v-on:submit.prevent="GuardarNiveles">
+                <input class="redondeado" type="number" v-model="Niveles.id" placeholder="# Nombre" />
+                <input class="redondeado" type="text" v-model="Niveles.nombre" placeholder="Nombre" />
+                <input class="redondeado" type="text" v-model="Niveles.descripcion" placeholder="Descripcion" />
+                <input type="file" v-on:change="codificarImagenComoURL" />           
                 <!-- Botón para añadir -->
-                <button type="submit">Guardar</button>
+                
+                <button class="btnGuardar" type="submit">Guardar</button>
             </form>
         </section>
 
@@ -53,7 +55,7 @@ export default {
     data: function () {
         return {
             Niveles: {
-                id: 0,
+                id: "",
                 nombre: "",
                 descripcion: "",
                 imagen: "",
@@ -86,6 +88,7 @@ export default {
                     console.log("error", error);
                 });
         },
+
         DeleteNivel(idNivel) {
         this.$apollo.mutate({
             mutation: gql`
@@ -100,21 +103,57 @@ export default {
 
         .then(respuesta => {
             alert("Nivel Eliminado");
-            console.log(resultado)
             this.listaNiveles = respuesta.data.eliminarNivel;
-            console.log(this.listaNiveles)
             this.traerTodosNiveles();
-
         })
         .catch(error => {
             console.log("error", error);
         });
-      }
+      },
 
-      
-      
+    codificarImagenComoURL: async function (evento) {
+      var archivo = evento.target.files[0];
+      let imagenComoUrl = await this.leerArchivoAsync(archivo);
+      this.Niveles.imagen = imagenComoUrl;
     },
-    
+
+    leerArchivoAsync: function (file) {
+      return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+
+        reader.onload = () => {
+          resolve(reader.result);
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+      });
+     },
+     
+     GuardarNiveles: async function () {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation RegistrarNivel($nivel: NivelIn!) {
+            registrarNivel(nivel: $nivel) {
+              id
+              nombre
+              descripcion
+              imagen
+            }
+          }
+        `,
+        variables: {
+          nivel: this.Niveles,
+        },
+      }).then(respuesta => {
+        console.log(`respuesta ${respuesta}`);
+        alert("Registro de nivel exitoso")
+            this.traerTodosNiveles();
+        }).catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))   });
+    },
+
+    },
     mounted(){
     this.traerTodosNiveles();
     }
@@ -171,5 +210,20 @@ export default {
         border: 0.5px solid Rgb(50,82,136);
         border-collapse: collapse;
     }
+
+.btnGuardar{
+  width:8%;
+  background-color: Rgb(30,174,152);
+  color: white;
+}
+
+.redondeado{
+    font-family: Arial;
+    font-style: italic;
+
+    border: 2px solid turquoise;
+    background-color: white;
+}
+
 
 </style>

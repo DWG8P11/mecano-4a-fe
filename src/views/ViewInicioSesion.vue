@@ -80,7 +80,7 @@ export default {
 
 .view-inicio-sesion {
     text-align: center;
-    margin: 200px 0 20px 0;
+    margin: 100px 0 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -8,23 +8,23 @@
                 <ul>
                     <li>
                     <input type="text" v-model="Lecciones.titulo" placeholder="Titulo">
-                    <input type="number" v-model="Lecciones.nivel" placeholder="Nivel">
+                    <input type="number" v-model="Lecciones.nivel" placeholder="# Nivel">
                     </li>
                     <li>
-                    <input type="number" v-model="Lecciones.n_leccion" placeholder="Numero de lección">
+                    <input type="number" v-model="Lecciones.n_leccion" placeholder="# Numero de lección">
                     <input type="text" v-model="Lecciones.texto" placeholder="Texto"> 
                     </li>
                     <li>
-                    <input type="text" v-model="Lecciones.teclas" placeholder="Teclas" />
+                    <input type="text" v-model="Lecciones.teclas" placeholder="Teclas" class="teclas" />
                     <input type="file" v-on:change="codificarImagenComoURL" />
                     </li>
                     <li>                                                           
-                    <input type="number" v-model="Lecciones.mini1" placeholder="Mini 1"> 
-                    <input type="number" v-model="Lecciones.mini2" placeholder="Mini 2"> 
+                    <input type="number" v-model="Lecciones.mini1" placeholder="# Caract por min minimos 1"> 
+                    <input type="number" v-model="Lecciones.mini2" placeholder="# Caract por min minimos 2"> 
                     </li>
                     <li>
-                    <input type="number" v-model="Lecciones.mini3" placeholder="Mini 3">                                                 
-                    <input type="number" v-model="Lecciones.mini4" placeholder="Mini 4"> 
+                    <input type="number" v-model="Lecciones.mini3" placeholder="# Caract por min minimos 3">                                                 
+                    <input type="number" v-model="Lecciones.mini4" placeholder="# Caract por min minimos 4"> 
                     </li>
 
                     <button type="submit">Guardar</button>
@@ -59,13 +59,12 @@
                                         <td>{{ variable.n_leccion }}</td>
                                         <td>{{ variable.texto }}</td>
                                         <td>{{ variable.teclas }}</td>
-                                   <!--      <td><img src="diccionarioImagenes.get(variable.id)" :key="diccionarioImagenes.get(variable.id)"/></td> -->
                                         <td>{{ variable.mini1 }}</td>
                                         <td>{{ variable.mini2 }}</td>
                                         <td>{{ variable.mini3 }}</td>
                                         <td>{{ variable.mini4 }}</td>
-                                        <button @click="UpdateNivel(variable.id)" class="btn btn-primary"> Editar  </button>
-                                        <button @click="DeleteNivel(variable.id)" class="btn btn-danger"> Eliminar</button>                           
+                                        <button @click="UpdateLecciones(variable.id)" class="btn btn-primary"> Editar  </button>
+                                        <button @click="DeleteLecciones(variable.id)" class="btn btn-danger"> Eliminar</button>                           
                             </tr>
                         </tbody>
                     </table>
@@ -86,23 +85,20 @@ export default {
         return {
             Lecciones: {
                 titulo   : "",
-                nivel    : 0,
-                n_leccion: 0,
+                nivel    : "",
+                n_leccion: "",
                 texto: "",
                 teclas: "",
                 imagen: "",
-                mini1: 0,
-                mini2: 0,
-                mini3: 0,
-                mini4: 0,
+                mini1: "",
+                mini2: "",
+                mini3: "",
+                mini4: "",
                 ignorarMayus:  true,
                 ignorarTildes: true,
                 ignorarDieres: true,
             },
             listaLecciones:[],
-            diccionarioImagenes: new Map(),
-            nivelCargaLeccion: 0,
-
         };
     },
 
@@ -168,6 +164,7 @@ export default {
       }).then(respuesta => {
         console.log(`respuesta ${respuesta}`);
         alert("Registro de lección exitoso")
+        this.traerTodosLecciones();
         })
         .catch(error => {
             console.log(`error`,{error}, JSON.stringify(error.networkError))   });
@@ -195,11 +192,30 @@ export default {
       });
     },
 
+    DeleteLecciones(idLeccion) {
+            this.$apollo.mutate({
+            mutation: gql`
+            mutation EliminarLeccionPorId($idLeccion: String!) {
+                eliminarLeccionPorId(idLeccion: $idLeccion) 
+            }
+            `,
+            variables: {
+            idLeccion: idLeccion,
+            },
+        })
 
+        .then(respuesta => {
+            alert("Nivel Eliminado");
+            this.listaLecciones = respuesta.data.eliminarLeccionPorId;
+            this.traerTodosLecciones();
 
-
+        })
+        .catch(error => {
+            console.log("error", error);
+        });
+      },
     },
-    
+
     mounted(){
     this.traerTodosLecciones();
     }
@@ -210,7 +226,7 @@ export default {
 
 .container h1 {
     text-align: center;
-    margin: 80px 0 20px 0;
+    margin: 10px 0 20px 0;
 }
 
 .container form{
@@ -226,7 +242,6 @@ export default {
 .formulario section{
         width: 100%;
         height: 80%;
-
         display: flex;
         flex-direction: column;
         align-items: center;
