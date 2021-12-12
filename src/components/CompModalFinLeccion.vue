@@ -46,7 +46,7 @@
           <input type="checkbox" id="toggle2" />
           <label for="toggle2" class="boton_continuar"></label>
           <nav class="nav2">
-            <a href="#">Continuar</a>
+            <button type="button" v-on:click="mandarMensajeContinuar">Continuar</button>
           </nav>
         </div>
       </footer>
@@ -174,6 +174,11 @@ export default {
           break;
       }
     },
+
+    mandarMensajeContinuar: function() {
+      console.log("LLega a mandarMensajeContinuar")
+      this.$emit("msjContinuar");
+    }
   },
 };
 </script>

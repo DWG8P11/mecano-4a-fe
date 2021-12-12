@@ -4,7 +4,9 @@
     <CompLeccion :id="id" :titulo="titulo" :texto="texto" :letras="letras" :imagen="imagen"
                  :cpmMin1="cpmMin1" :cpmMin2="cpmMin2" :cpmMin3="cpmMin3" :cpmMin4="cpmMin4"
                  :ignorarMayus="ignorarMayus" :ignorarTildes="ignorarTildes" :ignorarDieres="ignorarDieres"
-                 :key="texto"/>
+                 :nivel="nivel" :nLeccion="n_leccion"
+                 :key="texto"
+                 v-on:msjCargarLeccion="cargarLeccion"/>
    
 </div>
 </template>
@@ -45,11 +47,11 @@ export default {
 
     created: function() {
         console.log("ViewLeccionDB fue creado, y idLeccion vale", this.idLeccion);
-        this.traerLeccionPorId();
+        this.traerLeccionPorId(this.idLeccion);
     },
 
     methods: {
-        traerLeccionPorId: async function() {
+        traerLeccionPorId: async function(idParam) {
             try{ 
                 let respuesta = await this.$apollo.query({
                     query: gql`
@@ -75,7 +77,7 @@ export default {
                     `
                 ,
                     variables: {
-                        idLeccion: this.idLeccion
+                        idLeccion: idParam
                     }
                 });
 
@@ -101,7 +103,13 @@ export default {
                 console.log("Error trayendo la lección", JSON.stringify(error.networkError))
             
             }
+        },
+
+        cargarLeccion: function(idP) {
+            this.traerLeccionPorId(idP);
         }
+
+        
     }
 }
 </script>

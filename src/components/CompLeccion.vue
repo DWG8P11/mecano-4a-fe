@@ -1,5 +1,5 @@
 <template>
-<div class="componente-leccion">
+<div class="componente-leccion" :key="this.id">
     <h1> {{ titulo }} </h1>
   
     <img class = "planetas"   src = "../../Imagenes/planetas.png">
@@ -29,7 +29,8 @@
     <CompModalLeccion v-if="modalAbierto" v-on:msjCerrarModal="cerrarModal" :key="modalAbierto"
                       v-on:msjReiniciarLeccion="cerrarModalYReiniciar"
                       :segundos="milisegundos_tot/1000" :cpme="cpm_efectiva" :precision="porc_acierto"
-                      :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4" />
+                      :cpm_min1="cpmMin1" :cpm_min2="cpmMin2" :cpm_min3="cpmMin3" :cpm_min4="cpmMin4"
+                      v-on:msjContinuar="cargarSiguienteLeccion"/>
     <Designs/>
 
     <img class= "cuerpo_celeste" :src="imagen">
@@ -106,6 +107,14 @@ export default {
         ignorarDieres: {
             type: Boolean,
             default: true,
+        },
+
+        nivel: {
+            type: Number
+        },
+
+        nLeccion: {
+            type: Number
         }
     },
 
@@ -442,6 +451,9 @@ export default {
 
             // Mostrar ventana con puntaje
             this.modalAbierto = true;
+
+            // Calcular y guardar id de la siguiente leccion
+            this.hallarIdSigLec();
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -785,6 +797,79 @@ export default {
 
                 alert(`Error -${mensaje}`);
             });
+        },
+
+        hallarIdSigLec: async function() {
+            await this.$apollo
+                .mutate({
+                    mutation: gql`
+                        query TraerLeccionesLigeras($nivel: Int) {
+                            traerLeccionesLigeras(nivel: $nivel) {
+                                id
+                                titulo
+                                nivel
+                                n_leccion
+                            }
+                        }
+                    `,
+                    variables: {
+                        nivel: null // En el router me aseguro de que sea un entero
+                    }
+                })
+                .then(respuesta => {
+                    let listaLecciones = respuesta.data.traerLeccionesLigeras;
+
+                    // Ordenar por numero de nivel y luego por # leccion
+                    console.log("Va a ordenar la lista");
+                    listaLecciones.sort((a, b) => { 
+                        if (a.nivel != b.nivel) {
+                            return a.nivel - b.nivel
+                        } 
+                        return a.n_leccion - b.n_leccion
+                    });
+
+                    let encontrado = false;
+                    let iEnc = listaLecciones.length;
+                    let leccion;
+                    console.log("Antes del for");
+                    for (let i = 0; i < listaLecciones.length; i++){
+                        
+                        leccion = listaLecciones[i];
+                        console.log("Entro al for", leccion);
+                        if (leccion.id == this.id) {
+                            console.log("Encontro la actual")
+                            encontrado = true;
+                            iEnc = i;
+                            break;
+                        }
+                    }
+                    
+                    console.log("Leccion actual encontrada en el indice", iEnc);
+                    if (encontrado && iEnc < listaLecciones.length - 1) {
+                        this.idLecSig = listaLecciones[iEnc+1].id;
+                    } else {
+                        this.idLecSig = listaLecciones[0].id;
+                    }
+                }).catch(error => {console.log("No se pudo traer la lista actual de lecciones", JSON.stringify(error))});
+        },
+
+        cargarSiguienteLeccion: function() {
+            // console.log("Justo antes de cargarSiguienteLeccion, el id actual es", this.id);
+            // if (this.idLecSig <= 0){
+            //     console.log("No hay siguiente leccion.");
+            //     this.$router.push({name: "ViewVerNiveles"})
+            //     this.$forceUpdate();
+            // } else {
+            //     console.log("A punto de cargar al  siguiente leccion", this.idLecSig);
+            //     this.$router.push({name: `Leccion de DB`, params:{idLeccion: this.idLecSig}})
+            //     this.$forceUpdate();
+            // }
+            // console.log("Justo despues cargarSiguienteLeccion, el id es", this.id);
+            // this.cerrarModal();
+            // console.log("Justo despues de cerrar el Modal, el id es", this.id);
+            // this.$forceUpdate();
+
+            this.$emit("msjCargarLeccion", this.idLecSig);
         }
     }
 }
