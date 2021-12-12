@@ -112,7 +112,9 @@ export default {
 
         diccInfoLecciones: new Map(),
 
-        cambiaGaleria: 0
+        cambiaGaleria: 0,
+
+        nivelInvalido: 9999
     },
 
     created: function() {
@@ -322,7 +324,7 @@ export default {
                     .catch(error => {
                         console.log("No se pudo traer la info de la leccion", id)
                         console.log("Error", JSON.stringify(error));
-                        this.diccInfoLecciones.set(id, {nivel: "#", n_leccion: "#"});
+                        this.diccInfoLecciones.set(id, {});
                         console.log(this.diccInfoLecciones)
 
                         this.cambiaGaleria += 1;
