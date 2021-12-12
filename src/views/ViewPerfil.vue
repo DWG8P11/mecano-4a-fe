@@ -108,19 +108,23 @@ export default {
                 console.log("Detalles de usuario traidos correctamente.");
 
                 // Actualizar campos del formulario (soft clone, para que no diga al modificar el input que estamos modificando objetos que son read only)
-                Object.keys(this.usuarioForm).forEach(llave => {
-                            if (llave != "is_staff"){ 
-                                this.usuarioForm[llave] = respuesta.data.detallesUsuarioAutenticado[llave]
-                            } else {
-                                this.usuarioForm[llave] = respuesta.data.detallesUsuarioAutenticado["administrador"]
-                            }
-                        });
+                this.actualizarCamposFormularioCon(respuesta.data.detallesUsuarioAutenticado);
 
                 // Guardar los datos recibidos, para poder recuperarlos en caso de que se modifique el formulario
                 this.usuarioIn = {... respuesta.data.detallesUsuarioAutenticado};
             }).catch(error => {
                 alert("No se pudo cargar su perfil.", error);
                 console.log("Error trayendo los datos del usuario", error);
+            });
+        },
+
+        actualizarCamposFormularioCon: function(objeto) {
+            Object.keys(this.usuarioForm).forEach(llave => {
+                if (llave != "is_staff" || objeto.is_staff){ 
+                    this.usuarioForm[llave] = objeto[llave]
+                } else {
+                    this.usuarioForm[llave] = objeto["administrador"]
+                }
             });
         },
 
@@ -145,13 +149,7 @@ export default {
             inputsDatos.forEach(elemento => elemento.setAttribute('disabled', ""));
 
             // Restaurar campos
-            Object.keys(this.usuarioForm).forEach(llave => {
-                            if (llave != "is_staff"){ 
-                                this.usuarioForm[llave] = this.usuarioIn[llave]
-                            } else {
-                                this.usuarioForm[llave] = this.usuarioIn["administrador"]
-                            }
-                        });
+            this.actualizarCamposFormularioCon(this.usuarioIn);
             
         },
         
@@ -180,12 +178,18 @@ export default {
                     }
                 }
             ).then( respuesta => {
-                alert("Usuario actualizado satisfactoriamente.")
-                console.log(respuesta.data.actualizarUsuario)
+                alert("Usuario actualizado satisfactoriamente.")  
+
+                // Actualizar datos de usuario            
+                this.usuarioIn = {... respuesta.data.actualizarUsuario};
+                this.actualizarCamposFormularioCon(respuesta.data.actualizarUsuario);
+
+                // Reiniciar edicion de datos
+                this.cancelarModificacionDatos();
             }
             ).catch( error => {
                 alert("No se pudo actualizar el usuario.")
-                console.log("Error actualizando", JSON.stringify(error), error.networkError)
+                console.log("Error actualizando", error, JSON.stringify(error), error.networkError)
             }
 
             );
@@ -205,7 +209,9 @@ export default {
                     }
                 }
             ).then(respuesta => {
-                alert("Usuario eliminado correctamente. " + respuesta)
+                alert("Usuario eliminado correctamente. " + respuesta.data.eliminarUsuario)
+
+                this.$router.push({name: "Home"});
             }).catch(error => {
                 alert("Error eliminando el usuario." + error);
                 console.log(error.networkError);
