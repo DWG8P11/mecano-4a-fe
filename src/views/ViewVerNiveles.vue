@@ -1,49 +1,67 @@
 <template>
-    <div class="view-ver-niveles">
-        <body>
+  <div class="view-ver-niveles">
+    <body>
+      <div class="contenedor-galeria">
+        <!-- <div class="galeria" :key="nivelCargaNiveles"> -->
+        <div class="galeria">
+          <div
+            :id="'nivel-' + nivel.id"
+            class="galeria-item"
+            v-for="nivel of this.listaNiveles"
+            :key="nivel"
+          >
+            <img
+              class="galeria-imagen"
+              :id="'astro-' + nivel.id"
+              :src="diccionarioImagenes.get(nivel.id)"
+              :key="diccionarioImagenes.get(nivel.id)"
+            />
 
-            <div class="contenedor-galeria">
-                <!-- <div class="galeria" :key="nivelCargaNiveles"> -->
-                <div class="galeria">
-                    <div
-                        :id="'nivel-'+nivel.id"
-                        class="galeria-item"
-                        v-for="nivel of this.listaNiveles"
-                        :key="nivel"
-                    >
-                        <img class="galeria-imagen" :id="'astro-'+nivel.id" :src="diccionarioImagenes.get(nivel.id)" :key="diccionarioImagenes.get(nivel.id)"/>
-
-                        <router-link :to="`/lista-lecciones?nivel=${nivel.id}`" class="galeria-item-info">
-                            <ul>
-                                <li class="galeria-item-nombre">
-                                    <i class="nivel-nombre" aria-hidden="true"> </i>
-                                    {{ `Nivel ${nivel.id}: "${nivel.nombre}"` || "Nivel Sin Identificar" }}
-                                </li>
-                            </ul>
-                        </router-link>
-
-                    </div>
-                </div>
-            </div>
-
-                
-                   
-        <div class="iconos_niveles">
-            <img class="Luna7"         src="../../Imagenes/otrosIconos/luna.png"/>
-            <img class="Saturno7"      src="../../Imagenes/otrosIconos/Diapositiva9.png"/>
-            <img class="Planeta1"      src="../../Imagenes/otrosIconos/Diapositiva12.png"/>
-            <img class="Planeta2"      src="../../Imagenes/otrosIconos/Diapositiva13.png"/>
-            <img class="Luna_llena"    src="../../Imagenes/otrosIconos/Diapositiva11.png"/>
+            <router-link
+              :to="`/lista-lecciones?nivel=${nivel.id}`"
+              class="galeria-item-info"
+            >
+              <ul>
+                <li class="galeria-item-nombre">
+                  <i class="nivel-nombre" aria-hidden="true"> </i>
+                  {{
+                    `Nivel ${nivel.id}: "${nivel.nombre}"` ||
+                    "Nivel Sin Identificar"
+                  }}
+                </li>
+              </ul>
+            </router-link>
+          </div>
         </div>
+      </div>
 
-        <div class="orbitas">           
-            <div id="orbita_xue"></div> 
-            <div id="orbita_chia"></div>
-            <div id="orbita_fagua"></div>   
-        </div>
+      <div class="iconos_niveles">
+        <img class="Luna7" src="../../Imagenes/otrosIconos/Diapositiva11.png" />
+        <img
+          class="Saturno7"
+          src="../../Imagenes/otrosIconos/Diapositiva9.png"
+        />
+        <img
+          class="Planeta1"
+          src="../../Imagenes/otrosIconos/Diapositiva12.png"
+        />
+        <img
+          class="Planeta2"
+          src="../../Imagenes/otrosIconos/Diapositiva13.png"
+        />
+        <img
+          class="Luna_llena"
+          src="../../Imagenes/otrosIconos/Diapositiva10.png"
+        />
+      </div>
 
-        </body>
-    </div>
+      <div class="orbitas">
+        <div id="orbita_xue"></div>
+        <div id="orbita_chia"></div>
+        <div id="orbita_fagua"></div>
+      </div>
+    </body>
+  </div>
 </template>
 
 
@@ -271,29 +289,43 @@ export default {
 /*Contenedor Iconos*/ 
 
 
-.Luna{
-    width: 100pt;
+.Luna7{
     position: absolute;
-    
+    width: 150pt;
+    left:595pt;
+    bottom:380pt;
+  
 
 }
 
 .Saturno7{
     position: absolute;
-    width: 90pt;
-    height: 80pt;
+    width: 170pt;
+    left:395pt;
+    bottom:80pt;
 }
 
 .Planeta1 {
-    width: 100pt;
-
+  position: absolute;
+  width: 150pt;
+  left:230pt;
+  bottom:350pt;
 }
+    
+
+
 .Planeta2{
-    width: 100pt;
+  position: absolute;
+  width: 150pt;
+  left:740pt;
+  bottom:45pt;
 
 }
 .Luna_llena{
-    width: 100pt;
+  position: absolute;
+  width: 110pt;
+  left:562pt;
+  bottom:160pt;
 
 }
 </style>
