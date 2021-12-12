@@ -225,7 +225,7 @@ export default {
 #nivel-1 {
   z-index: 999;
   position: absolute;
-  right: 230pt;
+  left: 700pt;
   bottom:90pt;
 }
 
