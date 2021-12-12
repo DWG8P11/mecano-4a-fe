@@ -279,6 +279,8 @@ export default {
 label {
     /* Necesario para poderle dar un width, porque de lo contrario el label es un inline-element */
     display: inline-block; 
+    font-family: Questa Grande;
+    font-size: 1.1rem;
 }
 
 input{
@@ -294,6 +296,8 @@ input{
     border: 1px solid rgb(217,217,217);
     border-radius: 30px;
 
+    font-family: Questa Grande;
+    font-size: 1.1rem;
 }
 
 .contenedor-botones-datos {
@@ -313,7 +317,7 @@ button {
     align-content: center;
 
     font-family: Questa Grande;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 button:hover{
