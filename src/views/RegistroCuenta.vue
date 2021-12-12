@@ -51,14 +51,14 @@ export default {
     data: function() {
         return {
         users: {
-            nombre: "",
-            usuario: "",
-            correo: "",
-            telefono: 0,
-            pais: "",
-            departamento: "",
-            ciudad: "",
-            password: "",
+            nombre: null,
+            usuario: null,
+            correo: null,
+            telefono: null,
+            pais: null,
+            departamento: null,
+            ciudad: null,
+            password: null,
             is_staff: false,
          },
         };
