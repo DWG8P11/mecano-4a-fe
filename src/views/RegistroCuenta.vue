@@ -92,7 +92,8 @@ methods: {
 
         })
         .catch((error) => {
-           console.log(error)
+            alert("No se hizo el registro del usuario.", error)
+           console.log(JSON.stringify(error));
         });
 
       },
