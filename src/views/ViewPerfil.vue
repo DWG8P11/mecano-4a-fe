@@ -2,7 +2,17 @@
     <div class="view-perfil">
         <header>
             <h1> Perfil </h1>
-        </header>    
+        </header>
+        <section class="perfil-cuerpo">
+            <form v-on:submit.prevent="procesar">
+                <input type="text" placeholder="Nombre de Usuario" v-model="usuarioForm.id" /> <br/>
+                <input type="text" placeholder="Nombre" v-model="nuevoNivel.nombre" /> <br/>
+                <input type="text" placeholder="Descripcion" v-model="nuevoNivel.descripcion"/> <br/>
+                <button id="boton-submit-nivel" type="submit" disabled> <br/>
+                    Registrar Nivel
+                </button>
+            </form>
+        </section>
     </div>
 </template>
 
@@ -39,6 +49,7 @@ export default {
                 console.log("Detalles de usuario traidos correctamente.");
                 console.log(JSON.stringify(respuesta));
             }).catch(error => {
+                alert("No se pudo cargar su perfil.", error);
                 console.log("Error trayendo los datos del usuario", error);
             });
         }
