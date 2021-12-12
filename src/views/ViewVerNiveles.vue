@@ -161,7 +161,6 @@ export default {
   padding: 0;
   background-image: url(../../Imagenes/sky.png);
   background-size: cover;
-
   background-repeat: no-repeat;
   height: 100vh;
   display: flex;

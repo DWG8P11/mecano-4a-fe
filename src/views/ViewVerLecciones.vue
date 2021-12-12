@@ -1,7 +1,11 @@
 <template>
     <div class="view-ver-lecciones">
         <body>
-            <div class="subtitle">Lecciones{{ nNivel? `: Nivel ${nNivel}` :  ''}} </div>
+            <div class="subtitle">Fagua{{ nNivel? `: Nivel ${nNivel}` :  ''}} 
+                <img class="icono-tele"  src="../../Imagenes/otrosIconos/tele.svg"/>
+                <img class="abc"         src="../../Imagenes/otrosIconos/planetitas.svg"/>
+                <img class="estrellitas" src="../../Imagenes/otrosIconos/estrellasypuntitos.svg"/>
+            </div>  
 
             <div class="contenedor-galeria">
                 <div class="galeria">
@@ -16,7 +20,7 @@
                             <ul>
                                 <li class="galeria-item-nombre">
                                     <i class="leccion-nombre" aria-hidden="true"> </i>
-                                    {{ `Leccion ${leccion.titulo}: Nivel ${leccion.nivel} # Leccion ${leccion.n_leccion}` || "Leccion Sin Identificar" }}
+                                    {{ `${leccion.n_leccion}. ${leccion.titulo}` || "Leccion Sin Identificar" }}
                                 </li>
                             </ul>
                         </div>
@@ -135,25 +139,55 @@ export default {
 
 <style scoped>
 .view-ver-lecciones {
-    display: flex;
-    margin: 0pt;
-    margin-top: -70pt;
+    margin: -8pt;
+    padding: 0;
+    display: flex; 
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color:#062f55;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    top: -145px;
 }
 
 .subtitle {
     position: relative;
-    left: 0;
-
-    font-family: Blue-Fonte;
-    color: rgb(28, 11, 127);
+    text-align: center;
+    font-family: Autery;
+    color: white;
     font-size: 46pt;
 
     width: 140pt; /* El tamaño de Arrecife */
     left: calc(50vw - 70pt);
 }
+
+.icono-tele{
+    position:absolute;
+    bottom:-80pt;
+    left:-220pt;
+    width: 320pt;
+    
+}
+
+
+.abc{
+    position:absolute;
+    bottom:-30pt;
+    left:-60pt;
+    width: 450pt; 
+
+}
+
+.estrellitas{
+    position:absolute;
+    bottom:-70pt;
+    left:-250pt;
+    width: 450pt; 
+
+}
+
 
 body {
     position: absolute;
@@ -187,6 +221,7 @@ img {
     margin: 1rem;
     color: #fff;
     cursor: pointer;
+   
 
     /* Para mostrar como circulos */
     border-radius: 50%;
@@ -195,20 +230,21 @@ img {
     height: 0;
     padding-bottom: 50%;
     padding-top: 50%;
-
-    border: solid;
-    border-color: black;
+    border:solid;
+    border-color:white;
+    border-width: 5px;
+    box-shadow: 0 0 30px rgb(247, 253, 253);
 }
 
 .galeria-imagen {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
 
     /* Para ajustar la imagen al contenedor de tamaño 0 */
     position: absolute; /* Para ignorar el height 0 del contenedor*/
     top: 0;
+    
 }
 /*
 The following code will only run if your browser supports CSS grid.
@@ -216,7 +252,7 @@ The following code will only run if your browser supports CSS grid.
 @supports (display: grid) {
     .galeria {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+        grid-template-columns:repeat(5, minmax(10rem, 1fr));
         grid-gap: 2rem;
     }
 
