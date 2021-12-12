@@ -25,10 +25,11 @@ const routes = [
     component: Home
   },
   {
-    path: '/aprende/leccionDB',
+    path: '/aprende/leccionDB/:idLeccion',
     name: 'Leccion de DB',
     component: ViewLeccionDB,
-    props: ruta => ({idLeccion: ruta.query.id}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
+    // props: ruta => ({idLeccion: ruta.query.id}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
+    props: true
   },
   {
     path: '/designs',

@@ -846,9 +846,9 @@ export default {
                     
                     console.log("Leccion actual encontrada en el indice", iEnc);
                     if (encontrado && iEnc < listaLecciones.length - 1) {
-                        this.idLecSig = listaLecciones[iEnc+1];
+                        this.idLecSig = listaLecciones[iEnc+1].id;
                     } else {
-                        this.idLecSig = listaLecciones[0];
+                        this.idLecSig = listaLecciones[0].id;
                     }
                 }).catch(error => {console.log("No se pudo traer la lista actual de lecciones", JSON.stringify(error))});
         },
@@ -858,8 +858,8 @@ export default {
                 console.log("No hay siguiente leccion.");
                 this.$router.push({name: "ViewVerNiveles"})
             } else {
-                console.log("A punto de cargar al  siguiente leccion");
-                this.$router.push({path: `/leccionDB`, params:{id:this.idLecSig}})
+                console.log("A punto de cargar al  siguiente leccion", this.idLecSig);
+                this.$router.push({name: `Leccion de DB`, params:{idLeccion: this.idLecSig}})
             }
         }
     }
