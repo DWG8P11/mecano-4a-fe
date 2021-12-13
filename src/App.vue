@@ -13,7 +13,7 @@
           <keep-alive>
             <router-link to="/lista-niveles" v-if="estaAutenticado()"> Aprende | </router-link>
           </keep-alive>
-          <router-link to="/registro-cuenta" v-if="!estaAutenticado()">Únete | </router-link>
+          <router-link to="/registro-cuenta" v-if="!estaAutenticado() || esAdministrador()">Únete | </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
           <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
           <router-link to="/lista-niveles-adm" v-if="estaAutenticado()"> Crear Niveles | </router-link>
@@ -65,7 +65,6 @@ import Designs          from '@/components/Designs.vue';
 import LocalFingers     from '@/components/LocalFingers.vue';
 
 import gql              from "graphql-tag"
-import jwt_decode       from 'jwt-decode';
 
 import sePudoAutenticar from "@/SePuedeAutenticar";
 
@@ -107,6 +106,10 @@ export default {
       return localStorage.getItem("estaAutenticado") === 'true';
     },
 
+    esAdministrador: function() {
+      return localStorage.getItem("es_administrador") === 'true';
+    },
+
     tocarMicroservicios: function() {
       this.$apollo.query({
         query: gql`
@@ -123,10 +126,10 @@ export default {
       localStorage.setItem("es_administrador", data.es_administrador);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
-      localStorage.setItem("estaAutenticado()", true);
+      localStorage.setItem("estaAutenticado", true);
       // console.log("Se hicieron los cambios permitentes en el localStorage para asegurar que la persona esta autenticada");
-      this.$forceUpdate(); // Necesario
       this.$router.push({name: "Home"});
+      this.$forceUpdate(); // Necesario
       alert(`¡Bienvenid@ ${data.usuario}!`);
     },
 
