@@ -10,7 +10,9 @@
         </div>
         <div class="nav">
           <router-link to="/">Inicio | </router-link>
-          <router-link to="/lista-niveles"> Aprende | </router-link>
+          <keep-alive>
+            <router-link to="/lista-niveles"> Aprende | </router-link>
+          </keep-alive>
           <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
           <router-link to="/registrar-nivel"> Registrar Nivel | </router-link>
