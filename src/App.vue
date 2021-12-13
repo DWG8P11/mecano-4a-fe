@@ -60,9 +60,13 @@
 </template>
 
 <script>
-import CompLeccion  from '@/components/CompLeccion.vue';
-import Designs      from '@/components/Designs.vue';
-import LocalFingers from '@/components/LocalFingers.vue';
+import CompLeccion      from '@/components/CompLeccion.vue';
+import Designs          from '@/components/Designs.vue';
+import LocalFingers     from '@/components/LocalFingers.vue';
+
+import gql              from "graphql-tag"
+import jwt_decode       from 'jwt-decode';
+
 import sePudoAutenticar from "@/SePuedeAutenticar";
 
 export default {
