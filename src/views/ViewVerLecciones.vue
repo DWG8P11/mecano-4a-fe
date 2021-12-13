@@ -174,7 +174,7 @@ export default {
 
 .abc{
     position:absolute;
-    bottom:-30pt;
+    bottom:-40pt;
     left:-60pt;
     width: 450pt; 
 
