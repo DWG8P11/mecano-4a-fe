@@ -9,15 +9,15 @@
           <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
         </div>
         <div class="nav">
-          <router-link to="/">Inicio | </router-link>
+          <router-link to="/">Inicio </router-link>
           <keep-alive>
-            <router-link to="/lista-niveles" v-if="estaAutenticado()"> Aprende | </router-link>
+            <router-link to="/lista-niveles" v-if="estaAutenticado()"> | Aprende</router-link>
           </keep-alive>
-          <router-link to="/registro-cuenta" v-if="!estaAutenticado() || esAdministrador()">Únete | </router-link>
+          <router-link to="/registro-cuenta" v-if="!estaAutenticado() || esAdministrador()">| Únete </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-          <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
-          <router-link to="/lista-niveles-adm" v-if="estaAutenticado()"> Crear Niveles | </router-link>
-          <router-link to="/lista-lecciones-adm" v-if="estaAutenticado()"> Crear Lecciones  </router-link>
+          <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">| Lección de Prueba </router-link>
+          <router-link to="/lista-niveles-adm" v-if="estaAutenticado()"> | Crear Niveles </router-link>
+          <router-link to="/lista-lecciones-adm" v-if="estaAutenticado()"> | Crear Lecciones  </router-link>
           <router-link to="/perfil" v-if="estaAutenticado()">| Perfil </router-link>
         </div>
         
@@ -67,8 +67,6 @@ import LocalFingers     from '@/components/LocalFingers.vue';
 import gql              from "graphql-tag"
 
 import sePudoAutenticar from "@/SePuedeAutenticar";
-
-import gql from "graphql-tag";
 
 export default {
   components: {
