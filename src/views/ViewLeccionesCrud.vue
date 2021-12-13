@@ -133,7 +133,13 @@ export default {
                 })
                     .then(respuesta => {
                     this.listaLecciones = respuesta.data.traerLeccionesLigeras;
-                    console.log(this.listaLecciones)
+                    // Ordenar por numero de nivel y luego por # leccion
+                    this.listaLecciones.sort((a, b) => { 
+                        if (a.nivel != b.nivel) {
+                            return a.nivel - b.nivel
+                        } 
+                        return a.n_leccion - b.n_leccion
+                    });
 
                     this.traerImagenes();
                 })
