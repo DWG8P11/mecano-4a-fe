@@ -403,7 +403,7 @@ tr {
     text-align: center;
 }
 
-.container {
+.container, button, input, textarea {
     font-family: Questa Grande;
 }
 
