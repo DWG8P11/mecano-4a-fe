@@ -96,6 +96,11 @@ export default {
 
   beforeUpdate: function() {
     this.actualizarAutenticacion();
+
+    // Cerrar menú
+    try{
+      document.querySelector("#toggleLog").checked = false;
+    } catch(error) { /* No es necesario hacer nada en caso contrario */ }
   },
 
   methods: {
