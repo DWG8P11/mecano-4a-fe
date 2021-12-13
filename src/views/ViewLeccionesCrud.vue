@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="variable in listaLecciones" v-bind:key="variable.id" >
+                            <tr v-for="variable in listaLecciones" v-bind:key="variable.id" v-on:click="metActualizarCampos(variable)" >
 
                                         <td>{{ variable.titulo }}</td>
                                         <td>{{ variable.nivel }}</td>
@@ -175,6 +175,8 @@ export default {
       var archivo = evento.target.files[0];
       let imagenComoUrl = await this.leerArchivoAsync(archivo);
       this.Lecciones.imagen = imagenComoUrl;
+      this.Lecciones.id = parseInt(this.Lecciones.id)
+      delete this.Lecciones.__typename;
       
     },
 
@@ -214,6 +216,45 @@ export default {
             console.log("error", error);
         });
       },
+
+        UpdateLecciones(idLeccion) {
+        this.$apollo.mutate({
+            mutation: gql`
+                mutation ActualizarLeccionPorId($idLeccion: String!, $leccionNueva: LeccionIn!) {
+                actualizarLeccionPorId(idLeccion: $idLeccion, leccionNueva: $leccionNueva) {
+                    id
+                    titulo
+                    nivel
+                    n_leccion
+                    texto
+                    teclas
+                    imagen
+                    mini1
+                    mini2
+                    mini3
+                    mini4
+                }
+            }
+            `,
+            variables: {
+            idLeccion: idLeccion,
+            leccionNueva: this.Lecciones
+            },
+        })
+
+        .then(respuesta => {
+            alert("Editado");
+            this.listaLecciones = respuesta.data.actualizarLeccionPorId;
+            this.traerTodosNiveles();
+        })
+        .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
+      },
+
+    metActualizarCampos: function (ocup) {
+      this.Lecciones = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
+      
+    },
+
     },
 
     mounted(){

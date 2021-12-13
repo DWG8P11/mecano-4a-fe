@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="variable in listaNiveles" v-bind:key="variable.id" >
+                            <tr v-for="variable in listaNiveles" v-bind:key="variable.id" v-on:click="metActualizarCampos(variable)">
 
                                         <td>{{ variable.id }}</td>
                                         <td>{{ variable.nombre }}</td>
@@ -111,10 +111,43 @@ export default {
         });
       },
 
+    metActualizarCampos: function (ocup) {
+      this.Niveles = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
+      
+    },
+
+    UpdateNivel(idNivelViejo) {
+        this.$apollo.mutate({
+            mutation: gql`
+            mutation ActualizarNivel($idNivelViejo: Int!, $nivelNuevo: NivelIn!) {
+                actualizarNivel(idNivelViejo: $idNivelViejo, nivelNuevo: $nivelNuevo) {
+                    id
+                    nombre
+                    descripcion
+                    imagen
+                }
+            }
+            `,
+            variables: {
+            idNivelViejo: idNivelViejo,
+            nivelNuevo: this.Niveles
+            },
+        })
+
+        .then(respuesta => {
+            alert("Editado");
+            this.listaNiveles = respuesta.data.actualizarNivel;
+            this.traerTodosNiveles();
+        })
+        .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
+      },
+
     codificarImagenComoURL: async function (evento) {
       var archivo = evento.target.files[0];
       let imagenComoUrl = await this.leerArchivoAsync(archivo);
       this.Niveles.imagen = imagenComoUrl;
+      this.Niveles.id = parseInt(this.Niveles.id)
+      delete this.Niveles.__typename;
     },
 
     leerArchivoAsync: function (file) {
