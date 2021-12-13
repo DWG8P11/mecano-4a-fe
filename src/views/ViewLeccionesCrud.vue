@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+                        
 
         <div class="formulario">
         <h1>Crear Lecciones</h1>
@@ -19,12 +20,12 @@
                     <input type="file" v-on:change="codificarImagenComoURL" />
                     </p>
                     <p>                                                           
-                    <input class="redondeado" type="number" v-model="Lecciones.mini1" placeholder="# Caract por min minimos 1"> 
-                    <input class="redondeado" type="number" v-model="Lecciones.mini2" placeholder="# Caract por min minimos 2"> 
+                    <input class="redondeado" type="number" v-model="Lecciones.mini1" placeholder="# Caracteres por min efectivos 1"> 
+                    <input class="redondeado" type="number" v-model="Lecciones.mini2" placeholder="# Caracteres por min efectivos 2"> 
                     </p>
                     <p>
-                    <input class="redondeado" type="number" v-model="Lecciones.mini3" placeholder="# Caract por min minimos 3">                                                 
-                    <input class="redondeado" type="number" v-model="Lecciones.mini4" placeholder="# Caract por min minimos 4"> 
+                    <input class="redondeado" type="number" v-model="Lecciones.mini3" placeholder="# Caracteres por min efectivos 3">                                                 
+                    <input class="redondeado" type="number" v-model="Lecciones.mini4" placeholder="# Caracteres por min efectivos 4"> 
                     </p>
 
                     <button class="btnGuardar" type="submit">Guardar</button>
@@ -63,8 +64,8 @@
                                         <td>{{ variable.mini2 }}</td>
                                         <td>{{ variable.mini3 }}</td>
                                         <td>{{ variable.mini4 }}</td>
-                                        <button @click="UpdateLecciones(variable.id)" class="btn btn-primary"> Editar  </button>
-                                        <button @click="DeleteLecciones(variable.id)" class="btn btn-danger"> Eliminar</button>                           
+                                        <button @click="UpdateLecciones(variable.id)" class="btnUpdate"> Editar  </button>
+                                        <button @click="DeleteLecciones(variable.id)" class="btnDelete"> Eliminar</button>                           
                             </tr>
                         </tbody>
                     </table>
@@ -72,7 +73,6 @@
         </div>
     </div>
 </template>
-
 
 
 <script>
@@ -225,45 +225,35 @@ export default {
 <style scoped>
 
 .container{
-
+    position: relative;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+}
 
+.formulario{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container h1 {
     text-align: center;
     margin: 2px 0 10px 0;
+
+    font-size: 20px;
+    color: Rgb(50,82,136);
 }
 
-.container form{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-.section {
-       text-align: center; 
-    }
-
-.formulario section{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-}
 
 .container th {
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: left;
-    background-color: Rgb(50,82,136);
-    color: white;
+    text-align: center;
+    background-color: white;
+    color: black;
 }
-    .container h1{
-        font-size: 20px;
-        color: Rgb(50,82,136);
-    }
 
     .container input{
     width: 20vw;
@@ -291,12 +281,23 @@ export default {
         border: 1px solid #E5E7E9;
         padding: 5pt 20pt;
         margin: 3pt 0;
-        text-align: center;
+
+        display: flex;
+        align-items: center;
 }
     .formulario button:hover{
     color: #E5E7E9;
     background: turquoise;
     border: 1px solid rgb(28, 11,127);
+}
+
+.btnUpdate{
+    background-color: Rgb(30,174,152);
+    color: white;
+}
+.btnDelete{
+    background-color: red;
+    color: white;
 }
 
 
