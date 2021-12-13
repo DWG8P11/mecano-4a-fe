@@ -15,7 +15,6 @@
           </keep-alive>
           <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-          <router-link to="/registrar-nivel"> Registrar Nivel | </router-link>
           <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
           <router-link to="/lista-niveles-adm"> Crear Niveles | </router-link>
           <router-link to="/lista-lecciones-adm"> Crear Lecciones  </router-link>
@@ -90,6 +89,7 @@ export default {
   //   },
   // },
   created: function() {
+    this.tocarMicroservicios();
     this.actualizarAutenticacion();
   },
 
@@ -99,6 +99,15 @@ export default {
   },
 
   methods: {
+    tocarMicroservicios: function() {
+      this.$apollo.query({
+        query: gql`
+        query Query {
+          tocarMicroServicios
+        }`
+      }).then(respuesta => console.log("Microservicios tocados", respuesta)).catch(error => console.log("Error.", error))
+    },
+
     completarLogIn: function (data) {
       localStorage.setItem("usuario", data.usuario);
       localStorage.setItem("correo", data.correo);
