@@ -84,24 +84,11 @@ export default {
   //       return localStorage.getItem("estaAutenticado()") === 'true';
   //     },
   //     set: function(valor) {
-  //       console.log("Se entro al SET de estaAutenticado");
+  //       console.log("Se entro al SET de estaAutenticado"); //... esto lastimosamente no fuerza la entrada al GET
   //       let nada = valor;
   //       // this.estaAutenticado = valor;
   //     }
   //   }
-  // },
-
-  // computed: {
-  //   /*
-  //    * Variables que se van a reevaluar frecuentemente
-  //    */
-  //   estaAutenticado: {
-  //     get: function () {
-  //       console.log("Esta calculando estaAutenticado", localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined)
-  //       return localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined;
-  //     },
-  //     set: function () {},
-  //   },
   // },
   created: function() {
     this.tocarMicroservicios();
@@ -109,14 +96,15 @@ export default {
   },
 
   beforeUpdate: function() {
-    console.log("Antes de actualizar App, prop estaAutenticado vale", this.estaAutenticado);
     this.actualizarAutenticacion();
   },
 
   methods: {
     estaAutenticado: function() {
-      console.log("Evaluando estaAutenticado como metodo:", localStorage.getItem("estaAutenticado()") === 'true');
-      return localStorage.getItem("estaAutenticado()") === 'true';
+      /*
+       * "Booleano" que nos indica si estamos autenticados
+      */
+      return localStorage.getItem("estaAutenticado") === 'true';
     },
 
     tocarMicroservicios: function() {
@@ -129,15 +117,15 @@ export default {
     },
 
     completarLogIn: function (data) {
-      console.log("Se recibio mensaje de inicio de sesion");
+      // console.log("Se recibio mensaje de inicio de sesion");
       localStorage.setItem("usuario", data.usuario);
       localStorage.setItem("correo", data.correo);
       localStorage.setItem("es_administrador", data.es_administrador);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
       localStorage.setItem("estaAutenticado()", true);
-      console.log("Se hicieron los cambios permitentes en el localStorage para asegurar que la persona esta autenticada");
-      this.$forceUpdate();
+      // console.log("Se hicieron los cambios permitentes en el localStorage para asegurar que la persona esta autenticada");
+      this.$forceUpdate(); // Necesario
       this.$router.push({name: "Home"});
       alert(`¡Bienvenid@ ${data.usuario}!`);
     },
@@ -147,17 +135,17 @@ export default {
     },
 
     cerrarSesion: function() {
-      console.log("Cerrando sesion");
+      // console.log("Cerrando sesion");
       localStorage.clear();
-      alert("Cerraste sesión");
+      alert("¡Vuelve pronto!");
       this.$router.push({name: "Home"});
-      this.$forceUpdate();
+      this.$forceUpdate(); // Necesario
     },
 
     actualizarAutenticacion: function() {
-      console.log("Se entro a actualizarAutenticacion en App");
+      // console.log("Se entro a actualizarAutenticacion en App");
       sePudoAutenticar(this.$apollo);
-      console.log("Al hacer la verificacion en App se concluyo que estaAutenticado vale", this.estaAutenticado())
+      // console.log("Al hacer la verificacion en App se concluyo que estaAutenticado vale", this.estaAutenticado())
       // console.log(rta);
     }
   },
