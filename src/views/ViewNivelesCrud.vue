@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="variable in listaNiveles" v-bind:key="variable.id" >
+                            <tr v-for="variable in listaNiveles" v-bind:key="variable.id" v-on:click="metActualizarCampos(variable)">
 
                                         <td>{{ variable.id }}</td>
                                         <td>{{ variable.nombre }}</td>
@@ -111,8 +111,12 @@ export default {
         });
       },
 
+    metActualizarCampos: function (ocup) {
+      this.Niveles = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
+      
+    },
+
     UpdateNivel(idNivelViejo) {
-        console.log("Ingreso?");
         this.$apollo.mutate({
             mutation: gql`
             mutation ActualizarNivel($idNivelViejo: Int!, $nivelNuevo: NivelIn!) {
@@ -142,6 +146,8 @@ export default {
       var archivo = evento.target.files[0];
       let imagenComoUrl = await this.leerArchivoAsync(archivo);
       this.Niveles.imagen = imagenComoUrl;
+      this.Niveles.id = parseInt(this.Niveles.id)
+      delete this.Niveles.__typename;
     },
 
     leerArchivoAsync: function (file) {
