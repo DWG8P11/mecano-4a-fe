@@ -259,6 +259,8 @@ export default {
       },
 
         UpdateLecciones(idLeccion) {
+        this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+
         this.$apollo.mutate({
             mutation: gql`
                 mutation ActualizarLeccionPorId($idLeccion: String!, $leccionNueva: LeccionIn!) {
