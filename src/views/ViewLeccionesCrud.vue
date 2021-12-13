@@ -252,7 +252,7 @@ export default {
 
     metActualizarCampos: function (ocup) {
       this.Lecciones = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
-      
+      delete this.Lecciones.__typename;
     },
 
     },
