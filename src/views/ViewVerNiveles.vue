@@ -170,7 +170,9 @@ export default {
   position: relative;
   top: -8.5rem;
 }
-
+/*.galeria{
+  margin-top:100pt;
+}*/
 
 .galeria-item {
   position: relative;
