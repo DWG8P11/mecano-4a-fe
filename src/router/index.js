@@ -133,6 +133,23 @@ router.beforeEach(async (to, from) => {
       return {name: 'iniciar-sesion'} // Para redireccionar a Iniciar Sesión
     }
   }
+
+  if (to.meta.requiereAdmin) {
+    if (autenticado && localStorage.getItem("es_administrador") === 'true'){
+      return true
+    } else {
+      alert("¡Necesita ser un administrador para entrar a esta sección!");
+      return {name: 'Home'} // Para redireccionar a Iniciar Sesión
+    }
+  }
+
+  if (to.name == 'iniciar-sesion' && autenticado) {
+    return {name: 'ViewPerfil'}
+  }
+
+  if (to.name == 'registro-cuenta' && (autenticado && !(localStorage.getItem("es_administrador") === 'true'))) {
+    return {name: 'ViewPerfil'}
+  }
 })
 
 
