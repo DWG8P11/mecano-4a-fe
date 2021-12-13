@@ -241,7 +241,7 @@ h1 {
   color:white;
   margin-top:40pt;
   margin-right:30pt;
-
+  text-shadow: black 0.1em 0.1em 0.2em;
 
 }
 

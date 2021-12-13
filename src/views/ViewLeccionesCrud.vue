@@ -183,7 +183,9 @@ export default {
     
     guardarLeccion: async function() {
         delete this.Lecciones.id;
-        this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+        if (typeof(this.Lecciones.teclas) == String) {
+            this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+        }
 
         await this.$apollo
         .mutate({
