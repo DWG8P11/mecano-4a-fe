@@ -138,7 +138,9 @@ export default {
         },
     
     guardarLeccion: async function() {
-        this.Lecciones.teclas = JSON.parse(this.Lecciones.teclas)
+        delete this.Lecciones.id;
+        this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split()
+        
         await this.$apollo
         .mutate({
             mutation: gql`
@@ -167,6 +169,7 @@ export default {
         this.traerTodosLecciones();
         })
         .catch(error => {
+            alert("error registrando la leccion")
             console.log(`error`,{error}, JSON.stringify(error.networkError))   });
            
     },
@@ -252,7 +255,8 @@ export default {
 
     metActualizarCampos: function (ocup) {
       this.Lecciones = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
-      
+      delete this.Lecciones.__typename;
+      delete this.Lecciones.id;
     },
 
     },
