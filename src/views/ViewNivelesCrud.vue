@@ -111,6 +111,33 @@ export default {
         });
       },
 
+    UpdateNivel(idNivelViejo) {
+        console.log("Ingreso?");
+        this.$apollo.mutate({
+            mutation: gql`
+            mutation ActualizarNivel($idNivelViejo: Int!, $nivelNuevo: NivelIn!) {
+                actualizarNivel(idNivelViejo: $idNivelViejo, nivelNuevo: $nivelNuevo) {
+                    id
+                    nombre
+                    descripcion
+                    imagen
+                }
+            }
+            `,
+            variables: {
+            idNivelViejo: idNivelViejo,
+            nivelNuevo: this.Niveles
+            },
+        })
+
+        .then(respuesta => {
+            alert("Editado");
+            this.listaNiveles = respuesta.data.actualizarNivel;
+            this.traerTodosNiveles();
+        })
+        .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
+      },
+
     codificarImagenComoURL: async function (evento) {
       var archivo = evento.target.files[0];
       let imagenComoUrl = await this.leerArchivoAsync(archivo);
