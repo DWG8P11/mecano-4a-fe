@@ -259,7 +259,11 @@ export default {
       },
 
         UpdateLecciones(idLeccion) {
-        this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+        if (typeof(this.Lecciones.teclas) != Object) {
+            this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+        }
+        delete this.Lecciones.id;
+        
 
         this.$apollo.mutate({
             mutation: gql`
@@ -288,7 +292,7 @@ export default {
         .then(respuesta => {
             alert("Editado");
             this.listaLecciones = respuesta.data.actualizarLeccionPorId;
-            this.traerTodosNiveles();
+            this.traerTodosLecciones();
         })
         .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
       },
@@ -298,10 +302,8 @@ export default {
       
       this.Lecciones.imagen = this.diccionarioImagenes.get(this.Lecciones.id);
       delete this.Lecciones.id;
-
-
       delete this.Lecciones.__typename;
-      delete this.Lecciones.id;
+      
       
 
       console.log("Leccion del formulario", this.Lecciones)
