@@ -80,6 +80,7 @@ export default {
 .ubicacion_dedos {
   margin: -8px;
   padding: 0;
+  margin-top:-150px;
   background-image: url(../../Imagenes/aurora.jpg);
   background-size: cover;
   background-position: absolute;
@@ -107,7 +108,7 @@ export default {
 
 h1 {
     position:absolute;
-    top:30pt;
+    top:60pt;
     color: white;
     text-align: center;
     font-family: Autery;
@@ -171,8 +172,8 @@ p {
   font-size: 13pt;
   color: white;
   position: relative;
-  bottom: 80pt;
-  left: 510pt;
+  top: -60pt;
+  left: 580pt;
   right: 30pt;
   text-align: justify;
 }
@@ -189,7 +190,7 @@ p {
 	border-top-right-radius: 7px 21px;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 ul {list-style-type: none; width: 784px; margin: 0 auto;}
@@ -199,7 +200,7 @@ li {float: left;}
 	display: block;
 	color:white;
 	font-family: Questa Grande;
-    font-size:10pt;
+  font-size:10pt;
 	text-decoration: none;
 	text-align: center;
 	width: 25px;
@@ -217,8 +218,8 @@ li {float: left;}
 	}
 .teclas_izq{
     position:absolute;
-    left:230pt;
-    top:150pt;
+    left:237pt;
+    top:194pt;
 }
 
 #asdfg li div span {
@@ -255,8 +256,8 @@ li {float: left;}
 
 .teclas_der{
     position:absolute;
-    left:373pt;
-    top:150pt;
+    left:433pt;
+    top:194pt;
 }
 
 #hjklñ li div span {
@@ -295,8 +296,8 @@ li {float: left;}
 	width: 110px;
 	height: 14.6pt;
 	position: absolute;
-	left:350pt ;
-  bottom:105pt;
+	left:385pt ;
+  top:270pt;
   background:rgb(58, 35, 189) ;
 }
 
@@ -307,8 +308,8 @@ li {float: left;}
     z-index: 1;
     display:flex;
     position:relative;
-    top: 67pt;
-    right: 550pt;
+    top: 97pt;
+    left: -580pt;
     width: 120vh;
     height: 60vh;
 }
@@ -316,14 +317,14 @@ li {float: left;}
 .iconos_ubicacion_der{
     z-index: 2;
     position:relative;
-    right: 290pt;
-    top:18pt;
+    left: -234pt;
+    top:5pt;
 }
 
 .Moon{
     position:relative;
-    bottom:90pt;
-    left: 20pt;
+    top:-90pt;
+    left: 30pt;
     width: 50pt;
     height: 30pt;
 
@@ -331,8 +332,8 @@ li {float: left;}
 
 .Saturno{
     position:relative;
-    bottom:70pt;
-    right: 16pt;
+    top:-70pt;
+    left: 4pt;
     width: 60pt;
     height: 30pt;
 
@@ -349,16 +350,16 @@ li {float: left;}
 
 .Tierra{
     position:relative;
-    bottom:95pt;
-    right: 195pt;
+    top:-95pt;
+    left: -200pt;
     width: 52pt;
     height: 30pt;
 
 }
 .Constelacion{
     position:relative;
-    bottom:60pt;
-    right: 273pt;
+    top:-65pt;
+    left: -296pt;
     width: 52pt;
     height: 30pt;
     filter: shadow(color white 1px 1px 1px 1px );
@@ -369,14 +370,14 @@ li {float: left;}
 .iconos_ubicacion_izq{
     z-index: 2;
     position:relative;
-    right: 435pt;
-    top:18pt;
+    left: -422pt;
+    top:5pt;
 }
 
 .Moon2{
     position:relative;
-    bottom:125pt;
-    left: -24pt;
+    top:-125pt;
+    left: -31pt;
     width: 50pt;
     height: 30pt;
 
@@ -384,8 +385,8 @@ li {float: left;}
 
 .Saturno2{
     position:relative;
-    bottom:107pt;
-    right: 101pt;
+    top:-105pt;
+    left: -119pt;
     width: 60pt;
     height: 30pt;
 
@@ -402,16 +403,16 @@ li {float: left;}
 
 .Tierra2{
     position:relative;
-    bottom:130pt;
-    right: 152pt;
+    top:-130pt;
+    left: -145pt;
     width: 52pt;
     height: 30pt;
 
 }
 .Constelacion2{
     position:relative;
-    bottom:100pt;
-    right: 182pt;
+    top:-100pt;
+    left: -161pt;
     width: 52pt;
     height: 30pt;
     filter: shadow(color white 1px 1px 1px 1px );
