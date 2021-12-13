@@ -55,6 +55,7 @@ export default {
             es_administrador: jwt_decode(result.data.logIn.access).es_administrador,
           };
           
+          console.log("Se emitira el mensaje a App para completar el inicio de sesion");
           this.$emit("msjLogInCompletado", dataLogIn);
 
           

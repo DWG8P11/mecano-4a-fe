@@ -11,13 +11,13 @@
         <div class="nav">
           <router-link to="/">Inicio | </router-link>
           <keep-alive>
-            <router-link to="/lista-niveles"> Aprende | </router-link>
+            <router-link to="/lista-niveles" v-if="estaAutenticado"> Aprende | </router-link>
           </keep-alive>
           <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
           <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
-          <router-link to="/lista-niveles-adm"> Crear Niveles | </router-link>
-          <router-link to="/lista-lecciones-adm"> Crear Lecciones  </router-link>
+          <router-link to="/lista-niveles-adm" v-if="estaAutenticado"> Crear Niveles | </router-link>
+          <router-link to="/lista-lecciones-adm" v-if="estaAutenticado"> Crear Lecciones  </router-link>
           <router-link to="/perfil" v-if="estaAutenticado">| Perfil </router-link>
         </div>
         
@@ -76,8 +76,12 @@ export default {
     LocalFingers,
   },
 
-  data: {
-    estaAutenticado: false,
+  computed: {
+    estaAutenticado: function(){
+      // sePudoAutenticar(this.$apollo) // Actualizar la variable en local storage... OJO: la actualización puede no ocurrir para el momento en que la siguiente línea se ejecute
+      console.log("Se evalue la computed prop estaAutenticado a", localStorage.getItem("estaAutenticado") == true, "y en el localStorage vale", localStorage.getItem("estaAutenticado"))
+      return localStorage.getItem("estaAutenticado") == true;
+    }
   },
 
   // computed: {
@@ -113,12 +117,16 @@ export default {
     },
 
     completarLogIn: function (data) {
+      console.log("Se recibio mensaje de inicio de sesion");
       localStorage.setItem("usuario", data.usuario);
       localStorage.setItem("correo", data.correo);
       localStorage.setItem("es_administrador", data.es_administrador);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
+      localStorage.setItem("estaAutenticado", true);
+      console.log("Se hicieron los cambios permitentes en el localStorage para asegurar que la persona esta autenticada");
       this.$forceUpdate();
+      this.$router.push({name: "Home"});
       alert(`¡Bienvenid@ ${data.usuario}!`);
     },
 
@@ -129,14 +137,15 @@ export default {
     cerrarSesion: function() {
       console.log("Cerrando sesion");
       localStorage.clear();
+      alert("Cerraste sesión");
+      this.$router.push({name: "Home"});
       this.$forceUpdate();
     },
 
     actualizarAutenticacion: function() {
-      console.log("Se entro a actualizarAutenticacion");
-      this.estaAutenticado = localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined
-      sePudoAutenticar(this.$apollo).then(respuesta => this.estaAutenticado = respuesta)
-        .catch(error => {console.log(error); this.estaAutenticado = false;});
+      console.log("Se entro a actualizarAutenticacion en App");
+      sePudoAutenticar(this.$apollo);
+      console.log("Al hacer la verificacion en App se concluyo que estaAutenticado vale", this.estaAutenticado)
       // console.log(rta);
     }
   },

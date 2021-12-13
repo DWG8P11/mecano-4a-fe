@@ -34,12 +34,10 @@ const sePudoAutenticar = async function(clienteApolloParam)  {
 
         // Actualizar la info del usuario de acuerdo al token obtenido
         let infoUsuario = jwt_decode(respuesta.data.actualizarToken.access)
-        console.log("La info en el nuevo token es", infoUsuario);
-
-        localStorage.setItem("token_access", infoUsuario.access);
-        localStorage.setItem("token_refresh", infoUsuario.refresh);
+        // console.log("La info en el nuevo token es", infoUsuario);
+        
+        localStorage.setItem("token_access", respuesta.data.actualizarToken.access);
         localStorage.setItem("usuario", infoUsuario.usuario);
-        localStorage.setItem("correo", infoUsuario.correo);
         localStorage.setItem("es_administrador", infoUsuario.es_administrador);
 
         localStorage.setItem("estaAutenticado", true);        
