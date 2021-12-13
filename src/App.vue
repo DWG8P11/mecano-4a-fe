@@ -65,6 +65,8 @@ import Designs      from '@/components/Designs.vue';
 import LocalFingers from '@/components/LocalFingers.vue';
 import sePudoAutenticar from "@/SePuedeAutenticar";
 
+import gql from "graphql-tag";
+
 export default {
   components: {
     CompLeccion,
