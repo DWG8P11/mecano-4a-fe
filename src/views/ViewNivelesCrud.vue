@@ -113,7 +113,7 @@ export default {
 
     metActualizarCampos: function (ocup) {
       this.Niveles = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
-      
+      delete this.Niveles.__typename;
     },
 
     UpdateNivel(idNivelViejo) {
@@ -147,7 +147,6 @@ export default {
       let imagenComoUrl = await this.leerArchivoAsync(archivo);
       this.Niveles.imagen = imagenComoUrl;
       this.Niveles.id = parseInt(this.Niveles.id)
-      delete this.Niveles.__typename;
     },
 
     leerArchivoAsync: function (file) {

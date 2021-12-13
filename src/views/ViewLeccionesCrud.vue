@@ -48,7 +48,8 @@
                                 <th scope="col">Mini1</th>  
                                 <th scope="col">Mini2</th>  
                                 <th scope="col">Mini3</th>   
-                                <th scope="col">Mini4</th>                         
+                                <th scope="col">Mini4</th>
+                                <th scope="col">Imagen</th>
                                 <th scope="col" style="width: 14%">Action</th>
                             </tr>
                         </thead>
@@ -58,12 +59,13 @@
                                         <td>{{ variable.titulo }}</td>
                                         <td>{{ variable.nivel }}</td>
                                         <td>{{ variable.n_leccion }}</td>
-                                        <td>{{ variable.texto }}</td>
+                                        <td><textarea v-model="variable.texto"/></td>
                                         <td>{{ variable.teclas }}</td>
                                         <td>{{ variable.mini1 }}</td>
                                         <td>{{ variable.mini2 }}</td>
                                         <td>{{ variable.mini3 }}</td>
                                         <td>{{ variable.mini4 }}</td>
+                                        <td><img :src="diccionarioImagenes.get(variable.id)"/></td>
                                         <button @click="UpdateLecciones(variable.id)" class="btnUpdate"> Editar  </button>
                                         <button @click="DeleteLecciones(variable.id)" class="btnDelete"> Eliminar</button>                           
                             </tr>
@@ -99,6 +101,8 @@ export default {
                 ignorarDieres: true,
             },
             listaLecciones:[],
+
+            diccionarioImagenes: new Map()
         };
     },
 
@@ -107,7 +111,7 @@ export default {
             await this.$apollo
                 .mutate({
                     mutation: gql`
-                        query TraerLeccionesLigeras {
+                        query TraerLecciones {
                             traerLeccionesLigeras {
                                 id              
                                 titulo          
@@ -122,7 +126,7 @@ export default {
                                 mini4           
                                 ignorarMayus    
                                 ignorarTildes   
-                                ignorarDieres 
+                                ignorarDieres
                             }
                         }
                     `,
@@ -131,16 +135,50 @@ export default {
                     this.listaLecciones = respuesta.data.traerLeccionesLigeras;
                     console.log(this.listaLecciones)
 
+                    this.traerImagenes();
                 })
                 .catch(error => {
                     console.log("error", error);
                 });
         },
+
+        traerImagenes: async function () {
+
+            for (const leccion of this.listaLecciones) {
+                let id = leccion.id;
+
+                this.$apollo.mutate({
+                        mutation: gql`
+                            query TraerLeccionPorId($idLeccion: String!) {
+                                traerLeccionPorId(idLeccion: $idLeccion) {
+                                    id
+                                    imagen
+                                }
+                            }
+                        `,
+                        variables: {
+                            idLeccion: id
+                        }
+                    })
+                    .then((respuesta) => {
+                        console.log("RESPUESTA", respuesta.data);
+                        this.diccionarioImagenes.set(id, respuesta.data.traerLeccionPorId.imagen);
+                        // this.leccionCargaLecciones += 1;
+                    })
+                    .catch(error => {
+                        console.log("Error", error, ". Cargando la imagen de la leccion", id);
+                        this.diccionarioImagenes.set(id, "");
+                    });
+            }
+            console.log("Diccionario de imagenes hasta ahora", this.diccionarioImagenes);
+
+            this.leccionCargaLecciones += 1; // Establece que deberia cargar de nuevo la galeria
+        },
     
     guardarLeccion: async function() {
         delete this.Lecciones.id;
-        this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split()
-        
+        this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+
         await this.$apollo
         .mutate({
             mutation: gql`
@@ -169,7 +207,7 @@ export default {
         this.traerTodosLecciones();
         })
         .catch(error => {
-            alert("error registrando la leccion")
+            alert("Error registrando la lección.")
             console.log(`error`,{error}, JSON.stringify(error.networkError))   });
            
     },
@@ -221,6 +259,12 @@ export default {
       },
 
         UpdateLecciones(idLeccion) {
+        if (typeof(this.Lecciones.teclas) == String) {
+            this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
+        }
+        delete this.Lecciones.id;
+        
+
         this.$apollo.mutate({
             mutation: gql`
                 mutation ActualizarLeccionPorId($idLeccion: String!, $leccionNueva: LeccionIn!) {
@@ -248,15 +292,21 @@ export default {
         .then(respuesta => {
             alert("Editado");
             this.listaLecciones = respuesta.data.actualizarLeccionPorId;
-            this.traerTodosNiveles();
+            this.traerTodosLecciones();
         })
         .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
       },
 
     metActualizarCampos: function (ocup) {
-      this.Lecciones = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
-      delete this.Lecciones.__typename;
+      this.Lecciones = { ...ocup }; // Clonando shallow, no pasando referencia al objeto 
+      
+      this.Lecciones.imagen = this.diccionarioImagenes.get(this.Lecciones.id);
       delete this.Lecciones.id;
+      delete this.Lecciones.__typename;
+      
+      
+
+      console.log("Leccion del formulario", this.Lecciones)
     },
 
     },
@@ -345,5 +395,16 @@ export default {
     color: white;
 }
 
+img {
+    height: 5rem;
+}
+
+tr {
+    text-align: center;
+}
+
+.container, button, input, textarea {
+    font-family: Questa Grande;
+}
 
 </style>
