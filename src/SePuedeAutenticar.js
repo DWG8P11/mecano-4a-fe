@@ -10,6 +10,7 @@ const sePudoAutenticar = async function(clienteApolloParam)  {
         localStorage.clear();
         console.log("No se pudo autenticar. No hay tokens");
         // TODO: mandar un mensaje que indique a las paginas (para que escuchen si les intereasa) que la persona ya no esta autenticada?
+        localStorage.setItem("estaAutenticado", false);
         return false;
     }
   
@@ -41,7 +42,7 @@ const sePudoAutenticar = async function(clienteApolloParam)  {
         localStorage.setItem("correo", infoUsuario.correo);
         localStorage.setItem("es_administrador", infoUsuario.es_administrador);
 
-        
+        localStorage.setItem("estaAutenticado", true);        
         return true;
   
     } catch (error) { // Si no fue posible la reautenticacion
@@ -51,6 +52,7 @@ const sePudoAutenticar = async function(clienteApolloParam)  {
 
         // TODO: mandar un mensaje que indique a las paginas (para que escuchen si les intereasa) que la persona ya no esta autenticada?
   
+        localStorage.setItem("estaAutenticado", false);
         return false;
     }
   }
