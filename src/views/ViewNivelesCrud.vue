@@ -18,7 +18,7 @@
 
         <section class="datas">
          <center>   <h1>Listado de niveles</h1> </center>
-                    <table class="table" :key="listaNiveles">
+                    <table class="tables" :key="listaNiveles">
                         <thead class="thead-green">
                             <tr>
                                 <th scope="col">Id</th>
@@ -29,14 +29,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="variable in listaNiveles" v-bind:key="variable.id" >
+                            <tr v-for="variable in listaNiveles" v-bind:key="variable.id" v-on:click="metActualizarCampos(variable)">
 
                                         <td>{{ variable.id }}</td>
                                         <td>{{ variable.nombre }}</td>
                                         <td>{{ variable.descripcion }}</td>
-                                        <td>{{ variable.imagen }}</td>
-                                        <button @click="UpdateNivel(variable.id)" class="btn btn-primary"> Editar  </button>
-                                        <button @click="DeleteNivel(variable.id)" class="btn btn-danger"> Eliminar</button>                           
+                                        <td><img :src="diccionarioImagenes.get(variable.id)"/> </td>
+                                        <button @click="UpdateNivel(variable.id)" class="btnUpdate" style="width: 50%"> Editar  </button>
+                                        <button @click="DeleteNivel(variable.id)" class="btnDelete" style="width: 50%"> Eliminar</button>                           
                             </tr>
                         </tbody>
                     </table>
@@ -61,6 +61,8 @@ export default {
                 imagen: "",
             },
             listaNiveles:[],
+
+            diccionarioImagenes: new Map(),
         };
     },
 
@@ -69,7 +71,7 @@ export default {
             await this.$apollo
                 .mutate({
                     mutation: gql`
-                        query traerNiveles {
+                        query traerNivelesLigeros {
                             traerNivelesLigeros {
                                 id
                                 nombre
@@ -82,11 +84,41 @@ export default {
                     .then(respuesta => {
                     this.listaNiveles = respuesta.data.traerNivelesLigeros;
                     console.log(this.listaNiveles)
-
+                    
+                    this.traerImagenes();
                 })
                 .catch(error => {
                     console.log("error", error);
                 });
+        },
+
+        traerImagenes: async function () {
+        for (const nivel of this.listaNiveles) {
+            let id = nivel.id;
+
+            this.$apollo
+            .mutate({
+                mutation: gql`
+                query TraerNivel($idNivel: Int!) {
+                    traerNivel(idNivel: $idNivel) {
+                    id
+                    imagen
+                    }
+                }
+                `,
+                variables: {
+                idNivel: id,
+                },
+            })
+            .then((respuesta) => {
+                this.diccionarioImagenes.set(id, respuesta.data.traerNivel.imagen);
+                // this.nivelCargaNiveles += 1;
+            })
+            .catch((error) => {
+                this.diccionarioImagenes.set(id, "");
+            });
+        }
+
         },
 
         DeleteNivel(idNivel) {
@@ -111,10 +143,43 @@ export default {
         });
       },
 
+    metActualizarCampos: function (ocup) {
+      this.Niveles = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
+      this.Niveles.imagen = this.diccionarioImagenes.get(this.Niveles.id);
+      delete this.Niveles.__typename;
+    },
+
+    UpdateNivel(idNivelViejo) {
+        this.$apollo.mutate({
+            mutation: gql`
+            mutation ActualizarNivel($idNivelViejo: Int!, $nivelNuevo: NivelIn!) {
+                actualizarNivel(idNivelViejo: $idNivelViejo, nivelNuevo: $nivelNuevo) {
+                    id
+                    nombre
+                    descripcion
+                    imagen
+                }
+            }
+            `,
+            variables: {
+            idNivelViejo: idNivelViejo,
+            nivelNuevo: this.Niveles
+            },
+        })
+
+        .then(respuesta => {
+            alert("Editado");
+            this.listaNiveles = respuesta.data.actualizarNivel;
+            this.traerTodosNiveles();
+        })
+        .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
+      },
+
     codificarImagenComoURL: async function (evento) {
       var archivo = evento.target.files[0];
       let imagenComoUrl = await this.leerArchivoAsync(archivo);
       this.Niveles.imagen = imagenComoUrl;
+      this.Niveles.id = parseInt(this.Niveles.id)
     },
 
     leerArchivoAsync: function (file) {
@@ -168,7 +233,7 @@ export default {
     margin: 0px 0 20px 0;
 }
 
-.container form{
+.container{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -192,23 +257,12 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
-    background-color: Rgb(50,82,136);
-    color: white;
+    background-color: white;
+    color: black;
 }
     .container h1{
         font-size: 20px;
         color: Rgb(50,82,136);
-    }
-
-    .container tr:nth-child(even){background-color: #f2f2f2;}
-
-    .container tr:hover {background-color: #ddd;}
-
-    .container th, td {
-        text-align: left;
-        vertical-align: top;
-        border: 0.5px solid Rgb(50,82,136);
-        border-collapse: collapse;
     }
 
 .btnGuardar{
@@ -229,5 +283,31 @@ export default {
     border-radius: 30px;
 }
 
+.btnUpdate{
+    background-color: Rgb(30,174,152);
+    color: white;
+}
+.btnDelete{
+    background-color: red;
+    color: white;
+}
+
+.tables{
+  padding: 3px 10px;
+  border-radius: 20px;
+
+}
+
+img {
+    height: 5rem;
+}
+
+tr {
+    text-align: center;
+}
+
+.container, button, input, textarea {
+    font-family: Questa Grande;
+}
 
 </style>

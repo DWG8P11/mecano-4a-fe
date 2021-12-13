@@ -68,6 +68,8 @@ import gql              from "graphql-tag"
 
 import sePudoAutenticar from "@/SePuedeAutenticar";
 
+import gql from "graphql-tag";
+
 export default {
   components: {
     CompLeccion,
@@ -181,6 +183,7 @@ export default {
   z-index: 100;
 }
 
+
 .titulo-nav-contenedorBoton{
   display: flex;
   justify-content: space-between;
@@ -200,7 +203,7 @@ export default {
 .nav a {
   font-family: Questa Grande;
   font-weight: bold;
-  font-size: 10pt;
+  font-size: 12pt;
   color: white;
   text-shadow: black 0.1em 0.1em 0.2em;
 }
@@ -228,7 +231,7 @@ h1 {
   text-align: left;
   align-items: justify;
   font-family:Autery;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color:white;
   margin-top:1.6666rem;
   margin-left:0.83333rem;
@@ -251,22 +254,33 @@ h1 {
   left: 80%;
 }
 
+#Cerrar_sesión{
+  background-color:transparent;
+  border-color:transparent;
+  font-family: Questa Grande;
+  font-size:12pt;
+  color:white;
+  margin-top:40pt;
+  margin-right:30pt;
+  text-shadow: black 0.1em 0.1em 0.2em;
+
+}
+
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
 }
 
 .navLog a {
-  margin-top: 40pt;
-  margin-right: 30pt;
+  margin-top: 50pt;
+  margin-right: 40pt;
   text-align: center;
   line-height: 0;
   display: block;
   color: white;
   text-decoration: none;
   font-family: Questa Grande;
-  font-size: 8pt;
-  text-transform: uppercase;
+  font-size: 12pt;
   transition: all 300ms;
   padding: 0;
   text-shadow: black 0.1em 0.1em 0.2em;
@@ -287,8 +301,8 @@ h1 {
 
 .buttonLoginOut {
   z-index: 999;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: turquoise;
   background-image: url(../Imagenes/cohete.gif);
   background-repeat: no-repeat;
@@ -297,7 +311,7 @@ h1 {
   border-radius: 100%;
   cursor: pointer;
   margin-top: 5pt;
-  margin-right: 50pt;
+  margin-right: 40pt;
   transition: all 1s ease-in-out;
 }
 

@@ -370,6 +370,8 @@ footer{
   margin: auto;
   top: 10%;
   left: 200%;
+
+
 }
 
 #toggle2 {
@@ -399,17 +401,21 @@ footer{
   transition: all 0.5s ease-in-out;
   width: 150pt;
   transform: translateY(0%);
+ 
+}
+.button{
+  background-color: turquoise;
 }
 
 .nav2 a {
-
+  
   text-align: center;
   display: block;
   margin-left: 30pt;
   text-decoration: none;
   font-family: Questa Grande;
   font-size: 10pt;
-  color:turquoise;
+  
   letter-spacing: 0.1px;
   transition: all 300ms;
  
