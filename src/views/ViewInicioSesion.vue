@@ -1,16 +1,25 @@
 <template>
   
   <div class="view-inicio-sesion">
+    <div class="header">
+            Inicia Sesión
+        </div><br/>
     <div class="container">
+      <img class= "planetas" src= "../../Imagenes/planetas.png">
     <form v-on:submit.prevent="procesarInicioSesion">
-      <input class="redondeado" type="text" v-model="usuario.correo" placeholder="Correo" />
+      <label for="correo">Correo </label>
+      <input class="redondeado" type="text" v-model="usuario.correo" placeholder="Correo" id="correo"/>
       <br/>
-              <img class= "planetas" src= "../../Imagenes/planetas.png">  
+                
       <br>
-      <input class="redondeado" type="password" v-model="usuario.password" placeholder="Contraseña" />
+      <label for="contraseña">Contraseña </label>
+      <input class="redondeado" type="password" v-model="usuario.password" placeholder="Contraseña" id="contraseña"/>
       <br/>
       <br>
-      <button class="btnIniciar" type="submit">Iniciar Sesión</button>
+      <div class="contenedor-botones">
+        <button class="btnIniciar" type="submit">Iniciar Sesión</button>
+        <button class="btnRegistrar" type="button" v-on:click="$router.push({name: '/registro-cuenta'})">Únete</button>
+      </div>
     </form>
     </div>
   </div>
@@ -86,9 +95,17 @@ export default {
     justify-content: center;
     align-items: center;
 
+    flex-direction: column;
+    position: relative;
+    top: -4.5rem;
+    padding-top: 4.5rem;
+    margin: 0;
+    padding: 0;
+    height: calc(100% + 4rem);
+    width: 100%;
 }
 
-.redondeado {
+/* .redondeado {
     border-radius: 25px;
     padding: 8px;
     width: 100%;
@@ -106,6 +123,94 @@ export default {
   width: 50%;
   background-color: Rgb(30,174,152);
   color: white;
+} */
+
+.header{
+    position: relative;
+    text-align: center;
+    background: transparent;
+    font-size: 2rem;
+    height: 2rem;
+    color: rgb(50,82,136);
+    /* top: 0; */
 }
 
+.container {
+    /* Centra el contenedor*/
+    position: static;
+    top: 0rem;
+    margin-left: auto;
+    margin-right: auto;
+    /* height: 50vh; */
+
+    /* width: 90vw; */
+    
+    /* display: flex;
+    flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+}
+
+@supports (display: grid) {
+    form {
+        display: grid;
+        grid-template-columns: repeat(1, 24rem);
+        /* grid-row: 1/2; */
+        /* grid-gap: 0.3rem; */
+        grid-auto-rows: minmax(3rem, auto);
+    }
+    .view-perfil {
+        display: grid;
+
+    }
+}
+
+label {
+    /* Necesario para poderle dar un width, porque de lo contrario el label es un inline-element */
+    display: inline-block; 
+    font-family: Questa Grande;
+    font-size: 1.1rem;
+}
+
+input{
+    display: inline-block;
+    flex-direction: row;
+    min-width: 20rem;
+    height: 3rem;
+
+    box-sizing: border-box;
+    padding: 10pt 20pt;
+    margin: auto;
+
+    border: 1px solid rgb(217,217,217);
+    border-radius: 30px;
+
+    font-family: Questa Grande;
+    font-size: 1.1rem;
+}
+
+td {
+    text-align: center;
+}
+
+button {
+    width: 8rem;
+    height: 3rem;
+
+    color: #E5E7E9;
+    background: rgb(50,82,136);
+    border: 1px solid #E5E7E9;
+
+    border-radius: 5px;
+    align-content: center;
+
+    font-family: Questa Grande;
+    font-size: 1rem;
+}
+
+button:hover{
+    color: #E5E7E9;
+    background: turquoise;
+    border: 1px solid turquoise;
+}
 </style>
