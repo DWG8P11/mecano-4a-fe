@@ -892,6 +892,7 @@ export default {
     z-index: 200;
 
     font-family: Questa Grande; /* Queremos esta fuente. No la estabamos usando */
+    text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 .componente-leccion h1{
