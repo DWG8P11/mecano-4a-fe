@@ -81,15 +81,15 @@ export default {
 <style scoped>
 
 .planetas{
-  top: 80pt;
-  left:160pt;
-  width: 200pt;
-  height: 120pt;
+  top: 2rem;
+  left: 30%;
+  width: 10rem;
+  height: 6rem;
 
 }
 
 .view-inicio-sesion {
-    text-align: center;
+    /* text-align: center; */
     margin: 100px 0 20px 0;
     display: flex;
     justify-content: center;
@@ -159,10 +159,6 @@ export default {
         /* grid-gap: 0.3rem; */
         grid-auto-rows: minmax(3rem, auto);
     }
-    .view-perfil {
-        display: grid;
-
-    }
 }
 
 label {
@@ -191,6 +187,11 @@ input{
 
 td {
     text-align: center;
+}
+
+.contenedor-botones {
+    display: flex;
+    justify-content: center;
 }
 
 button {
