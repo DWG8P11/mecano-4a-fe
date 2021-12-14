@@ -889,7 +889,7 @@ export default {
     width: 100%;
     margin-top:5rem;
     height: calc(100vh - 5rem - 3.15rem);
-    z-index: 200;
+    /* z-index: 200; */
 
     font-family: Questa Grande; /* Queremos esta fuente. No la estabamos usando */
     text-shadow: black 0.1em 0.1em 0.2em;
