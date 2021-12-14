@@ -464,7 +464,7 @@ button {
     height: 3rem;
 
     color: #E5E7E9;
-    background: rgb(30,174,152);
+    background: rgb(50,82,136);
     border: 1px solid #E5E7E9;
 
     border-radius: 5px;
@@ -476,7 +476,7 @@ button {
 
 button:hover{
     color: #E5E7E9;
-    background: crimson;
-    border: 1px solid rgb(28, 11,127);
+    background: turquoise;
+    border: 1px solid turquoise;
 }
 </style>
