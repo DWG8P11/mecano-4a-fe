@@ -270,6 +270,9 @@ The following code will only run if your browser supports CSS grid.
     font-size: 1.5rem;
     font-weight: 400;
     width: 100%;
+
+    justify-content: center;
+    align-items: center;
     /* margin-right: auto; */
 }
 
