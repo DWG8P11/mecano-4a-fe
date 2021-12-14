@@ -28,6 +28,7 @@
           <label for="toggleLog" class="buttonLoginOut"></label>
 
           <nav class="navLog">
+            <router-link to="/">Inicio </router-link>
             <router-link
               to="/iniciar-sesion"
               id="Abrir sesión"
@@ -36,7 +37,7 @@
             >
             <button 
               to="/" 
-              id="Cerrar sesión" 
+              id="Cerrar_sesión" 
               v-if="estaAutenticado()"
               v-on:click="cerrarSesion"
               >*Cierra Sesión</button
@@ -206,7 +207,7 @@ export default {
   text-shadow: black 0.1em 0.1em 0.2em;
 }
 
-.nav a.router-link-exact-active {
+.nav a-exact-active {
   color: turquoise;
 }
 
@@ -252,21 +253,12 @@ h1 {
   left: 80%;
 }
 
-#Cerrar_sesión{
-  background-color:transparent;
-  border-color:transparent;
-  font-family: Questa Grande;
-  font-size:12pt;
-  color:white;
-  margin-top:40pt;
-  margin-right:30pt;
-  text-shadow: black 0.1em 0.1em 0.2em;
-
-}
-
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
+
+  position: relative;
+  z-index: 999;
 }
 
 .navLog a {
@@ -282,6 +274,24 @@ h1 {
   transition: all 300ms;
   padding: 0;
   text-shadow: black 0.1em 0.1em 0.2em;
+
+  z-index: 999;
+}
+#Cerrar_sesión{ /* Replica a .navLog a*/
+  background-color:transparent;
+  border-color:transparent;
+  font-family: Questa Grande;
+  font-size:12pt;
+  color:white;
+  margin-top:40pt;
+  margin-right:30pt;
+  text-shadow: black 0.1em 0.1em 0.2em;
+
+  z-index: 999;
+}
+
+#Cerrar_sesión:hover{
+  cursor: pointer;
 }
 
 #toggleLog {
