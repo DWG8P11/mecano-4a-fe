@@ -28,7 +28,6 @@
           <label for="toggleLog" class="buttonLoginOut"></label>
 
           <nav class="navLog">
-            <router-link to="/">Inicio </router-link>
             <router-link
               to="/iniciar-sesion"
               id="Abrir sesión"
@@ -256,9 +255,6 @@ h1 {
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
-
-  position: relative;
-  z-index: 999;
 }
 
 .navLog a {
