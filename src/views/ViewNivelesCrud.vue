@@ -219,6 +219,7 @@ export default {
        
     }
 
+
 .section {
        text-align: center; 
     }
@@ -296,7 +297,6 @@ export default {
 }
 .thead-green{
     font-family: Questa Grande;
-    
   
 }
 
@@ -304,8 +304,6 @@ export default {
   padding: 3px 10px;
   border-bottom:1px solid #fcf8f8;
   box-shadow: 0 0 10px rgb(235, 245, 239)
-
-  
   
 }
 

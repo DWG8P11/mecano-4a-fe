@@ -379,12 +379,17 @@ export default {
     }
 
     .formulario .btnGuardar  {
-        color: #E5E7E9;
-        background: rgb(28, 11,127);
-        border: 1px solid #E5E7E9;
+        background:  turquoise;
+        border-radius: 16px;
+        border-radius: 16px;
+        border:none;
+        font-family:Questa Grande;
+        font-size:10pt;
+        color:white;
+        box-shadow: 1px 1px 1px 1px rgb(248, 252, 252);
+
         padding: 5pt 20pt;
         margin: 3pt 0;
-
         display: flex;
         align-items: center;
 }
@@ -395,12 +400,25 @@ export default {
 }
 
 .btnUpdate{
-    background-color: Rgb(30,174,152);
-    color: white;
+  background:  turquoise;
+  border-radius: 16px;
+  border-radius: 16px;
+  border:none;
+  font-family:Questa Grande;
+  font-size:10pt;
+  color:white;
+  box-shadow: 1px 1px 1px 1px rgb(248, 252, 252);
 }
 .btnDelete{
-    background-color: red;
-    color: white;
+  background:  turquoise;
+  border-radius: 16px;
+  border-radius: 16px;
+  border:none;
+  font-family:Questa Grande;
+  font-size:10pt;
+  color:white;
+  box-shadow: 1px 1px 1px 1px rgb(248, 252, 252);
+   
 }
 
 img {
