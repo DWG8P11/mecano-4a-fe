@@ -75,6 +75,11 @@ export default {
 
   mounted: function () {
     this.darClaseHTML();
+
+    // Esconder botón de esconder si no se pasó la lección.
+    if (this.resumen <= 0) {
+        document.querySelector(".contenedor").style.opacity = 0;
+      }
   },
 
   methods: {
