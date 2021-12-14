@@ -65,6 +65,10 @@ export default {
         };
 },
 
+mounted: function() {
+    document.querySelector("#toggleLog").checked = true;
+},
+
 methods: {
     processSignUp: async function() {
         await this.$apollo
