@@ -80,8 +80,9 @@ export default {
 <style scoped>
 #keyboard {
 	position: fixed;
-	left:6.1111rem;
-	bottom:4.1667rem;
+	/* left:6.1111rem; */
+	left: 5rem;
+	bottom:4.15rem;
 	/* margin: 50px ; */
 	width: 53.3333rem;
 	height: 13.25rem;
