@@ -130,7 +130,7 @@ export default {
     darFase: function () {
       switch (this.resumen) {
         case 0:
-          return "Luna nueva visible";
+          return "Luna nueva";
           break;
         case 1:
           return "Luna creciente";
