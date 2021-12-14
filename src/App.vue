@@ -9,21 +9,21 @@
           <h1>La nebulosa<br />&nbsp;de Qwerty</h1>
         </div>
         <div class="nav">
-          <router-link to="/">Inicio | </router-link>
+          <router-link to="/">Inicio </router-link>
           <keep-alive>
-            <router-link to="/lista-niveles"> Aprende | </router-link>
+            <router-link to="/lista-niveles" v-if="estaAutenticado()"> | Aprende</router-link>
           </keep-alive>
-          <router-link to="/registro-cuenta" v-if="!estaAutenticado">Únete | </router-link>
+          <router-link to="/registro-cuenta" v-if="!estaAutenticado() || esAdministrador()">| Únete </router-link>
           <!-- <router-link to="/designs"> diseño teclado </router-link> -->
-          <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">Lección de Prueba | </router-link>
-          <router-link to="/lista-niveles-adm"> Crear Niveles | </router-link>
-          <router-link to="/lista-lecciones-adm"> Crear Lecciones  </router-link>
-          <router-link to="/perfil" v-if="estaAutenticado">| Perfil </router-link>
+          <router-link to="/aprende/leccionDB/61ae3051f4a898570c2f303c">| Lección de Prueba </router-link>
+          <router-link to="/lista-niveles-adm" v-if="estaAutenticado()"> | Crear Niveles </router-link>
+          <router-link to="/lista-lecciones-adm" v-if="estaAutenticado()"> | Crear Lecciones  </router-link>
+          <router-link to="/perfil" v-if="estaAutenticado()">| Perfil </router-link>
         </div>
         
         
         <div class="contenedorBoton">
-          <span v-if="estaAutenticado">{{ darNombreUsuario() }}</span>
+          <span v-if="estaAutenticado()">{{ darNombreUsuario() }}</span>
           <input type="checkbox" id="toggleLog" />
           <label for="toggleLog" class="buttonLoginOut"></label>
 
@@ -31,13 +31,13 @@
             <router-link
               to="/iniciar-sesion"
               id="Abrir sesión"
-              v-if="!estaAutenticado"
+              v-if="!estaAutenticado()"
               >*Inicia Sesión</router-link
             >
             <button 
               to="/" 
               id="Cerrar_sesión" 
-              v-if="estaAutenticado"
+              v-if="estaAutenticado()"
               v-on:click="cerrarSesion"
               >*Cierra Sesión</button
             >
@@ -60,12 +60,13 @@
 </template>
 
 <script>
-import CompLeccion  from '@/components/CompLeccion.vue';
-import Designs      from '@/components/Designs.vue';
-import LocalFingers from '@/components/LocalFingers.vue';
-import sePudoAutenticar from "@/SePuedeAutenticar";
+import CompLeccion      from '@/components/CompLeccion.vue';
+import Designs          from '@/components/Designs.vue';
+import LocalFingers     from '@/components/LocalFingers.vue';
 
-import gql from "graphql-tag";
+import gql              from "graphql-tag"
+
+import sePudoAutenticar from "@/SePuedeAutenticar";
 
 export default {
   components: {
@@ -74,21 +75,19 @@ export default {
     LocalFingers,
   },
 
-  data: {
-    estaAutenticado: false,
-  },
-
   // computed: {
-  //   /*
-  //    * Variables que se van a reevaluar frecuentemente
-  //    */
   //   estaAutenticado: {
-  //     get: function () {
-  //       console.log("Esta calculando estaAutenticado", localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined)
-  //       return localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined;
+  //     get: function(){
+  //       // sePudoAutenticar(this.$apollo) // Actualizar la variable en local storage... OJO: la actualización puede no ocurrir para el momento en que la siguiente línea se ejecute
+  //       console.log("Se GET la computed prop estaAutenticado a", localStorage.getItem("estaAutenticado()") == 'true', "y en el localStorage vale", localStorage.getItem("estaAutenticado()"))
+  //       return localStorage.getItem("estaAutenticado()") === 'true';
   //     },
-  //     set: function () {},
-  //   },
+  //     set: function(valor) {
+  //       console.log("Se entro al SET de estaAutenticado"); //... esto lastimosamente no fuerza la entrada al GET
+  //       let nada = valor;
+  //       // this.estaAutenticado = valor;
+  //     }
+  //   }
   // },
   created: function() {
     this.tocarMicroservicios();
@@ -96,11 +95,26 @@ export default {
   },
 
   beforeUpdate: function() {
-    console.log("Antes de actualizar App, estaAutenticado vale", this.estaAutenticado);
     this.actualizarAutenticacion();
+
+    // Cerrar menú
+    try{
+      document.querySelector("#toggleLog").checked = false;
+    } catch(error) { /* No es necesario hacer nada en caso contrario */ }
   },
 
   methods: {
+    estaAutenticado: function() {
+      /*
+       * "Booleano" que nos indica si estamos autenticados
+      */
+      return localStorage.getItem("estaAutenticado") === 'true';
+    },
+
+    esAdministrador: function() {
+      return localStorage.getItem("es_administrador") === 'true';
+    },
+
     tocarMicroservicios: function() {
       this.$apollo.query({
         query: gql`
@@ -111,12 +125,16 @@ export default {
     },
 
     completarLogIn: function (data) {
+      // console.log("Se recibio mensaje de inicio de sesion");
       localStorage.setItem("usuario", data.usuario);
       localStorage.setItem("correo", data.correo);
       localStorage.setItem("es_administrador", data.es_administrador);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
-      this.$forceUpdate();
+      localStorage.setItem("estaAutenticado", true);
+      // console.log("Se hicieron los cambios permitentes en el localStorage para asegurar que la persona esta autenticada");
+      this.$router.push({name: "Home"});
+      this.$forceUpdate(); // Necesario
       alert(`¡Bienvenid@ ${data.usuario}!`);
     },
 
@@ -125,16 +143,17 @@ export default {
     },
 
     cerrarSesion: function() {
-      console.log("Cerrando sesion");
+      // console.log("Cerrando sesion");
       localStorage.clear();
-      this.$forceUpdate();
+      alert("¡Vuelve pronto!");
+      this.$router.push({name: "Home"});
+      this.$forceUpdate(); // Necesario
     },
 
     actualizarAutenticacion: function() {
-      console.log("Se entro a actualizarAutenticacion");
-      this.estaAutenticado = localStorage.getItem("token_access") != null || localStorage.getItem("token_access") != undefined
-      sePudoAutenticar(this.$apollo).then(respuesta => this.estaAutenticado = respuesta)
-        .catch(error => {console.log(error); this.estaAutenticado = false;});
+      // console.log("Se entro a actualizarAutenticacion en App");
+      sePudoAutenticar(this.$apollo);
+      // console.log("Al hacer la verificacion en App se concluyo que estaAutenticado vale", this.estaAutenticado())
       // console.log(rta);
     }
   },
@@ -187,7 +206,7 @@ export default {
   text-shadow: black 0.1em 0.1em 0.2em;
 }
 
-.nav a.router-link-exact-active {
+.nav a-exact-active {
   color: turquoise;
 }
 
@@ -233,18 +252,6 @@ h1 {
   left: 80%;
 }
 
-#Cerrar_sesión{
-  background-color:transparent;
-  border-color:transparent;
-  font-family: Questa Grande;
-  font-size:12pt;
-  color:white;
-  margin-top:40pt;
-  margin-right:30pt;
-  text-shadow: black 0.1em 0.1em 0.2em;
-
-}
-
 .navLog {
   opacity: 0;
   transition: all 1s ease-in-out;
@@ -263,6 +270,24 @@ h1 {
   transition: all 300ms;
   padding: 0;
   text-shadow: black 0.1em 0.1em 0.2em;
+
+  z-index: 999;
+}
+#Cerrar_sesión{ /* Replica a .navLog a*/
+  background-color:transparent;
+  border-color:transparent;
+  font-family: Questa Grande;
+  font-size:12pt;
+  color:white;
+  margin-top:40pt;
+  margin-right:30pt;
+  text-shadow: black 0.1em 0.1em 0.2em;
+
+  z-index: 999;
+}
+
+#Cerrar_sesión:hover{
+  cursor: pointer;
 }
 
 #toggleLog {

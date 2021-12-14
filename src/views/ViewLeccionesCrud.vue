@@ -106,6 +106,10 @@ export default {
         };
     },
 
+    beforeUpdated: function() {
+        sePudoAutenticar(this.$apollo);
+    },
+
     methods: {
         traerTodosLecciones: async function () {
             await this.$apollo
@@ -183,7 +187,7 @@ export default {
     
     guardarLeccion: async function() {
         delete this.Lecciones.id;
-        if (typeof(this.Lecciones.teclas) == String) {
+        if (typeof(this.Lecciones.teclas) === 'string') {
             this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
         }
 
@@ -212,6 +216,7 @@ export default {
       }).then(respuesta => {
         console.log(`respuesta ${respuesta}`);
         alert("Registro de lección exitoso")
+        this.Lecciones = {};
         this.traerTodosLecciones();
         })
         .catch(error => {
@@ -267,7 +272,8 @@ export default {
       },
 
         UpdateLecciones(idLeccion) {
-        if (typeof(this.Lecciones.teclas) == String) {
+            console.log(typeof(this.Lecciones.teclas),this.Lecciones.teclas, )
+        if (typeof(this.Lecciones.teclas) === 'string') {
             this.Lecciones.teclas = this.Lecciones.teclas.replace(" ", "").split(",")
         }
         delete this.Lecciones.id;
@@ -300,6 +306,7 @@ export default {
         .then(respuesta => {
             alert("Editado");
             this.listaLecciones = respuesta.data.actualizarLeccionPorId;
+            this.Lecciones = {};
             this.traerTodosLecciones();
         })
         .catch(error => { console.log(`error`,{error}, JSON.stringify(error.networkError))});
@@ -310,11 +317,8 @@ export default {
       
       this.Lecciones.imagen = this.diccionarioImagenes.get(this.Lecciones.id);
       delete this.Lecciones.id;
-      delete this.Lecciones.__typename;
-      
-      
+      delete this.Lecciones.__typename;      
 
-      console.log("Leccion del formulario", this.Lecciones)
     },
 
     },

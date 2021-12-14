@@ -5,6 +5,9 @@
     <div class="ModalCuadro">
       <!-- Header -->
       <header class="modal-header">
+        <button type="button" class="btn-cerrar-modal" @click= "cerrarModal" aria-label = "Close modal">
+          X
+        </button>
         <img  class="luna_nueva"       src="../../Imagenes/ICONO_LUNA/2.png" />
         <img  class="luna_creciente"   src="../../Imagenes/ICONO_LUNA/3.png" />
         <img  class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
@@ -46,7 +49,7 @@
           <input type="checkbox" id="toggle2" />
           <label for="toggle2" class="boton_continuar"></label>
           <nav class="nav2">
-            <button type="button" v-on:click="mandarMensajeContinuar">Continuar</button>
+            <button id="cuadro_boton" type="button" v-on:click="mandarMensajeContinuar">Continuar</button>
           </nav>
         </div>
       </footer>
@@ -75,12 +78,18 @@ export default {
 
   mounted: function () {
     this.darClaseHTML();
+
+    // Esconder botón de esconder si no se pasó la lección.
+    if (this.resumen <= 0) {
+        document.querySelector(".contenedor").style.opacity = 0;
+      }
   },
 
   methods: {
     cerrarModal: function () {
-      console.log("En modal: se dio la orden de cerrar.");
-      this.$emit("msjCerrarModal");
+      // console.log("En modal: se dio la orden de cerrar.");
+      // this.$emit("msjCerrarModal");
+      this.$router.push({name: "lista-niveles"})
     },
 
     reiniciarLeccion: function () {
@@ -130,7 +139,7 @@ export default {
     darFase: function () {
       switch (this.resumen) {
         case 0:
-          return "Luna nueva visible";
+          return "Luna nueva";
           break;
         case 1:
           return "Luna creciente";
@@ -139,7 +148,7 @@ export default {
           return "Cuarto creciente";
           break;
         case 3:
-          return "Luna gibosa creciente";
+          return "Luna menguante";
           break;
         case 4:
           return "Luna llena";
@@ -223,6 +232,20 @@ export default {
   background: transparent;
   width: 500pt;
   height: 100pt;
+}
+
+.btn-cerrar-modal {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: turquoise;
+  background: transparent;
 }
 
 .luna_nueva {
@@ -335,6 +358,7 @@ export default {
 
 .nav a:hover {
   color: white;
+  cursor: pointer;
 }
 
 #toggle:checked ~ .nav {
@@ -397,32 +421,43 @@ footer{
  
   transform: translateY(-10%);
   opacity: 0;
-  bottom:5pt;
+  bottom:7pt;
   transition: all 0.5s ease-in-out;
-  width: 150pt;
+  width: 75pt;
   transform: translateY(0%);
+  
+  text-align: right;
  
 }
 .button{
   background-color: turquoise;
 }
 
-.nav2 a {
+.nav2 a, #cuadro_boton {
   
   text-align: center;
   display: block;
-  margin-left: 30pt;
   text-decoration: none;
   font-family: Questa Grande;
   font-size: 10pt;
   
-  letter-spacing: 0.1px;
+  letter-spacing: 0.5px;
   transition: all 300ms;
+  font-weight: bold;
+
+  color: white;
+  text-shadow: black 0.1em 0.1em 0.2em;
  
 }
 
-.nav2 a:hover {
-  color: white;
+#cuadro_boton {
+  /* position: absolute; */
+  background: transparent;
+  border: none;
+}
+
+.nav2 a:hover, #cuadro_boton:hover {
+  cursor: pointer;
 }
 
 #toggle2:checked ~ .nav2 {

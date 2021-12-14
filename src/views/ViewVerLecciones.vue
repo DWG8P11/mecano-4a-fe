@@ -17,12 +17,12 @@
                         <img class="galeria-imagen" :src="diccionarioImagenes.get(leccion.id)" :key="diccionarioImagenes.get(leccion.id)"/>
 
                         <div class="galeria-item-info">
-                            <ul>
-                                <li class="galeria-item-nombre">
+                            <!-- <ul> -->
+                                <!-- <li class="galeria-item-nombre"> -->
                                     <i class="leccion-nombre" aria-hidden="true"> </i>
                                     {{ `${leccion.n_leccion}. ${leccion.titulo}` || "Leccion Sin Identificar" }}
-                                </li>
-                            </ul>
+                                <!-- </li> -->
+                            <!-- </ul> -->
                         </div>
                     </router-link>
                 </div>
@@ -264,17 +264,28 @@ The following code will only run if your browser supports CSS grid.
 }
 
 .galeria-item-info {
-    display: none;
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1.5rem;
+    font-weight: 400;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+    /* margin-right: auto; */
 }
 
-.galeria-item-info li {
+/* .galeria-item-info li {
     display: inline-block;
     font-size: 1.5rem;
     font-weight: 400;
 
     /* Para centrar el texto */
-    width: 100%;
-}
+    /* width: 100%;
+    margin-right: auto;
+    background: green;
+} */
 
 .galeria-item:hover .galeria-item-info,
 .galeria-item:focus .galeria-item-info {

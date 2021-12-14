@@ -34,7 +34,7 @@
                                         <td>{{ variable.id }}</td>
                                         <td>{{ variable.nombre }}</td>
                                         <td>{{ variable.descripcion }}</td>
-                                        <td>{{ variable.imagen }}</td>
+                                        <td><img :src="diccionarioImagenes.get(variable.id)"/> </td>
                                         <button @click="UpdateNivel(variable.id)" class="btnUpdate" style="width: 50%"> Editar  </button>
                                         <button @click="DeleteNivel(variable.id)" class="btnDelete" style="width: 50%"> Eliminar</button>                           
                             </tr>
@@ -61,6 +61,8 @@ export default {
                 imagen: "",
             },
             listaNiveles:[],
+
+            diccionarioImagenes: new Map(),
         };
     },
 
@@ -69,7 +71,7 @@ export default {
             await this.$apollo
                 .mutate({
                     mutation: gql`
-                        query traerNiveles {
+                        query traerNivelesLigeros {
                             traerNivelesLigeros {
                                 id
                                 nombre
@@ -82,11 +84,41 @@ export default {
                     .then(respuesta => {
                     this.listaNiveles = respuesta.data.traerNivelesLigeros;
                     console.log(this.listaNiveles)
-
+                    
+                    this.traerImagenes();
                 })
                 .catch(error => {
                     console.log("error", error);
                 });
+        },
+
+        traerImagenes: async function () {
+        for (const nivel of this.listaNiveles) {
+            let id = nivel.id;
+
+            this.$apollo
+            .mutate({
+                mutation: gql`
+                query TraerNivel($idNivel: Int!) {
+                    traerNivel(idNivel: $idNivel) {
+                    id
+                    imagen
+                    }
+                }
+                `,
+                variables: {
+                idNivel: id,
+                },
+            })
+            .then((respuesta) => {
+                this.diccionarioImagenes.set(id, respuesta.data.traerNivel.imagen);
+                // this.nivelCargaNiveles += 1;
+            })
+            .catch((error) => {
+                this.diccionarioImagenes.set(id, "");
+            });
+        }
+
         },
 
         DeleteNivel(idNivel) {
@@ -113,6 +145,7 @@ export default {
 
     metActualizarCampos: function (ocup) {
       this.Niveles = { ...ocup }; // Clonando shallow, no pasando referencia al objeto
+      this.Niveles.imagen = this.diccionarioImagenes.get(this.Niveles.id);
       delete this.Niveles.__typename;
     },
 
@@ -312,5 +345,16 @@ export default {
     color: white;
 }
 
+img {
+    height: 5rem;
+}
+
+tr {
+    text-align: center;
+}
+
+.container, button, input, textarea {
+    font-family: Questa Grande;
+}
 
 </style>

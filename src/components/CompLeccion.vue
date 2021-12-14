@@ -43,6 +43,7 @@
 
 import CompModalLeccion from "./CompModalFinLeccion.vue";
 import gql              from "graphql-tag";
+import sePudoAutenticar from "@/SePuedeAutenticar";
 
 
 import Designs from '@/components/Designs.vue'
@@ -121,8 +122,11 @@ export default {
     components: {
         CompModalLeccion,
         Designs,
-        },
+    },
 
+    mounted: function() {
+        sePudoAutenticar(this.$apollo);
+    },
 
     data: function() {
         return {
@@ -373,6 +377,7 @@ export default {
         },
 
         empezarLeccion: function(forzar = false) {
+            sePudoAutenticar(this.$apollo)
             // En caso de que ya haya una lección en curso, no hacer nada
             if (this.leccionEnCurso && !forzar) {
                 return;
@@ -418,7 +423,7 @@ export default {
 
         acabarLeccion: function(error) {
             // TODO
-
+            // sePudoAutenticar(this.$apollo)
             // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
                 // TODO mejorar
@@ -447,13 +452,18 @@ export default {
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
 
             // Guardar en DB
-            this.guardarPuntaje();
+            sePudoAutenticar(this.$apollo).then(respuesta => {
+                this.guardarPuntaje();
 
-            // Mostrar ventana con puntaje
-            this.modalAbierto = true;
+                // Mostrar ventana con puntaje
+                this.modalAbierto = true;
 
-            // Calcular y guardar id de la siguiente leccion
-            this.hallarIdSigLec();
+                // Calcular y guardar id de la siguiente leccion
+                this.hallarIdSigLec();
+            }).catch(error => {
+                alert("No estás autenticado, así que no será posible guardar el puntaje.");
+                this.$router.push({name: "/lista-niveles-adm"})
+            });
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -760,7 +770,7 @@ export default {
         guardarPuntaje: function() {
             console.log("Se va registrar el puntaje en la base de datos...");
 
-            if (!localStorage.getItem("usuario")) {
+            if (localStorage.getItem("estaAutenticado") != 'true') {
                 alert("¡No estas autenticado!");
                 return;
             }
@@ -885,11 +895,14 @@ export default {
 
 
 .componente-leccion{   
-    position:relative;
+    position: relative;
     width: 100%;
     margin-top:5rem;
-    height: calc(100% - 5rem);
-    z-index: 200;
+    height: calc(100vh - 5rem - 3.15rem);
+    /* z-index: 200; */
+
+    font-family: Questa Grande; /* Queremos esta fuente. No la estabamos usando */
+    text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 .componente-leccion h1{
@@ -926,23 +939,21 @@ export default {
 }
 
 :root {
-    --tamano-fuente: 10pt; /* Variable que determina el tamaño de las cosas */
+    --tamano-fuente: 1rem; /* Variable que determina el tamaño de las cosas */
 }
 
 
 #texto-leccion {
    
-    margin-left:60pt;
-    margin-right: 60pt;
-    margin-top: 5pt;
-    font-size: 10pt;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 1rem;
+    font-size: var(--tamano-fuente);
     color: white;
     background: rgb(0,0,0,0.15);
     text-align: justify;
     position:relative;
-    /* height: 67.2pt; */
-    /* height: 18.4vh; */
-    height: 24.6%;
+    max-height: calc(100vh - 8rem - 3.15rem - 13.25rem - 4rem); /* Toda la vista vertical - encabezado - footer - teclado - margen*/
     overflow:hidden;
   
 
@@ -967,6 +978,9 @@ export default {
 
     position: relative; /* Lo que permite que top, bottom, etc. funcionen */
     bottom: 0pt;
+
+    /* margin-top: 2px;
+    margin-bottom: 2px; */
 }
 
 #letra-actual {
@@ -1071,10 +1085,11 @@ export default {
 
 .cuerpo_celeste{
     position:absolute;
-    width: 14vw;
+    max-height: 13.25rem; /* Altura del teclado */
+    max-width: calc(100% - 10rem - 53.3333rem); /* all - texto margin - size of keyboard*/
 
-    right: 8vw;
-    bottom: 2rem;
+    right: 5rem;
+    bottom: 1rem;
 }
 
 </style>

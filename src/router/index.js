@@ -10,10 +10,9 @@ import LocalFingers                       from '@/components/LocalFingers.vue'
 import ViewNivelesCrud 			              from '@/views/ViewNivelesCrud.vue'
 import RegistroCuenta                     from '@/views/RegistroCuenta.vue'
 import ViewLeccionesCrud                  from '@/views/ViewLeccionesCrud.vue'
-import ViewPerfil                             from '@/views/ViewPerfil.vue'
+import ViewPerfil                         from '@/views/ViewPerfil.vue'
 
-
-import gql from "graphql-tag";
+import sePudoAutenticar                   from '../SePuedeAutenticar'
 
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 
@@ -29,12 +28,11 @@ const routes = [
     name: 'Leccion de DB',
     component: ViewLeccionDB,
     // props: ruta => ({idLeccion: ruta.query.id}) // /leccionDB?id=09342jr => Prop idLeccion = 09342jr
-    props: true
-  },
-  {
-    path: '/designs',
-    name: 'designs',
-    component: Designs
+    props: true,
+    meta: {
+      requiereAut: false, // Para permitir que veal al menos la lección de prueba
+      requiereAdmin: false
+    }
   },
   {
     path: '/iniciar-sesion',
@@ -46,32 +44,46 @@ const routes = [
     name: 'registrar-nivel',
     component: ViewRegistrarNivel,
     meta: {
-      requiereAut: true
+      requiereAut: true,
+      requiereAdmin: true
     }
   },
   {
     path: '/lista-niveles',
     name: 'lista-niveles',
-    component: ViewVerNiveles
+    component: ViewVerNiveles,
+    meta: {
+      requiereAut: true,
+      requiereAdmin: false
+    }
   },
   {
     path: '/lista-lecciones',
     name: '/lista-lecciones',
     component: ViewVerLecciones,
     meta: {
-      requiereAut: false
+      requiereAut: true,
+      requiereAdmin: false
     },
     props: ruta => ({nNivel: parseInt(ruta.query.nivel)})  // Esto hará que al ir a /lista-leccione s?nivel=2, se le pase al componente el prop nNivel = 2
   },
   {
     path: '/lista-niveles-adm',
     name: '/lista-niveles-adm',
-    component: ViewNivelesCrud
+    component: ViewNivelesCrud,
+    meta: {
+      requiereAut: true,
+      requiereAdmin: true
+    }
   },
   {
     path: '/lista-lecciones-adm',
     name: '/lista-lecciones-adm',
-    component: ViewLeccionesCrud
+    component: ViewLeccionesCrud,
+    meta: {
+      requiereAut: true,
+      requiereAdmin: true
+    }
   },
   {
     path: '/registro-cuenta',
@@ -86,7 +98,11 @@ const routes = [
   {
     path: '/perfil',
     name: 'ViewPerfil',
-    component: ViewPerfil
+    component: ViewPerfil,
+    meta: {
+      requiereAut: true,
+      requiereAdmin: false
+    }
   }
 ]
 
@@ -105,49 +121,34 @@ const clienteDeApollo = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-// Funcion auxiliar para el salto entre componentes: la persona esta autenticada?
-async function sePudoAutenticar() {
-  console.log("Se entro a verificar si la persona se puede (re)autenticar");
-  if (localStorage.getItem("token_access") === null ||
-      localStorage.getItem("token_refresh") === null) {
-      return false;
-  }
-
-  try { // Intentar reautenticación
-      var respuesta = await clienteDeApollo.mutate({
-          mutation: gql`
-          mutation ActualizarToken($tActualizacion: String!) {
-            actualizarToken(tActualizacion: $tActualizacion) {
-              access
-            }
-          }
-   `,
-          variables: {
-              tActualizacion: localStorage.getItem("token_refresh"),
-          },
-      })
-
-      localStorage.setItem("token_access", respuesta.data.actualizarToken.access);
-
-      return true;
-
-  } catch (error) {
-      localStorage.clear();
-      alert("No se pudo verificar su identidad. Error:", error);
-
-      return false;
-  }
-}
-
 // Funcion que se ejecutara antes de cada SALTO entre componentes. Mucho campo para la creatividad
 router.beforeEach(async (to, from) => {
   // TODO Mejorar
+  let autenticado = await sePudoAutenticar(clienteDeApollo);
   if (to.meta.requiereAut) {
-    if (await sePudoAutenticar()){
+    if (autenticado){
       return true
+    } else {
+      alert("¡Necesita estar autenticado para acceder a esta funcionalidad!");
+      return {name: 'iniciar-sesion'} // Para redireccionar a Iniciar Sesión
     }
-    alert("¡Necesita estar autenticado para acceder a esta funcionalidad!");
-    return {name: 'Home'} // Para redireccionar a Home
+  }
+
+  if (to.meta.requiereAdmin) {
+    if (autenticado && localStorage.getItem("es_administrador") === 'true'){
+      return true
+    } else {
+      alert("¡Necesita ser un administrador para entrar a esta sección!");
+      return {name: 'Home'} // Para redireccionar a Iniciar Sesión
+    }
+  }
+
+  if (to.name == 'iniciar-sesion' && autenticado) {
+    return {name: 'ViewPerfil'}
+  }
+
+  if (to.name == 'registro-cuenta' && (autenticado && !(localStorage.getItem("es_administrador") === 'true'))) {
+    return {name: 'ViewPerfil'}
   }
 })
 
