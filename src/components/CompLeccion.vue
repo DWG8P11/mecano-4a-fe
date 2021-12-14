@@ -43,6 +43,7 @@
 
 import CompModalLeccion from "./CompModalFinLeccion.vue";
 import gql              from "graphql-tag";
+import sePudoAutenticar from "@/SePuedeAutenticar";
 
 
 import Designs from '@/components/Designs.vue'
@@ -121,8 +122,11 @@ export default {
     components: {
         CompModalLeccion,
         Designs,
-        },
+    },
 
+    mounted: function() {
+        sePudoAutenticar(this.$apollo);
+    },
 
     data: function() {
         return {
@@ -373,6 +377,7 @@ export default {
         },
 
         empezarLeccion: function(forzar = false) {
+            sePudoAutenticar(this.$apollo)
             // En caso de que ya haya una lección en curso, no hacer nada
             if (this.leccionEnCurso && !forzar) {
                 return;
@@ -418,7 +423,7 @@ export default {
 
         acabarLeccion: function(error) {
             // TODO
-
+            // sePudoAutenticar(this.$apollo)
             // Si no habia leccion en curso, no hacer nada
             if (!this.leccionEnCurso) {
                 // TODO mejorar
@@ -447,13 +452,18 @@ export default {
             this.puntaje_final = 3 * this.porc_acierto * this.cpm_bruta;
 
             // Guardar en DB
-            this.guardarPuntaje();
+            sePudoAutenticar(this.$apollo).then(respuesta => {
+                this.guardarPuntaje();
 
-            // Mostrar ventana con puntaje
-            this.modalAbierto = true;
+                // Mostrar ventana con puntaje
+                this.modalAbierto = true;
 
-            // Calcular y guardar id de la siguiente leccion
-            this.hallarIdSigLec();
+                // Calcular y guardar id de la siguiente leccion
+                this.hallarIdSigLec();
+            }).catch(error => {
+                alert("No estás autenticado, así que no será posible guardar el puntaje.");
+                this.$router.push({name: "/lista-niveles-adm"})
+            });
             
             
             //alert(`Acabaste la leccion!\nTiempo de lección: ${this.milisegundos_tot/1000} segundos\nPorcentaje de acierto: ${100*this.porc_acierto}%\nCaracteres efectivos por minuto: ${this.cpm_efectiva}\nPalabras brutas por minuto: ${this.wpm_bruta}\nPalabras efectivas por minuto: ${this.wpm_efectiva}\nPUNTAJE FINAL (3 * Porcentaje de Acierto x Palabras brutas por minuto): ${this.puntaje_final}`);
@@ -760,7 +770,7 @@ export default {
         guardarPuntaje: function() {
             console.log("Se va registrar el puntaje en la base de datos...");
 
-            if (!localStorage.getItem("usuario")) {
+            if (localStorage.getItem("estaAutenticado") != 'true') {
                 alert("¡No estas autenticado!");
                 return;
             }
@@ -967,6 +977,9 @@ export default {
 
     position: relative; /* Lo que permite que top, bottom, etc. funcionen */
     bottom: 0pt;
+
+    /* margin-top: 2px;
+    margin-bottom: 2px; */
 }
 
 #letra-actual {
