@@ -5,6 +5,9 @@
     <div class="ModalCuadro">
       <!-- Header -->
       <header class="modal-header">
+        <button type="button" class="btn-cerrar-modal" @click= "cerrarModal" aria-label = "Close modal">
+          X
+        </button>
         <img  class="luna_nueva"       src="../../Imagenes/ICONO_LUNA/2.png" />
         <img  class="luna_creciente"   src="../../Imagenes/ICONO_LUNA/3.png" />
         <img  class="cuarto_creciente" src="../../Imagenes/ICONO_LUNA/4.png" />
@@ -84,8 +87,9 @@ export default {
 
   methods: {
     cerrarModal: function () {
-      console.log("En modal: se dio la orden de cerrar.");
-      this.$emit("msjCerrarModal");
+      // console.log("En modal: se dio la orden de cerrar.");
+      // this.$emit("msjCerrarModal");
+      this.$router.push({name: "lista-niveles"})
     },
 
     reiniciarLeccion: function () {
@@ -228,6 +232,20 @@ export default {
   background: transparent;
   width: 500pt;
   height: 100pt;
+}
+
+.btn-cerrar-modal {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: turquoise;
+  background: transparent;
 }
 
 .luna_nueva {
