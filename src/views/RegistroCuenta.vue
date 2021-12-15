@@ -2,11 +2,13 @@
 
     <div class="signUp_user">
 
+
         <div class="container_signUp_user">
              <h2>Registro</h2> 
             <form v-on:submit.prevent="processSignUp" >
                 
                 <input type="text" v-model="users.nombre" placeholder="Nombre">
+                <img   class="nombre" src="../../Imagenes/otrosIconos/tele.svg"/>
                 <br>
 
                 <input type="text" v-model="users.usuario" placeholder="Usuario">
@@ -15,10 +17,10 @@
                 <input type="text" v-model="users.correo" placeholder="Correo">
                 <br>
                 
-                <input type="number" v-model="users.telefono" placeholder="Telefono">
+                <input type="number" v-model="users.telefono" placeholder="Teléfono">
                 <br>
 
-                <input type="text" v-model="users.pais" placeholder="Pais">
+                <input type="text" v-model="users.pais" placeholder="País">
                 <br>
 
                 <input type="text" v-model="users.departamento" placeholder="Departamento">
@@ -109,15 +111,20 @@ methods: {
 
 <style scoped>
 
-   .signUp_user{
-    margin: 0;
+.signUp_user{
+    margin: -8px;
     padding: 0;
-    height: 60vh;
-    width: 100vw;
-   
+    height: 100vh;
+    background-image: url(../../Imagenes/cieloHome.jpg);
+    background-size: cover;
+    position: relative;
+    background-repeat: no-repeat;      
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: -8rem;
+
 }
  
 .container_signUp_user {
@@ -127,6 +134,7 @@ methods: {
     
     width: 50vw;
     height: 60vh;
+    
    
     display: flex;
     flex-direction: column;
@@ -142,40 +150,42 @@ methods: {
 .signUp_user input{
     width: 20vw;
     height: 3vh;
- 
+
     box-sizing: border-box;
     padding: 10pt 20pt;
     margin: 3pt 0;
- 
+    background-color: transparent;
     border: 1px solid rgb(217,217,217);
     border-radius: 30px;
+    font-family: Questa Grande;
+    text-shadow:black 0.1em 0.1em 0.2em;
+    box-shadow: 0 0 10px rgb(235, 245, 239);
 }
  
 .signUp_user button{
     position:absolute;
-    width: 20vw;
+    left:180pt;
+    width: 10vw;
     height: 5vh;
-
- 
+    font-family: Questa Grande;
     color: #E5E7E9;
-    background: rgb(28, 11,127);
-    border: 1px solid #E5E7E9;
- 
-    border-radius: 5px;
+    background:turquoise;
+    border: none;
+    box-shadow: 1px 1px 1px 1px rgb(248, 252, 252);
+    border-radius: 16px;
     align-content: center;
 }
  
 .signUp_user button:hover{
     color: #E5E7E9;
-    background: turquoise;
-    border: 1px solid rgb(28, 11,127);
+    background: rgb(30, 212, 185);
 }
 
  .signUp_user h4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    color:rgb(28, 11,127);
+    color:white;
     font-size: 20px;
 }
 
@@ -183,8 +193,13 @@ methods: {
     display: flex;
     justify-content: center;
     align-items: center;
-    color:rgb(28, 11,127);
+    color:white;
     font-size: 20px;
 }
+
+.nombre{
+     position: absolute; top: 2px; right: 5px;
+}
+
 
 </style>

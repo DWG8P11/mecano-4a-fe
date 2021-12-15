@@ -310,7 +310,6 @@ export default {
 .btnUpdate{
   background:  turquoise;
   border-radius: 16px;
-  border-radius: 16px;
   border:none;
   font-family:Questa Grande;
   font-size:7.8pt;
@@ -319,7 +318,6 @@ export default {
 }
 .btnDelete{
   background: turquoise;
-  border-radius: 16px;
   border-radius: 16px;
   border:none;
   font-family:Questa Grande;
@@ -336,7 +334,7 @@ export default {
 .tables{
   padding: 3px 10px;
   border-bottom:1px solid #fcf8f8;
-  box-shadow: 0 0 10px rgb(235, 245, 239)
+  box-shadow: 0 0 10px rgb(235, 245, 239);
   
 }
 

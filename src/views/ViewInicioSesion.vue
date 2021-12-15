@@ -1,11 +1,17 @@
 <template>
   
   <div class="view-inicio-sesion">
+    
     <div class="header">
             Inicia Sesión
+                <img class="icono-tele"  src="../../Imagenes/otrosIconos/tele.svg"/>
+            
+                <img class="estrellitas" src="../../Imagenes/otrosIconos/estrellasypuntitos.svg"/>
+            
+
         </div><br/>
     <div class="container">
-      <img class= "planetas" src= "../../Imagenes/planetas.png">
+      <!--img class= "planetas" src= "../../Imagenes/planetas.png"-->
     <form v-on:submit.prevent="procesarInicioSesion">
       <label for="correo">Correo </label>
       <input class="redondeado" type="text" v-model="usuario.correo" placeholder="Correo" id="correo"/>
@@ -22,6 +28,7 @@
       </div>
     </form>
     </div>
+    <img class= "escafandra-solar" src= "../../Imagenes/escafandra.svg">  
   </div>
 </template>
 
@@ -80,50 +87,22 @@ export default {
 
 <style scoped>
 
-.planetas{
-  top: 2rem;
-  left: 30%;
-  width: 10rem;
-  height: 6rem;
 
-}
 
 .view-inicio-sesion {
-    /* text-align: center; */
-    margin: 100px 0 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background-image: url(../../Imagenes/pexels.jpg);
+    background-size: cover;
     flex-direction: column;
     position: relative;
-    top: -4.5rem;
-    padding-top: 4.5rem;
-    margin: 0;
+    top: -8.5rem;
+    margin: -8px;
     padding: 0;
-    height: calc(100% + 4rem);
-    width: 100%;
+    height: 100vh;
 }
 
-/* .redondeado {
-    border-radius: 25px;
-    padding: 8px;
-    width: 100%;
-    font-family: Arial;
-    font-size: 25px;
-    font-style: italic;
-    
-    border: 1px solid turquoise;
-    background-color: powderblue;
-    color: black;
- }
-
-.btnIniciar{
-  padding: 8px;
-  width: 50%;
-  background-color: Rgb(30,174,152);
-  color: white;
-} */
 
 .header{
     position: relative;
@@ -131,22 +110,37 @@ export default {
     background: transparent;
     font-size: 2rem;
     height: 2rem;
-    color: rgb(50,82,136);
+    color:white;
+    top: 6rem;
     /* top: 0; */
 }
 
+.icono-tele{
+    position:absolute;
+    top:-10pt;
+    left:-100pt;
+    width: 150pt; 
+
+
+}
+            
+.estrellitas{
+    position:absolute;
+    top:-70pt;
+    left:-100pt;
+    width: 150pt; 
+
+}
+            
+
 .container {
     /* Centra el contenedor*/
-    position: static;
-    top: 0rem;
+    position: relative;
+    top: 8rem;
     margin-left: auto;
-    margin-right: auto;
-    /* height: 50vh; */
+    margin-right: auto; 
 
-    /* width: 90vw; */
-    
-    /* display: flex;
-    flex-direction: column; */
+  
     justify-content: center;
     align-items: center;
 }
@@ -157,7 +151,7 @@ export default {
         grid-template-columns: repeat(1, 24rem);
         /* grid-row: 1/2; */
         /* grid-gap: 0.3rem; */
-        grid-auto-rows: minmax(3rem, auto);
+        grid-auto-rows: minmax(2rem, auto);
     }
 }
 
@@ -166,6 +160,8 @@ label {
     display: inline-block; 
     font-family: Questa Grande;
     font-size: 1.1rem;
+    color:white;
+   
 }
 
 input{
@@ -180,9 +176,12 @@ input{
 
     border: 1px solid rgb(217,217,217);
     border-radius: 30px;
-
     font-family: Questa Grande;
+    text-shadow:black 0.1em 0.1em 0.2em;
     font-size: 1.1rem;
+    background-color: transparent;
+    box-shadow: 0 0 10px rgb(235, 245, 239)
+    
 }
 
 td {
@@ -196,22 +195,31 @@ td {
 
 button {
     width: 8rem;
-    height: 3rem;
-
+    height: 2.3rem;
     color: #E5E7E9;
-    background: rgb(50,82,136);
-    border: 1px solid #E5E7E9;
-
-    border-radius: 5px;
-    align-content: center;
-
+    background: turquoise;
+    border:none;
+    box-shadow: 1px 1px 1px 1px rgb(248, 252, 252);
+    border-radius: 26px;
+    align-content: center; 
     font-family: Questa Grande;
     font-size: 1rem;
+    margin:0.3rem;
 }
 
 button:hover{
     color: #E5E7E9;
-    background: turquoise;
-    border: 1px solid turquoise;
+    background: rgb(30, 212, 185);
+    
 }
+
+.escafandra-solar{
+  position: relative;
+  width:300pt;
+  left:295pt;
+  bottom:130pt;
+ 
+}
+
+
 </style>
